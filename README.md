@@ -1,4 +1,4 @@
-#AutonomusTriggeredGuitarEffectsPlatform
+# AutonomusTriggeredGuitarEffectsPlatform
 
 >Proprietaryimplementationofreal-timesubsequence-matchingdynamictimewarpingalgorithm
 
@@ -7,7 +7,7 @@
 ![presentation](./SRProjectIIPresentation.gif)
 
 
-
+![this is not a web development project... it is for repo navigation purposes during development and as such is insanley crude](https://condescending-lewin-c96727.netlify.app/)
 
 TeamMembers:
 
