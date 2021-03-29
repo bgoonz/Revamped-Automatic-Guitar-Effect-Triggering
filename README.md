@@ -1,8 +1,25 @@
-Triggered Guitar Effects Platform
+# Triggered Guitar Effects Platform
 
 Senior Project II
 
 ![](images/image11.png)
+
+
+
+## Demos:
+
+### Pure Data Distortion Patch: 
+
+![pd-gain](https://youtu.be/krRVGoK9NcA)
+
+### Simple Implementation:
+
+![simple](https://youtu.be/B8tMbRETRcg)
+
+### Full Implementation Demo:
+
+![full](https://youtu.be/88YMQaFMp5M)
+
 
 Team Members:
 
