@@ -897,6 +897,8 @@ Figure 7: DTW Pd Object
 
 Java Code of Dynamic Time Warping:
 
+
+```java
 public class DTW {
 
     private double[] horizontalInput;
@@ -1940,8 +1942,10 @@ void dynamicTW\_setup(void){
                     0);
 
 }
+```
 
-Pure Data Header File:
+#  Pure Data Header File:
+```c
 
 /\* Copyright (c) 1997-1999 Miller Puckette.
 \* For information on usage and redistribution, and for a DISCLAIMER OF ALL
@@ -2690,3 +2694,4 @@ EXTERN int pd\_getdspstate(void);
 \#endif /\* \_\_m\_pd\_h\_ \*/
 
 
+```
