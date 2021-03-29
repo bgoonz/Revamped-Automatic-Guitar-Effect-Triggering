@@ -10,15 +10,15 @@ Senior Project II
 
 ### Pure Data Distortion Patch: 
 
-![pd-gain](https://youtu.be/krRVGoK9NcA)
+[pd-gain](https://youtu.be/krRVGoK9NcA)
 
 ### Simple Implementation:
 
-![simple](https://youtu.be/B8tMbRETRcg)
+[simple](https://youtu.be/B8tMbRETRcg)
 
 ### Full Implementation Demo:
 
-![full](https://youtu.be/88YMQaFMp5M)
+[full](https://youtu.be/88YMQaFMp5M)
 
 
 Team Members:
