@@ -34,8 +34,6 @@ Acknowledgements
 
 The team would like to thank Dr. Ambrose Adegbege for his input and enthusiasm towards tackling our design challenges. We would also like thank Dr. Larry Pearlstein for his guidance and suggestion of Dynamic Time Warping. In addition, our team thanks Mihir Beg for his consultation on MIDI transcription and suggestion of Pure Data.
 
-
-
 ---
 
 Abstract
@@ -145,8 +143,6 @@ Dynamic time warping provides a stronger solution for the issue of performance e
 The alternate approach is the implementation of a frequency counting algorithm. Here, the user will only record one primary performance. This performance will be used to create a sequence of frequencies, with a given tolerance. The number of changes in frequency are counted and stored. The frequencies from the live performance are then verified against the pre-recorded frequencies. The number of changes in frequency are stored and checked against the pre-recorded sum of changes. Once the separate sums from each performance are equal, the effect will be triggered. This method proves to be extremely straightforward, yet offers few solutions to the problem of live performance error.
 
 Throughout this report, our team presents the methods instated in our current project, as well as the next steps in the design and modification process. A more in-depth description of the two aforementioned methods is given, including both the pros and cons of each.
-
-
 
 Specifications
 
@@ -467,8 +463,6 @@ This approach is a feasible solution because rather than scanning the song for a
 
 Potential modifications to this platform include but are not limited to any control action as the result of the reading in of an audio sequence. For example, one could use the audio signal of virtually any instrument to control stage lighting, or advance a musical score for a symphony. It is also possible to design a physical hardware kill switch that temporarily suspends the program, allowing the musician to improvise and then jump back into the song without throwing off the system. If time permits, this system could even be expanded to include hardware effect pedals that are integrated seamlessly into the system or to control the volume level of different performers in relation both to each other and the current section of a song.
 
-
-
 List of References:
 
 [1] Rouse, M. (2005, April). What is MIDI (Musical Instrument Digital Interface)? - Definition from WhatIs.com. Retrieved December 10, 2017, from http://whatis.techtarget.com/definition/MIDI-Musical-Instrument-Digital-Interface
@@ -581,8 +575,6 @@ Modern Engineering Tools:
 - C
 - CodeBlocks
 - Excel
-
-
 
 Appendix B: Project Management
 
@@ -876,8 +868,6 @@ Discussion Items:
 •        Finalization of presentation
 •        Organizational management for semester
 •        Rehearsal of final presentation
-
-
 
 Supporting Figures: Ralph
 
