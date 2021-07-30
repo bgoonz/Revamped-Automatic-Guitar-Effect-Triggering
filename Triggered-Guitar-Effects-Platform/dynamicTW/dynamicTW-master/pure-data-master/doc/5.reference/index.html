@@ -1,0 +1,2264 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    * { padding: 0; margin: 0; }
+    body {
+        font-family: sans-serif;
+        text-rendering: optimizespeed;
+        background-color: #ffffff;
+    }
+    a {
+        color: #006ed3;
+        text-decoration: none;
+    }
+    a:hover,
+    h1 a:hover {
+        color: #319cff;
+    }
+    header,
+    #summary {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+    th:first-child,
+    td:first-child {
+        width: 5%;
+    }
+    th:last-child,
+    td:last-child {
+        width: 5%;
+    }
+    header {
+        padding-top: 25px;
+        padding-bottom: 15px;
+        background-color: #f2f2f2;
+    }
+    h1 {
+        font-size: 20px;
+        font-weight: normal;
+        white-space: nowrap;
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+        color: #999;
+    }
+    h1 a {
+        color: #000;
+        margin: 0 4px;
+    }
+    h1 a:hover {
+        text-decoration: underline;
+    }
+    h1 a:first-child {
+        margin: 0;
+    }
+    main {
+        display: block;
+    }
+    .meta {
+        font-size: 12px;
+        font-family: Verdana, sans-serif;
+        border-bottom: 1px solid #9C9C9C;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .meta-item {
+        margin-right: 1em;
+    }
+    #filter {
+        padding: 4px;
+        border: 1px solid #CCC;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    tr {
+        border-bottom: 1px dashed #dadada;
+    }
+    tbody tr:hover {
+        background-color: #ffffec;
+    }
+    th,
+    td {
+        text-align: left;
+        padding: 10px 0;
+    }
+    th {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        font-size: 16px;
+        white-space: nowrap;
+    }
+    th a {
+        color: black;
+    }
+    th svg {
+        vertical-align: middle;
+    }
+    td {
+        white-space: nowrap;
+        font-size: 14px;
+    }
+    td:nth-child(2) {
+        width: 80%;
+    }
+    td:nth-child(3) {
+        padding: 0 20px 0 20px;
+    }
+    th:nth-child(4),
+    td:nth-child(4) {
+        text-align: right;
+    }
+    td:nth-child(2) svg {
+        position: absolute;
+    }
+    td .name {
+        margin-left: 1.75em;
+        word-break: break-all;
+        overflow-wrap: break-word;
+        white-space: pre-wrap;
+    }
+    td .goup {
+        margin-left: 1.75em;
+        padding: 0;
+        word-break: break-all;
+        overflow-wrap: break-word;
+        white-space: pre-wrap;
+    }
+    .icon {
+        margin-right: 5px;
+    }
+    tr.clickable { 
+        cursor: pointer; 
+    } 
+    tr.clickable a { 
+        display: block; 
+    } 
+    @media (max-width: 600px) {
+        * {
+            font-size: 1.06rem;
+        }
+        .hideable {
+            display: none;
+        }
+        td:nth-child(2) {
+            width: auto;
+        }
+        th:nth-child(3),
+        td:nth-child(3) {
+            padding-right: 5%;
+            text-align: right;
+        }
+        h1 {
+            color: #000;
+        }
+        h1 a {
+            margin: 0;
+        }
+        #filter {
+            max-width: 100px;
+        }
+    }
+    </style>
+</head>
+<body>
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="0" width="0" style="position: absolute;">
+    <defs>
+        <!-- Go-up -->
+        <g id="go-up">
+            <path d="M10,9V5L3,12L10,19V14.9C15,14.9 18.5,16.5 21,20C20,15 17,10 10,9Z" fill="#696969"/>
+        </g>
+        <!-- Folder -->
+        <g id="folder" fill-rule="nonzero" fill="none">
+            <path d="M285.22 37.55h-142.6L110.9 0H31.7C14.25 0 0 16.9 0 37.55v75.1h316.92V75.1c0-20.65-14.26-37.55-31.7-37.55z" fill="#FFA000"/>
+            <path d="M285.22 36H31.7C14.25 36 0 50.28 0 67.74v158.7c0 17.47 14.26 31.75 31.7 31.75H285.2c17.44 0 31.7-14.3 31.7-31.75V67.75c0-17.47-14.26-31.75-31.7-31.75z" fill="#FFCA28"/>
+        </g>
+        <g id="folder-shortcut" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g id="folder-shortcut-group" fill-rule="nonzero">
+                <g id="folder-shortcut-shape">
+                    <path d="M285.224876,37.5486902 L142.612438,37.5486902 L110.920785,0 L31.6916529,0 C14.2612438,0 0,16.8969106 0,37.5486902 L0,112.646071 L316.916529,112.646071 L316.916529,75.0973805 C316.916529,54.4456008 302.655285,37.5486902 285.224876,37.5486902 Z" id="Shape" fill="#FFA000"></path>
+                    <path d="M285.224876,36 L31.6916529,36 C14.2612438,36 0,50.2838568 0,67.7419039 L0,226.451424 C0,243.909471 14.2612438,258.193328 31.6916529,258.193328 L285.224876,258.193328 C302.655285,258.193328 316.916529,243.909471 316.916529,226.451424 L316.916529,67.7419039 C316.916529,50.2838568 302.655285,36 285.224876,36 Z" id="Shape" fill="#FFCA28"></path>
+                </g>
+                <path d="M126.154134,250.559184 C126.850974,251.883673 127.300549,253.006122 127.772602,254.106122 C128.469442,255.206122 128.919016,256.104082 129.638335,257.002041 C130.559962,258.326531 131.728855,259 133.100057,259 C134.493737,259 135.415364,258.55102 136.112204,257.67551 C136.809044,257.002041 137.258619,255.902041 137.258619,254.577551 C137.258619,253.904082 137.258619,252.804082 137.033832,251.457143 C136.786566,249.908163 136.561779,249.032653 136.561779,248.583673 C136.089726,242.814286 135.864939,237.920408 135.864939,233.273469 C135.864939,225.057143 136.786566,217.514286 138.180246,210.846939 C139.798713,204.202041 141.889234,198.634694 144.429328,193.763265 C147.216689,188.869388 150.678411,184.873469 154.836973,181.326531 C158.995535,177.779592 163.626149,174.883673 168.481552,172.661224 C173.336954,170.438776 179.113983,168.665306 185.587852,167.340816 C192.061722,166.218367 198.760378,165.342857 205.481514,164.669388 C212.18017,164.220408 219.598146,163.995918 228.162535,163.995918 L246.055591,163.995918 L246.055591,195.514286 C246.055591,197.736735 246.752431,199.510204 248.370899,201.059184 C250.214153,202.608163 252.079886,203.506122 254.372715,203.506122 C256.463236,203.506122 258.531277,202.608163 260.172223,201.059184 L326.102289,137.797959 C327.720757,136.24898 328.642384,134.47551 328.642384,132.253061 C328.642384,130.030612 327.720757,128.257143 326.102289,126.708163 L260.172223,63.4469388 C258.553756,61.8979592 256.463236,61 254.395194,61 C252.079886,61 250.236632,61.8979592 248.393377,63.4469388 C246.77491,64.9959184 246.07807,66.7693878 246.07807,68.9918367 L246.07807,100.510204 L228.162535,100.510204 C166.863084,100.510204 129.166282,117.167347 115.274437,150.459184 C110.666301,161.54898 108.350993,175.310204 108.350993,191.742857 C108.350993,205.279592 113.903236,223.912245 124.760454,247.438776 C125.00772,248.112245 125.457294,249.010204 126.154134,250.559184 Z" id="Shape" fill="#FFFFFF" transform="translate(218.496689, 160.000000) scale(-1, 1) translate(-218.496689, -160.000000) "></path>
+            </g>
+        </g>
+        <!-- File -->
+        <g id="file" stroke="#000" stroke-width="25" fill="#FFF" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13 24.12v274.76c0 6.16 5.87 11.12 13.17 11.12H239c7.3 0 13.17-4.96 13.17-11.12V136.15S132.6 13 128.37 13H26.17C18.87 13 13 17.96 13 24.12z"/>
+            <path d="M129.37 13L129 113.9c0 10.58 7.26 19.1 16.27 19.1H249L129.37 13z"/>
+        </g>
+        <g id="file-shortcut" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g id="file-shortcut-group" transform="translate(13.000000, 13.000000)">
+                <g id="file-shortcut-shape" stroke="#000000" stroke-width="25" fill="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M0,11.1214886 L0,285.878477 C0,292.039924 5.87498876,296.999983 13.1728373,296.999983 L225.997983,296.999983 C233.295974,296.999983 239.17082,292.039942 239.17082,285.878477 L239.17082,123.145388 C239.17082,123.145388 119.58541,2.84217094e-14 115.369423,2.84217094e-14 L13.1728576,2.84217094e-14 C5.87500907,-1.71479982e-05 0,4.96022995 0,11.1214886 Z" id="rect1171"></path>
+                    <path d="M116.37005,0 L116,100.904964 C116,111.483663 123.258008,120 132.273377,120 L236,120 L116.37005,0 L116.37005,0 Z" id="rect1794"></path>
+                </g>
+                <path d="M47.803141,294.093878 C48.4999811,295.177551 48.9495553,296.095918 49.4216083,296.995918 C50.1184484,297.895918 50.5680227,298.630612 51.2873415,299.365306 C52.2089688,300.44898 53.3778619,301 54.7490634,301 C56.1427436,301 57.0643709,300.632653 57.761211,299.916327 C58.4580511,299.365306 58.9076254,298.465306 58.9076254,297.381633 C58.9076254,296.830612 58.9076254,295.930612 58.6828382,294.828571 C58.4355724,293.561224 58.2107852,292.844898 58.2107852,292.477551 C57.7387323,287.757143 57.5139451,283.753061 57.5139451,279.95102 C57.5139451,273.228571 58.4355724,267.057143 59.8292526,261.602041 C61.44772,256.165306 63.5382403,251.610204 66.0783349,247.62449 C68.8656954,243.620408 72.3274172,240.35102 76.4859792,237.44898 C80.6445412,234.546939 85.2751561,232.177551 90.1305582,230.359184 C94.9859603,228.540816 100.76299,227.089796 107.236859,226.006122 C113.710728,225.087755 120.409385,224.371429 127.13052,223.820408 C133.829177,223.453061 141.247152,223.269388 149.811542,223.269388 L167.704598,223.269388 L167.704598,249.057143 C167.704598,250.87551 168.401438,252.326531 170.019905,253.593878 C171.86316,254.861224 173.728893,255.595918 176.021722,255.595918 C178.112242,255.595918 180.180284,254.861224 181.82123,253.593878 L247.751296,201.834694 C249.369763,200.567347 250.291391,199.116327 250.291391,197.297959 C250.291391,195.479592 249.369763,194.028571 247.751296,192.761224 L181.82123,141.002041 C180.202763,139.734694 178.112242,139 176.044201,139 C173.728893,139 171.885639,139.734694 170.042384,141.002041 C168.423917,142.269388 167.727077,143.720408 167.727077,145.538776 L167.727077,171.326531 L149.811542,171.326531 C88.5120908,171.326531 50.8152886,184.955102 36.9234437,212.193878 C32.3153075,221.267347 30,232.526531 30,245.971429 C30,257.046939 35.5522422,272.291837 46.4094607,291.540816 C46.6567266,292.091837 47.1063009,292.826531 47.803141,294.093878 Z" id="Shape-Copy" fill="#000000" fill-rule="nonzero" transform="translate(140.145695, 220.000000) scale(-1, 1) translate(-140.145695, -220.000000) "></path>
+            </g>
+        </g>
+    </defs>
+    </svg>
+<header>
+    <h1>5.reference</h1>
+                 </header>
+                 <main>
+                 <div class="listing">
+                     <table aria-describedby="summary">
+                         <thead>
+                         <tr>
+                             <th></th>
+                             <th>Name</th>
+                             <th>Size</th>
+                             <th class="hideable">
+                                 Modified
+                             </th>
+                             <th class="hideable"></th>
+                         </tr>
+                         </thead>
+                         <tbody>
+                         <tr class="clickable">
+                             <td></td>
+                             <td><a href=".."><svg width="1.5em" height="1em" version="1.1" viewBox="0 0 24 24"><use xlink:href="#go-up"></use></svg>
+                 <span class="goup">..</span></a></td>
+                             <td>&mdash;</td>
+                             <td class="hideable">&mdash;</td>
+                             <td class="hideable"></td>
+                         </tr>
+                 
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="0_all_guis-INTRO.txt">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">0_all_guis-INTRO.txt</span>
+                </a>
+            </td>
+            <td data-order="6695">6 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="abs~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">abs~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="591">591 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="acoustics-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">acoustics-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1691">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="acoustics~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">acoustics~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="2330">2 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="adc~_dac~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">adc~_dac~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1168">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="append-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">append-help.pd</span>
+                </a>
+            </td>
+            <td data-order="2044">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="array-object-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">array-object-help.pd</span>
+                </a>
+            </td>
+            <td data-order="16933">16 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="array-object-help.txt">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">array-object-help.txt</span>
+                </a>
+            </td>
+            <td data-order="541">541 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="bag-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">bag-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1054">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="bang-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">bang-help.pd</span>
+                </a>
+            </td>
+            <td data-order="390">390 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="bang~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">bang~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="619">619 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="biquad~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">biquad~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1266">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="block~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">block~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="4620">4 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="bng-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">bng-help.pd</span>
+                </a>
+            </td>
+            <td data-order="6719">6 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="bp~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">bp~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1628">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="canvas-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">canvas-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1396">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="change-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">change-help.pd</span>
+                </a>
+            </td>
+            <td data-order="800">800 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="clip-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">clip-help.pd</span>
+                </a>
+            </td>
+            <td data-order="787">787 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="clip~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">clip~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="955">955 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="clone-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">clone-help.pd</span>
+                </a>
+            </td>
+            <td data-order="3056">2 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="clone-subpatch.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">clone-subpatch.pd</span>
+                </a>
+            </td>
+            <td data-order="948">948 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="cos~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">cos~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1002">1002 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="cpole~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">cpole~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="3666">3 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="cputime-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">cputime-help.pd</span>
+                </a>
+            </td>
+            <td data-order="588">588 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="czero_rev~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">czero_rev~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="4229">4 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="czero~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">czero~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="3793">3 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="declare-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">declare-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1618">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="delay-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">delay-help.pd</span>
+                </a>
+            </td>
+            <td data-order="2409">2 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="delread4~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">delread4~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1416">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="delread~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">delread~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1303">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="delwrite~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">delwrite~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="734">734 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="drawpolygon-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">drawpolygon-help.pd</span>
+                </a>
+            </td>
+            <td data-order="2225">2 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="drawtext-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">drawtext-help.pd</span>
+                </a>
+            </td>
+            <td data-order="2276">2 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="element-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">element-help.pd</span>
+                </a>
+            </td>
+            <td data-order="2519">2 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="env~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">env~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1219">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="expr-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">expr-help.pd</span>
+                </a>
+            </td>
+            <td data-order="39873">38 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="exp~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">exp~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="588">588 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="fft~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">fft~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="2029">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="float-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">float-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1595">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="framp~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">framp~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1637">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="fudiformat-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">fudiformat-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1317">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="fudiparse-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">fudiparse-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1161">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="gatom-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">gatom-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1405">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="get-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">get-help.pd</span>
+                </a>
+            </td>
+            <td data-order="2618">2 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="getsize-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">getsize-help.pd</span>
+                </a>
+            </td>
+            <td data-order="2049">2 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="graph-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">graph-help.pd</span>
+                </a>
+            </td>
+            <td data-order="571">571 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="hdial-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">hdial-help.pd</span>
+                </a>
+            </td>
+            <td data-order="7435">7 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="help-intro.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">help-intro.pd</span>
+                </a>
+            </td>
+            <td data-order="13487">13 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="hip~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">hip~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1538">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="hradio-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">hradio-help.pd</span>
+                </a>
+            </td>
+            <td data-order="7766">7 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="hslider-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">hslider-help.pd</span>
+                </a>
+            </td>
+            <td data-order="9265">9 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="int-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">int-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1097">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="key-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">key-help.pd</span>
+                </a>
+            </td>
+            <td data-order="870">870 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="line-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">line-help.pd</span>
+                </a>
+            </td>
+            <td data-order="2103">2 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="line~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">line~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1177">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="list-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">list-help.pd</span>
+                </a>
+            </td>
+            <td data-order="16297">15 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="loadbang-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">loadbang-help.pd</span>
+                </a>
+            </td>
+            <td data-order="642">642 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="log~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">log~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="805">805 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="lop~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">lop~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1229">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="makefilename-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">makefilename-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1746">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="makenote-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">makenote-help.pd</span>
+                </a>
+            </td>
+            <td data-order="927">927 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="math-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">math-help.pd</span>
+                </a>
+            </td>
+            <td data-order="2274">2 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="message-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">message-help.pd</span>
+                </a>
+            </td>
+            <td data-order="2467">2 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="metro-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">metro-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1998">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="midi-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">midi-help.pd</span>
+                </a>
+            </td>
+            <td data-order="4784">4 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="moses-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">moses-help.pd</span>
+                </a>
+            </td>
+            <td data-order="601">601 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="my_canvas-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">my_canvas-help.pd</span>
+                </a>
+            </td>
+            <td data-order="7745">7 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="namecanvas-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">namecanvas-help.pd</span>
+                </a>
+            </td>
+            <td data-order="639">639 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="netreceive-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">netreceive-help.pd</span>
+                </a>
+            </td>
+            <td data-order="2467">2 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="netsend-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">netsend-help.pd</span>
+                </a>
+            </td>
+            <td data-order="3624">3 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="noise~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">noise~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="488">488 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="numbox2-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">numbox2-help.pd</span>
+                </a>
+            </td>
+            <td data-order="7860">7 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="openpanel-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">openpanel-help.pd</span>
+                </a>
+            </td>
+            <td data-order="637">637 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="operators-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">operators-help.pd</span>
+                </a>
+            </td>
+            <td data-order="2188">2 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="oscformat-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">oscformat-help.pd</span>
+                </a>
+            </td>
+            <td data-order="2822">2 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="oscparse-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">oscparse-help.pd</span>
+                </a>
+            </td>
+            <td data-order="2235">2 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="osc~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">osc~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1887">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="otherbinops-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">otherbinops-help.pd</span>
+                </a>
+            </td>
+            <td data-order="3824">3 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="out1~.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">out1~.pd</span>
+                </a>
+            </td>
+            <td data-order="1709">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="pack-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">pack-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1416">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="pd-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">pd-help.pd</span>
+                </a>
+            </td>
+            <td data-order="5145">5 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="phasor~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">phasor~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1362">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="pipe-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">pipe-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1560">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="plot-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">plot-help.pd</span>
+                </a>
+            </td>
+            <td data-order="3437">3 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="pointer-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">pointer-help.pd</span>
+                </a>
+            </td>
+            <td data-order="3158">3 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="poly-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">poly-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1103">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="pow~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">pow~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1039">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="print-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">print-help.pd</span>
+                </a>
+            </td>
+            <td data-order="701">701 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="print~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">print~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="645">645 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="qlist-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">qlist-help.pd</span>
+                </a>
+            </td>
+            <td data-order="3172">3 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="qlist.txt">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">qlist.txt</span>
+                </a>
+            </td>
+            <td data-order="79">79 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="random-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">random-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1041">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="readsf~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">readsf~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="2143">2 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="realtime-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">realtime-help.pd</span>
+                </a>
+            </td>
+            <td data-order="529">529 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="receive-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">receive-help.pd</span>
+                </a>
+            </td>
+            <td data-order="997">997 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="right.html">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">right.html</span>
+                </a>
+            </td>
+            <td data-order="31357">30 KB</td>
+            <td class="hideable"><time datetime="2021-07-30T00:30:29">Fri Jul 30 00:30:29 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="route-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">route-help.pd</span>
+                </a>
+            </td>
+            <td data-order="2741">2 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="rpole~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">rpole~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="2566">2 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="rsqrt~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">rsqrt~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1092">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="rzero_rev~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">rzero_rev~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="2661">2 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="rzero~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">rzero~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="2557">2 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="samphold~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">samphold~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1584">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="samplerate~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">samplerate~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="789">789 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="savepanel-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">savepanel-help.pd</span>
+                </a>
+            </td>
+            <td data-order="662">662 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="scalar-object-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">scalar-object-help.pd</span>
+                </a>
+            </td>
+            <td data-order="2196">2 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="select-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">select-help.pd</span>
+                </a>
+            </td>
+            <td data-order="2255">2 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="send-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">send-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1815">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="send~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">send~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1235">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="set-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">set-help.pd</span>
+                </a>
+            </td>
+            <td data-order="2842">2 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="setsize-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">setsize-help.pd</span>
+                </a>
+            </td>
+            <td data-order="2543">2 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="setsize.txt">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">setsize.txt</span>
+                </a>
+            </td>
+            <td data-order="218">218 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="sigbinops-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">sigbinops-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1651">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="sig~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">sig~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="636">636 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="snapshot~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">snapshot~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1276">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="soundfiler-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">soundfiler-help.pd</span>
+                </a>
+            </td>
+            <td data-order="2980">2 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="spigot-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">spigot-help.pd</span>
+                </a>
+            </td>
+            <td data-order="783">783 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="sqrt~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">sqrt~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1070">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="stripnote-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">stripnote-help.pd</span>
+                </a>
+            </td>
+            <td data-order="564">564 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="struct-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">struct-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1166">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="swap-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">swap-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1398">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="switch~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">switch~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1976">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="symbol-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">symbol-help.pd</span>
+                </a>
+            </td>
+            <td data-order="979">979 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="table.txt">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">table.txt</span>
+                </a>
+            </td>
+            <td data-order="48">48 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="tabosc4~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">tabosc4~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="2942">2 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="tabplay~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">tabplay~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="2237">2 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="tabread-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">tabread-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1359">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="tabread4-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">tabread4-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1457">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="tabread4~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">tabread4~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1726">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="tabread~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">tabread~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1503">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="tabreceive~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">tabreceive~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="462">462 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="tabsend~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">tabsend~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="456">456 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="tabwrite-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">tabwrite-help.pd</span>
+                </a>
+            </td>
+            <td data-order="800">800 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="tabwrite~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">tabwrite~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1459">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="text-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">text-help.pd</span>
+                </a>
+            </td>
+            <td data-order="180">180 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="text-object-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">text-object-help.pd</span>
+                </a>
+            </td>
+            <td data-order="23725">23 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="text-object-help.txt">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">text-object-help.txt</span>
+                </a>
+            </td>
+            <td data-order="42">42 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="textfile-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">textfile-help.pd</span>
+                </a>
+            </td>
+            <td data-order="2156">2 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="textfile.txt">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">textfile.txt</span>
+                </a>
+            </td>
+            <td data-order="79">79 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="threshold~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">threshold~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1274">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="throw~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">throw~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1029">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="timer-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">timer-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1634">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="toggle-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">toggle-help.pd</span>
+                </a>
+            </td>
+            <td data-order="8477">8 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="trigger-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">trigger-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1150">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="unpack-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">unpack-help.pd</span>
+                </a>
+            </td>
+            <td data-order="899">899 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="until-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">until-help.pd</span>
+                </a>
+            </td>
+            <td data-order="904">904 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="value-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">value-help.pd</span>
+                </a>
+            </td>
+            <td data-order="2333">2 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="vcf~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">vcf~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1677">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="vdial-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">vdial-help.pd</span>
+                </a>
+            </td>
+            <td data-order="7467">7 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="vline~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">vline~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1830">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="vradio-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">vradio-help.pd</span>
+                </a>
+            </td>
+            <td data-order="7969">7 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="vslider-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">vslider-help.pd</span>
+                </a>
+            </td>
+            <td data-order="9300">9 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="vsnapshot~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">vsnapshot~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="520">520 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="vu-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">vu-help.pd</span>
+                </a>
+            </td>
+            <td data-order="6197">6 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="wrap~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">wrap~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1058">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="writesf~-help.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">writesf~-help.pd</span>
+                </a>
+            </td>
+            <td data-order="1839">1 KB</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+        <tr class="file">
+            <td></td>
+            <td>
+                <a href="x_all_guis.pd">
+                    <svg width="1.5em" height="1em" version="1.1" viewBox="0 0 265 323"><use xlink:href="#file"></use></svg>
+                    <span class="name">x_all_guis.pd</span>
+                </a>
+            </td>
+            <td data-order="795">795 bytes</td>
+            <td class="hideable"><time datetime="2021-07-29T23:52:26">Thu Jul 29 23:52:26 2021</time></td>
+            <td class="hideable"></td>
+        </tr>
+
+            </tbody>
+        </table>
+    </div>
+</main>
+</body>
+</html>
