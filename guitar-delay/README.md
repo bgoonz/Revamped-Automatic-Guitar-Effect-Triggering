@@ -1,4 +1,5 @@
 <!-- ⚠️ This README has been generated from the file(s) "blueprint.md" ⚠️-->
+
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#guitar-delay-pedal)
 
 # ➤ Guitar Delay Pedal
@@ -22,7 +23,6 @@
 **Figure 3\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_Page 5**
 
 **Results\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_Page 6**
-
 
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#figure-4__________________________________________________________________page-6)
 
@@ -52,12 +52,9 @@ Design:
 
 To demonstrate the functionality of my program, I  created a timing diagram. The diagram shows the timing relationships between the clock, the ADC, the "end of convert", the foreground program, and the VDAC. At the positive edge of the clock, the analog to digital conversion begins, and triggers my program to "begin". my guitar delay program will run, and finish with the conversion from digital to analog. The system will continue to run, always starting on the next positive edge of the clock. This diagram is shown below, in Figure 3.
 
-
-
 ![](images/image4.png)
 
 > **Figure 3: Timing Diagram**
-
 
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#results)
 
@@ -68,7 +65,6 @@ This project served as an introduction to the capabilities of a PSoC board, and 
 ![](images/image1.png)
 
 **Figure 4: Final Delay Rectifier/Anti Aliasing Circuit**
-
 
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#code)
 
@@ -128,13 +124,9 @@ windex = (windex + l) % (maxs);
 
 ---
 
-
-
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#matlab-code)
 
 ## ➤ Matlab Code:
-
-
 
 #### Delay_model.m :
 
@@ -160,7 +152,6 @@ plot(y);
 
 ```
 
-
 ---
 
 #### Echo.m:
@@ -181,7 +172,6 @@ end
 
 
 ```
-
 
 ---
 

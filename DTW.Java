@@ -1,32 +1,35 @@
-public class DTW {
+public
+class DTW {
 
-	private double[] horizontalInput;
+private
+  double[] horizontalInput;
 
-	private double[] verticalInput;
+private
+  double[] verticalInput;
 
-	public DTW(double[] horizontalInput, double[] verticalInput) {
+public
+  DTW(double[] horizontalInput, double[] verticalInput) {
 
-		this.horizontalInput = horizontalInput;
+    this.horizontalInput = horizontalInput;
 
-		this.verticalInput = verticalInput;
+    this.verticalInput = verticalInput;
+  }
 
-	}
-
-	/*
+  /*
 
 Finds the minimum cost path to reach current value
 
 */
 
-	private static double min(MatrixTriplet matrixTriplet) {
+private
+  static double min(MatrixTriplet matrixTriplet) {
 
-		return Math.min(Math.min(matrixTriplet.left, matrixTriplet.bottom),
+    return Math.min(Math.min(matrixTriplet.left, matrixTriplet.bottom),
 
-		matrixTriplet.bottomLeft);
+                    matrixTriplet.bottomLeft);
+  }
 
-	}
-
-	/*
+  /*
 
 This finds the squared difference of the matrix points
 
@@ -34,267 +37,227 @@ Generates a 2D array and returns the symmetrical distance measure
 
 */
 
-	private double[][] buildDistanceMatrix() {
+private
+  double[][] buildDistanceMatrix() {
 
-		int rows = verticalInput.length;
+    int rows = verticalInput.length;
 
-		int cols = horizontalInput.length;
+    int cols = horizontalInput.length;
 
-		double[][] matrix = new double[rows + 1][cols + 1];
+    double[][] matrix = new double[rows + 1][cols + 1];
 
-		for (int i = 1; i < matrix[0].length; ++i) {
+    for (int i = 1; i < matrix[0].length; ++i) {
 
-			matrix[0][i] = horizontalInput[i - 1];
+      matrix[0][i] = horizontalInput[i - 1];
+    }
 
-		}
+    for (int i = 1; i < matrix.length; ++i) {
 
-		for (int i = 1; i < matrix.length; ++i) {
+      matrix[i][0] = verticalInput[i - 1];
+    }
 
-			matrix[i][0] = verticalInput[i - 1];
+    for (int row = 1; row <= rows; ++row) {
 
-		}
+      for (int col = 1; col <= cols; ++col) {
 
-		for (int row = 1; row <= rows; ++row) {
+        matrix[row][col] = (int)Math.pow(matrix[0][col] - matrix[row][0], 2);
+      }
+    }
 
-			for (int col = 1; col <= cols; ++col) {
+    return matrix;
+  }
 
-				matrix[row][col] = (int) Math.pow(matrix[0][col] - matrix[row][0], 2);
-
-			}
-
-		}
-
-		return matrix;
-
-	}
-
-	/*
+  /*
 
 Finds the left and bottom initial cost values. Initialization phase
 
 */
 
-	private static MatrixTriplet[][] buildTripleMatrixWithLeftAndBottomValues(double[][] distanceMatrix) {
+private
+  static MatrixTriplet[][] buildTripleMatrixWithLeftAndBottomValues(
+      double[][] distanceMatrix) {
 
-		int rows = distanceMatrix.length;
+    int rows = distanceMatrix.length;
 
-		int cols = distanceMatrix[0].length;
+    int cols = distanceMatrix[0].length;
 
-		MatrixTriplet[][] leftAndBottomMatrix = new MatrixTriplet[rows][cols];
+    MatrixTriplet[][] leftAndBottomMatrix = new MatrixTriplet[rows][cols];
 
-		for (int row = 0; row < rows; ++row) {
+    for (int row = 0; row < rows; ++row) {
 
-			for (int col = 0; col < cols; ++col) {
+      for (int col = 0; col < cols; ++col) {
 
-				leftAndBottomMatrix[row][col] = new MatrixTriplet(distanceMatrix[row][col]);
+        leftAndBottomMatrix[row][col] =
+            new MatrixTriplet(distanceMatrix[row][col]);
+      }
+    }
 
-			}
+    leftAndBottomMatrix[1][1].left = distanceMatrix[1][1];
 
-		}
+    for (int col = 2; col < cols; ++col) {
 
-		leftAndBottomMatrix[1][1].left = distanceMatrix[1][1];
+      leftAndBottomMatrix[1][col].left = leftAndBottomMatrix[1][col - 1].left
 
-		for (int col = 2; col < cols; ++col) {
+                                         + distanceMatrix[1][col];
 
-			leftAndBottomMatrix[1][col].left = leftAndBottomMatrix[1][col - 1].left
+      leftAndBottomMatrix[1][col].bottom = leftAndBottomMatrix[1][col].left;
+    }
 
-			+ distanceMatrix[1][col];
+    leftAndBottomMatrix[1][1].bottom = distanceMatrix[1][1];
 
-			leftAndBottomMatrix[1][col].bottom = leftAndBottomMatrix[1][col].left;
+    for (int row = 2; row < rows; ++row) {
 
-		}
+      leftAndBottomMatrix[row][1].bottom =
+          leftAndBottomMatrix[row - 1][1].bottom
 
-		leftAndBottomMatrix[1][1].bottom = distanceMatrix[1][1];
+          + distanceMatrix[row][1];
 
-		for (int row = 2; row < rows; ++row) {
+      leftAndBottomMatrix[row][1].left = leftAndBottomMatrix[row][1].bottom;
+    }
 
-			leftAndBottomMatrix[row][1].bottom = leftAndBottomMatrix[row - 1][1].bottom
+    return leftAndBottomMatrix;
+  }
 
-			+ distanceMatrix[row][1];
-
-			leftAndBottomMatrix[row][1].left = leftAndBottomMatrix[row][1].bottom;
-
-		}
-
-		return leftAndBottomMatrix;
-
-	}
-
-	/*
+  /*
 
 Finds the left/bottom/bottomleft cost values
 
 */
 
-	private static MatrixTriplet[][] buildFinalMatrix(MatrixTriplet[][] leftAndBottomMatrix) {
+private
+  static MatrixTriplet[][] buildFinalMatrix(
+      MatrixTriplet[][] leftAndBottomMatrix) {
 
-		int rows = leftAndBottomMatrix.length;
+    int rows = leftAndBottomMatrix.length;
 
-		int cols = leftAndBottomMatrix.length;
+    int cols = leftAndBottomMatrix.length;
 
-		MatrixTriplet[][] finalMatrix = new MatrixTriplet[rows][cols];
+    MatrixTriplet[][] finalMatrix = new MatrixTriplet[rows][cols];
 
-		for (int row = 0; row < rows; ++row) {
+    for (int row = 0; row < rows; ++row) {
 
-			for (int col = 0; col < cols; ++col) {
+      for (int col = 0; col < cols; ++col) {
 
-				finalMatrix[row][col] = new
+        finalMatrix[row][col] = new
 
-				MatrixTriplet(leftAndBottomMatrix[row][col].initial,
+            MatrixTriplet(leftAndBottomMatrix[row][col].initial,
 
-				leftAndBottomMatrix[row][col].left,
+                          leftAndBottomMatrix[row][col].left,
 
-				leftAndBottomMatrix[row][col].bottom,
+                          leftAndBottomMatrix[row][col].bottom,
 
-				leftAndBottomMatrix[row][col].bottomLeft);
+                          leftAndBottomMatrix[row][col].bottomLeft);
+      }
+    }
 
-			}
+    for (int row = 2; row < rows; ++row) {
 
-		}
+      for (int col = 2; col < cols; ++col) {
 
-		for (int row = 2; row < rows; ++row) {
+        finalMatrix[row][col].left = min(finalMatrix[row][col - 1])
 
-			for (int col = 2; col < cols; ++col) {
+                                     + finalMatrix[row][col].initial;
 
-				finalMatrix[row][col].left = min(finalMatrix[row][col - 1])
+        finalMatrix[row][col].bottom = min(finalMatrix[row - 1][col])
 
-				+ finalMatrix[row][col].initial;
+                                       + finalMatrix[row][col].initial;
 
-				finalMatrix[row][col].bottom = min(finalMatrix[row - 1][col])
+        finalMatrix[row][col].bottomLeft = min(finalMatrix[row - 1][col - 1])
 
-				+ finalMatrix[row][col].initial;
+                                           + finalMatrix[row][col].initial;
+      }
+    }
 
-				finalMatrix[row][col].bottomLeft = min(finalMatrix[row - 1][col - 1])
+    return finalMatrix;
+  }
 
-				+ finalMatrix[row][col].initial;
+private
+  double compute() {
 
-			}
+    double[][] distanceMatrix = buildDistanceMatrix();
 
-		}
+    MatrixTriplet[][] leftAndBottomValuesTripletMatrix =
 
-		return finalMatrix;
+        buildTripleMatrixWithLeftAndBottomValues(distanceMatrix);
 
-	}
+    MatrixTriplet[][] finalMatrix =
+        buildFinalMatrix(leftAndBottomValuesTripletMatrix);
 
-	private double compute() {
+    return min(finalMatrix[verticalInput.length][horizontalInput.length]);
+  }
 
-		double[][] distanceMatrix = buildDistanceMatrix();
+private
+  static class MatrixTriplet {
 
-		MatrixTriplet[][] leftAndBottomValuesTripletMatrix =
+    double initial = Double.POSITIVE_INFINITY;
 
-		buildTripleMatrixWithLeftAndBottomValues(distanceMatrix);
+    double left = Double.POSITIVE_INFINITY;
 
-		MatrixTriplet[][] finalMatrix = buildFinalMatrix(leftAndBottomValuesTripletMatrix);
+    double bottom = Double.POSITIVE_INFINITY;
 
-		return min(finalMatrix[verticalInput.length][horizontalInput.length]);
+    double bottomLeft = Double.POSITIVE_INFINITY;
 
-	}
+    MatrixTriplet(double initial, double left, double bottom,
+                  double bottomLeft) {
 
-	private static class MatrixTriplet {
+      this.initial = initial;
 
-		double initial = Double.POSITIVE_INFINITY;
+      this.left = left;
 
-		double left = Double.POSITIVE_INFINITY;
+      this.bottom = bottom;
 
-		double bottom = Double.POSITIVE_INFINITY;
+      this.bottomLeft = bottomLeft;
+    }
 
-		double bottomLeft = Double.POSITIVE_INFINITY;
+    MatrixTriplet(double initial) { this.initial = initial; }
 
-		MatrixTriplet(double initial, double left, double bottom, double bottomLeft) {
+  }
 
-			this.initial = initial;
+  public static void
+  main(String[] args) {
 
-			this.left = left;
+    // double [] horizontalInput1 = {1.0, 1.0, 2.0, 3.0, 2.0, 0.0};
 
-			this.bottom = bottom;
+    // double [] verticalInput1 = {0.0, 1.0, 1.0, 2.0, 3.0, 2.0, 1.0};
 
-			this.bottomLeft = bottomLeft;
+    // DTW similarInputs = new DTW(horizontalInput1, verticalInput1);
 
-		}
+    // double result = similarInputs.compute();
 
-		MatrixTriplet(double initial) {
+    double[] horizontalInput2 = {0.0, 1.0, 1.0, 2.0, 3.0, 2.0, 1.0};
 
-			this.initial = initial;
+    double[] verticalInput2 = {0.0, 1.0, 1.0, 2.0, 3.0, 2.0, 1.0};
 
-		}
+    DTW sameInputs = new DTW(horizontalInput2, verticalInput2);
 
-	}
+    double result2 = sameInputs.compute();
 
-	public static void main(String[] args) {
+    System.out.println("Least cost path of Test 1: " + result2);
 
-		// double [] horizontalInput1 = {1.0, 1.0, 2.0, 3.0, 2.0, 0.0};
+    double[] horizontalInput3 = {1.0, 1.0, 2.0, 3.0, 2.0, 0.0};
 
-		// double [] verticalInput1 = {0.0, 1.0, 1.0, 2.0, 3.0, 2.0, 1.0};
+    double[] verticalInput3 = {0.0, 0.0, 1.0, 2.0, 1.0, -1.0};
 
-		// DTW similarInputs = new DTW(horizontalInput1, verticalInput1);
+    DTW sameInputsOutPhase = new DTW(horizontalInput3, verticalInput3);
 
-		// double result = similarInputs.compute();
+    double result3 = sameInputsOutPhase.compute();
 
-		double[] horizontalInput2 = {
-			0.0,
-			1.0,
-			1.0,
-			2.0,
-			3.0,
-			2.0,
-			1.0
-		};
+    System.out.println("Least cost path of Test 2: " + result3);
 
-		double[] verticalInput2 = {
-			0.0,
-			1.0,
-			1.0,
-			2.0,
-			3.0,
-			2.0,
-			1.0
-		};
+    // double [] horizontalInput4 = {1.0, 2.0, 3.0, 4.0, 2.0, 1.0};
 
-		DTW sameInputs = new DTW(horizontalInput2, verticalInput2);
+    // double [] verticalInput4 = {5.0, 0.0, 1.0, 4.0, 2.0, 0.0, 3.0};
 
-		double result2 = sameInputs.compute();
+    // DTW differentInputs = new DTW(horizontalInput4, verticalInput4);
 
-		System.out.println("Least cost path of Test 1: " + result2);
+    // double result4 = differentInputs.compute();
 
-		double[] horizontalInput3 = {
-			1.0,
-			1.0,
-			2.0,
-			3.0,
-			2.0,
-			0.0
-		};
-
-		double[] verticalInput3 = {
-			0.0,
-			0.0,
-			1.0,
-			2.0,
-			1.0,
-			-1.0
-		};
-
-		DTW sameInputsOutPhase = new DTW(horizontalInput3, verticalInput3);
-
-		double result3 = sameInputsOutPhase.compute();
-
-		System.out.println("Least cost path of Test 2: " + result3);
-
-		// double [] horizontalInput4 = {1.0, 2.0, 3.0, 4.0, 2.0, 1.0};
-
-		// double [] verticalInput4 = {5.0, 0.0, 1.0, 4.0, 2.0, 0.0, 3.0};
-
-		// DTW differentInputs = new DTW(horizontalInput4, verticalInput4);
-
-		// double result4 = differentInputs.compute();
-
-		// System.out.println("Least cost path of Test 4: " + result4);
-
-	}
+    // System.out.println("Least cost path of Test 4: " + result4);
+  }
 
 }
 
-Dynamic Time Warping PD Object C code:
+Dynamic Time Warping PD Object C code :
 
 #include "m_pd.h"
 
@@ -314,11 +277,9 @@ Dynamic Time Warping PD Object C code:
 
 #define TEST_SIZE 300
 
-static t_class * dynamicTW_class; //handle for the class
+    static t_class *dynamicTW_class; // handle for the class
 
-float recording_array[SIZE_ARRAY] = {
-	0
-};
+float recording_array[SIZE_ARRAY] = {0};
 
 int arr_position = SIZE_ARRAY - 1;
 
@@ -332,233 +293,225 @@ float delayTime = 0.0;
 
 typedef struct _leftbottom {
 
-	float left;
+  float left;
 
-	float bottom;
+  float bottom;
 
-	float diag;
+  float diag;
 
-}
-leftBD; //typedef name
+} leftBD; // typedef name
 
 typedef struct _dynamicTW {
 
-	t_object x_obj;
+  t_object x_obj;
 
-	int flag; //differentiates if how result of lcp is stored
+  int flag; // differentiates if how result of lcp is stored
 
-	int match; //if 0 signal does not match else matches
+  int match; // if 0 signal does not match else matches
 
-	float testArray[TEST_SIZE];
+  float testArray[TEST_SIZE];
 
-	float storedSignalOne[SIZE_ARRAY];
+  float storedSignalOne[SIZE_ARRAY];
 
-	float storedSignalTwo[SIZE_ARRAY];
+  float storedSignalTwo[SIZE_ARRAY];
 
-	t_inlet * in_mod_A,
-	*in_mod_B;
+  t_inlet *in_mod_A, *in_mod_B;
 
-	t_outlet * out_A;
+  t_outlet *out_A;
 
-	float signal[SIZE_ARRAY];
+  float signal[SIZE_ARRAY];
 
-	float lcpValue;
+  float lcpValue;
 
-	float compareValue;
+  float compareValue;
 
-	float initMatrix[SIZE_ARRAY][SIZE_ARRAY];
+  float initMatrix[SIZE_ARRAY][SIZE_ARRAY];
 
-	leftBD costValues[SIZE_ARRAY - 1][SIZE_ARRAY - 1];
+  leftBD costValues[SIZE_ARRAY - 1][SIZE_ARRAY - 1];
 
-}
-t_dynamicTW; //typedef name
+} t_dynamicTW; // typedef name
 
-void checkStorage(t_dynamicTW * x) { //check if values being stored correctly
+void checkStorage(t_dynamicTW *x) { // check if values being stored correctly
 
-	int i;
+  int i;
 
-	post("in check storage");
+  post("in check storage");
 
-	for (i = 0; i < TEST_SIZE; i++) {
+  for (i = 0; i < TEST_SIZE; i++) {
 
-		post("Signal 1: %f", x - >storedSignalOne[i]);
+    post("Signal 1: %f", x - > storedSignalOne[i]);
 
-		post("Signal 2: %f", x - >storedSignalTwo[i]);
-
-	}
-
+    post("Signal 2: %f", x - > storedSignalTwo[i]);
+  }
 }
 
-void signalMatch(t_dynamicTW * x) {
+void signalMatch(t_dynamicTW *x) {
 
-	float tenup = saveValue + (.05 * saveValue);
+  float tenup = saveValue + (.05 * saveValue);
 
-	float zeroValue = 0.00;
+  float zeroValue = 0.00;
 
-	FILE * fp1;
+  FILE *fp1;
 
-	FILE * fp2;
+  FILE *fp2;
 
-	FILE * fp3;
+  FILE *fp3;
 
-	int j;
+  int j;
 
-	if (x - >compareValue <= tenup && x - >compareValue >= zeroValue) {
+  if (x - > compareValue <= tenup && x - > compareValue >= zeroValue) {
 
-		Sleep(delayTime * 1000); //how long to delay bang in seconds;
+    Sleep(delayTime * 1000); // how long to delay bang in seconds;
 
-		outlet_bang(x - >out_A);
+    outlet_bang(x - > out_A);
 
-		x - >match = 1;
+    x - > match = 1;
 
-		/* add code to trigger effect */
+    /* add code to trigger effect */
 
-		post("Incoming Signal Matches Stored Signal. compareValue is %f and lcpValue is %f", x - >compareValue, saveValue);
+    post("Incoming Signal Matches Stored Signal. compareValue is %f and "
+         "lcpValue is %f",
+         x - > compareValue, saveValue);
 
-		post("delay time: %f", delayTime);
+    post("delay time: %f", delayTime);
 
-		fp1 = fopen("C:\\Users\\Raki\\Documents\\GitHub\\dynamicTW\\TB\\save1.txt", "w");
+    fp1 = fopen("C:\\Users\\Raki\\Documents\\GitHub\\dynamicTW\\TB\\save1.txt",
+                "w");
 
-		fp2 = fopen("C:\\Users\\Raki\\Documents\\GitHub\\dynamicTW\\TB\\save2.txt", "w");
+    fp2 = fopen("C:\\Users\\Raki\\Documents\\GitHub\\dynamicTW\\TB\\save2.txt",
+                "w");
 
-		fp3 = fopen("C:\\Users\\Raki\\Documents\\GitHub\\dynamicTW\\TB\\save3.txt", "w");
+    fp3 = fopen("C:\\Users\\Raki\\Documents\\GitHub\\dynamicTW\\TB\\save3.txt",
+                "w");
 
-		post("saving");
+    post("saving");
 
-		for (j = 0; j < SIZE_ARRAY; j++) {
+    for (j = 0; j < SIZE_ARRAY; j++) {
 
-			fprintf(fp1, "%f\n", x - >storedSignalOne[j]);
+      fprintf(fp1, "%f\n", x - > storedSignalOne[j]);
 
-			fprintf(fp2, "%f\n", x - >storedSignalTwo[j]);
+      fprintf(fp2, "%f\n", x - > storedSignalTwo[j]);
 
-			fprintf(fp3, "%f\n", x - >initMatrix[0][j]);
+      fprintf(fp3, "%f\n", x - > initMatrix[0][j]);
+    }
 
-		}
+    post("finish saving");
 
-		post("finish saving");
+    fclose(fp1);
 
-		fclose(fp1);
+    fclose(fp2);
 
-		fclose(fp2);
+    fclose(fp3);
 
-		fclose(fp3);
+  }
 
-	}
+  else {
 
-	else {
+    x - > match = 0;
 
-		x - >match = 0;
-
-		post("Signal NO Match. compareVal is %f while lcpVal is %f\n", x - >compareValue, saveValue);
-
-	}
-
+    post("Signal NO Match. compareVal is %f while lcpVal is %f\n",
+         x - > compareValue, saveValue);
+  }
 }
 
-float findMin(t_dynamicTW * x, int row, int column) {
+float findMin(t_dynamicTW *x, int row, int column) {
 
-	float temp,
-	min;
+  float temp, min;
 
-	float checkLeft = x - >costValues[row][column].left;
+  float checkLeft = x - > costValues[row][column].left;
 
-	float checkBottom = x - >costValues[row][column].bottom;
+  float checkBottom = x - > costValues[row][column].bottom;
 
-	float checkDiagonal = x - >costValues[row][column].diag;
+  float checkDiagonal = x - > costValues[row][column].diag;
 
-	temp = (checkLeft < checkBottom) ? checkLeft: checkBottom;
+  temp = (checkLeft < checkBottom) ? checkLeft : checkBottom;
 
-	min = (checkDiagonal < temp) ? checkDiagonal: temp;
+  min = (checkDiagonal < temp) ? checkDiagonal : temp;
 
-	return min;
-
+  return min;
 }
 
-void reverseArray(t_dynamicTW * x) {
+void reverseArray(t_dynamicTW *x) {
 
-	int i,
-	j;
+  int i, j;
 
-	i = SIZE_ARRAY - 1;
+  i = SIZE_ARRAY - 1;
 
-	j = 0;
+  j = 0;
 
-	while (i > j) {
+  while (i > j) {
 
-		float temp = x - >storedSignalTwo[i];
+    float temp = x - > storedSignalTwo[i];
 
-		x - >storedSignalTwo[i] = x - >storedSignalTwo[j];
+    x - > storedSignalTwo[i] = x - > storedSignalTwo[j];
 
-		x - >storedSignalTwo[j] = temp;
+    x - > storedSignalTwo[j] = temp;
 
-		i--;
+    i--;
 
-		j++;
-
-	}
-
+    j++;
+  }
 }
 
-void fileReader1(t_dynamicTW * x, char * path) {
+void fileReader1(t_dynamicTW *x, char *path) {
 
-	//char const* const fileName = "C:\\Users\\Raki\\Documents\\GitHub\\dynamicTW\\TB\\input.txt" ;/* should check that argc > 1 */
+  // char const* const fileName =
+  // "C:\\Users\\Raki\\Documents\\GitHub\\dynamicTW\\TB\\input.txt" ;/* should
+  // check that argc > 1 */
 
-	FILE * file = fopen(path, "r");
-	/* should check the result */
+  FILE *file = fopen(path, "r");
+  /* should check the result */
 
-	char line[256];
+  char line[256];
 
-	int i = 0;
+  int i = 0;
 
-	while (fgets(line, sizeof(line), file)) {
+  while (fgets(line, sizeof(line), file)) {
 
-		//post("file1: value at line %d is %s", i, line);
+    // post("file1: value at line %d is %s", i, line);
 
-		x - >storedSignalOne[i] = atof(line); // !!!!!!!!!!!!!!!!!!!!! REMOVE 1000
+    x - > storedSignalOne[i] = atof(line); // !!!!!!!!!!!!!!!!!!!!! REMOVE 1000
 
-		i++;
+    i++;
+  }
 
-	}
-
-	fclose(file);
-
+  fclose(file);
 }
 
-void fileReader2(t_dynamicTW * x, char * path) {
+void fileReader2(t_dynamicTW *x, char *path) {
 
-	//char const* const fileName = "C:\\Users\\Raki\\Documents\\GitHub\\dynamicTW\\TB\\input.txt" ;/* should check that argc > 1 */
+  // char const* const fileName =
+  // "C:\\Users\\Raki\\Documents\\GitHub\\dynamicTW\\TB\\input.txt" ;/* should
+  // check that argc > 1 */
 
-	FILE * file = fopen(path, "r");
-	/* should check the result */
+  FILE *file = fopen(path, "r");
+  /* should check the result */
 
-	char line[256];
+  char line[256];
 
-	int i = 0;
+  int i = 0;
 
-	while (fgets(line, sizeof(line), file)) {
+  while (fgets(line, sizeof(line), file)) {
 
-		//post("file2: value at line %d is %s", i, line);
+    // post("file2: value at line %d is %s", i, line);
 
-		x - >storedSignalTwo[i] = atof(line); // !!!!!!!!!!!!!!!!!!!!!!!!!!! REMOVE 1000
+    x - > storedSignalTwo[i] =
+        atof(line); // !!!!!!!!!!!!!!!!!!!!!!!!!!! REMOVE 1000
 
-		i++;
+    i++;
+  }
 
-	}
-
-	fclose(file);
-
+  fclose(file);
 }
 
-void replaceSignal2(t_dynamicTW * x) {
+void replaceSignal2(t_dynamicTW *x) {
 
-	int i;
+  int i;
 
-	for (i = 0; i < SIZE_ARRAY; i++) {
+  for (i = 0; i < SIZE_ARRAY; i++) {
 
-		x - >storedSignalTwo[i] = x - >signal[i];
-
-	}
-
+    x - > storedSignalTwo[i] = x - > signal[i];
+  }
 }
 
 /*
@@ -573,564 +526,590 @@ void replaceSignal2(t_dynamicTW * x) {
 
 */
 
-void leastCostPath(t_dynamicTW * x) {
+void leastCostPath(t_dynamicTW *x) {
 
-	float temp,
-	min;
+  float temp, min;
 
-	float result = 0;
+  float result = 0;
 
-	int i = SIZE_ARRAY - 2;
+  int i = SIZE_ARRAY - 2;
 
-	int j = SIZE_ARRAY - 2;
+  int j = SIZE_ARRAY - 2;
 
-	// post("starting point value left is %f", x->costValues[i][j].left);
+  // post("starting point value left is %f", x->costValues[i][j].left);
 
-	// post("starting point value bottom is %f", x->costValues[i][j].bottom);
+  // post("starting point value bottom is %f", x->costValues[i][j].bottom);
 
-	// post("starting point value diag is %f", x->costValues[i][j].diag);
+  // post("starting point value diag is %f", x->costValues[i][j].diag);
 
-	while (i >= 0 && j >= 0) {
+  while (i >= 0 && j >= 0) {
 
-		float checkLeft = x - >costValues[i][j].left;
+    float checkLeft = x - > costValues[i][j].left;
 
-		float checkBottom = x - >costValues[i][j].bottom;
+    float checkBottom = x - > costValues[i][j].bottom;
 
-		float checkDiagonal = x - >costValues[i][j].diag;
+    float checkDiagonal = x - > costValues[i][j].diag;
 
-		temp = (checkLeft < checkBottom) ? checkLeft: checkBottom;
+    temp = (checkLeft < checkBottom) ? checkLeft : checkBottom;
 
-		min = (checkDiagonal < temp) ? checkDiagonal: temp;
+    min = (checkDiagonal < temp) ? checkDiagonal : temp;
 
-		result += min;
+    result += min;
 
-		/* Changes cell location after finding min */
+    /* Changes cell location after finding min */
 
-		if (min == checkDiagonal) {
+    if (min == checkDiagonal) {
 
-			if (i - 1 < 0 && j - 1 < 0) {
+      if (i - 1 < 0 && j - 1 < 0) {
 
-				break;
+        break;
 
-			}
+      }
 
-			else if (i - 1 < 0) {
+      else if (i - 1 < 0) {
 
-				j--;
+        j--;
 
-			}
+      }
 
-			else if (j - 1 < 0) {
+      else if (j - 1 < 0) {
 
-				i--;
+        i--;
 
-			}
+      }
 
-			else {
+      else {
 
-				i--;
+        i--;
 
-				j--;
+        j--;
+      }
 
-			}
+    }
 
-		}
+    else if (min == checkLeft) {
 
-		else if (min == checkLeft) {
+      if (j - 1 < 0) {
 
-			if (j - 1 < 0) {
+        break;
 
-				break;
+      }
 
-			}
+      else {
 
-			else {
+        j--;
+      }
 
-				j--;
+    }
 
-			}
+    else {
 
-		}
+      if (i - 1 < 0) {
 
-		else {
+        break;
 
-			if (i - 1 < 0) {
+      }
 
-				break;
+      else {
 
-			}
+        i--;
+      }
+    }
+  }
 
-			else {
+  if (x - > flag == 0) {
 
-				i--;
+    saveValue += result;
 
-			}
+    post("storing to saveValue: current saveValue is %f", saveValue);
 
-		}
+  }
 
-	}
+  else if (x - > flag == 1) {
 
-	if (x - >flag == 0) {
+    x - > compareValue = result;
 
-		saveValue += result;
-
-		post("storing to saveValue: current saveValue is %f", saveValue);
-
-	}
-
-	else if (x - >flag == 1) {
-
-		x - >compareValue = result;
-
-		post("compareValue: least cost path is %f", x - >compareValue);
-
-	}
-
+    post("compareValue: least cost path is %f", x - > compareValue);
+  }
 }
 
-void dtw_genMatrix(t_dynamicTW * x) {
+void dtw_genMatrix(t_dynamicTW *x) {
 
-	int i;
+  int i;
 
-	for (i = 0; i < SIZE_ARRAY; i++) {
+  for (i = 0; i < SIZE_ARRAY; i++) {
 
-		x - >initMatrix[i][0] = x - >storedSignalOne[i]; //populate the first column with signal 1 data points
+    x - > initMatrix[i][0] =
+        x - > storedSignalOne[i]; // populate the first column with signal 1
+                                  // data points
 
-		x - >initMatrix[0][i] = x - >storedSignalTwo[i]; //populate the last row with signal 2 data points
+    x - > initMatrix[0][i] =
+        x - >
+        storedSignalTwo[i]; // populate the last row with signal 2 data points
+  }
 
-	}
+  /* Calculates the Symmetrical distance for each matrix cell */
 
-	/* Calculates the Symmetrical distance for each matrix cell */
+  int z, y;
 
-	int z,
-	y;
+  for (z = 1; z < SIZE_ARRAY; z++) {
 
-	for (z = 1; z < SIZE_ARRAY; z++) {
+    for (y = 1; y < SIZE_ARRAY; y++) {
 
-		for (y = 1; y < SIZE_ARRAY; y++) {
+      float difference = x - > storedSignalOne[z] - x - > storedSignalTwo[y];
 
-			float difference = x - >storedSignalOne[z] - x - >storedSignalTwo[y];
+      x - > initMatrix[z][y] =
+          (float)pow(difference, 2); // finding the symmetrical distance
+    }
+  }
 
-			x - >initMatrix[z][y] = (float) pow(difference, 2); //finding the symmetrical distance
+  // initializing the costValues matrix
 
-		}
+  int ci, cj;
 
-	}
+  for (ci = 0; ci < SIZE_ARRAY - 1; ci++) {
 
-	//initializing the costValues matrix
+    for (cj = 0; cj < SIZE_ARRAY - 1; cj++) {
 
-	int ci,
-	cj;
+      x - > costValues[ci][cj].left = 0;
 
-	for (ci = 0; ci < SIZE_ARRAY - 1; ci++) {
+      x - > costValues[ci][cj].bottom = 0;
 
-		for (cj = 0; cj < SIZE_ARRAY - 1; cj++) {
+      x - > costValues[ci][cj].diag = 0;
+    }
+  }
 
-			x - >costValues[ci][cj].left = 0;
+  /* Calculates the cost of arrival from left, bottom, and diagonal */
 
-			x - >costValues[ci][cj].bottom = 0;
+  int q, r;
 
-			x - >costValues[ci][cj].diag = 0;
+  for (q = 0; q < SIZE_ARRAY - 1; q++) {
 
-		}
+    for (r = 0; r < SIZE_ARRAY - 1; r++) {
 
-	}
+      // no left, bottom, or diagonal values //========READ
+      // ME!!!!!==============change to init matrix + 1?
 
-	/* Calculates the cost of arrival from left, bottom, and diagonal */
+      if (q == 0 && r == 0) {
 
-	int q,
-	r;
+        x - > costValues[q][r].left = x - > initMatrix[q + 1][r + 1];
 
-	for (q = 0; q < SIZE_ARRAY - 1; q++) {
+        x - > costValues[q][r].bottom = x - > initMatrix[q + 1][r + 1];
 
-		for (r = 0; r < SIZE_ARRAY - 1; r++) {
+        x - > costValues[q][r].diag = x - > initMatrix[q + 1][r + 1];
 
-			//no left, bottom, or diagonal values //========READ ME!!!!!==============change to init matrix + 1?
+      }
 
-			if (q == 0 && r == 0) {
+      // if row is bottom there cant be any bottom values or diagonal so set
+      // left values only
 
-				x - >costValues[q][r].left = x - >initMatrix[q + 1][r + 1];
+      else if (q == 0) {
 
-				x - >costValues[q][r].bottom = x - >initMatrix[q + 1][r + 1];
+        if (r == 0) { //======READ | change to init matrix + 1 again
 
-				x - >costValues[q][r].diag = x - >initMatrix[q + 1][r + 1];
+          x - > costValues[q][r].left =
+              x - > initMatrix[q + 1][r + 1]; // no possible left values
 
-			}
+        }
 
-			//if row is bottom there cant be any bottom values or diagonal so set left values only
+        else {
 
-			else if (q == 0) {
+          x - > costValues[q][r].left =
+              x - >
+              initMatrix[q + 1][r + 1] +
+                  findMin(
+                      x, q,
+                      (r - 1)); //=========change to cost of current cell init
+                                //matrix + min of cost values of left cell
+        }
 
-				if (r == 0) { //======READ | change to init matrix + 1 again
+        x - > costValues[q][r].bottom = 1000 * 1000;
 
-					x - >costValues[q][r].left = x - >initMatrix[q + 1][r + 1]; //no possible left values
+        x - > costValues[q][r].diag = 1000 * 1000;
 
-				}
+      }
 
-				else {
+      // if column is left there cant be any left values or diagonal so set
+      // bottom values only
 
-					x - >costValues[q][r].left = x - >initMatrix[q + 1][r + 1] + findMin(x, q, (r - 1)); //=========change to cost of current cell init matrix + min of cost values of left cell
+      else if (r == 0) {
 
-				}
+        if (q == 0) {
 
-				x - >costValues[q][r].bottom = 1000 * 1000;
+          x - > costValues[q][r].bottom =
+              x - >
+              initMatrix[q + 1]
+                        [r + 1]; //======READ | change to init matrix + 1 again
 
-				x - >costValues[q][r].diag = 1000 * 1000;
+        }
 
-			}
+        else {
 
-			//if column is left there cant be any left values or diagonal so set bottom values only
+          x - > costValues[q][r].bottom =
+              x - >
+              initMatrix[q + 1][r + 1] +
+                  findMin(x, (q - 1),
+                          r); //=========change to cost of current cell init
+                              //matrix + min of cost values of left cell
+        }
 
-			else if (r == 0) {
+        x - > costValues[q][r].left = 1000 * 1000;
 
-				if (q == 0) {
+        x - > costValues[q][r].diag = 1000 * 1000;
 
-					x - >costValues[q][r].bottom = x - >initMatrix[q + 1][r + 1]; //======READ | change to init matrix + 1 again
+      }
 
-				}
+      // must have left, bottom, and diagonal values
 
-				else {
+      else {
 
-					x - >costValues[q][r].bottom = x - >initMatrix[q + 1][r + 1] + findMin(x, (q - 1), r); //=========change to cost of current cell init matrix + min of cost values of left cell
+        x - > costValues[q][r].left =
+            x - >
+            initMatrix[q + 1][r + 1] +
+                findMin(x, q, (r - 1)); // do current initMatrix value + min
 
-				}
+        x - > costValues[q][r].bottom =
+            x - > initMatrix[q + 1][r + 1] + findMin(x, (q - 1), r);
 
-				x - >costValues[q][r].left = 1000 * 1000;
+        x - > costValues[q][r].diag =
+            (.5 * x - > initMatrix[q + 1][r + 1]) +
+            findMin(x, (q - 1),
+                    (r - 1)); // diagonal movement needs to be favored
+      }
+    }
+  }
 
-				x - >costValues[q][r].diag = 1000 * 1000;
+  // int qq, rr;
 
-			}
+  // for(qq = 0; qq<SIZE_ARRAY-1; qq++){
 
-			//must have left, bottom, and diagonal values
+  // for(rr= 0; rr<SIZE_ARRAY-1; rr++){
 
-			else {
+  // post("index q:%d and r:%d", qq, rr);
 
-				x - >costValues[q][r].left = x - >initMatrix[q + 1][r + 1] + findMin(x, q, (r - 1)); //do current initMatrix value + min
+  // post("left: %f", x->costValues[qq][rr].left);
 
-				x - >costValues[q][r].bottom = x - >initMatrix[q + 1][r + 1] + findMin(x, (q - 1), r);
+  // post("bottom: %f", x->costValues[qq][rr].bottom);
 
-				x - >costValues[q][r].diag = (.5 * x - >initMatrix[q + 1][r + 1]) + findMin(x, (q - 1), (r - 1)); //diagonal movement needs to be favored
+  // post("bottomLeft: %f\n", x->costValues[qq][rr].diag);
 
-			}
+  // }
 
-		}
+  // }
 
-	}
-
-	// int qq, rr;
-
-	// for(qq = 0; qq<SIZE_ARRAY-1; qq++){
-
-	// for(rr= 0; rr<SIZE_ARRAY-1; rr++){
-
-	// post("index q:%d and r:%d", qq, rr);
-
-	// post("left: %f", x->costValues[qq][rr].left);
-
-	// post("bottom: %f", x->costValues[qq][rr].bottom);
-
-	// post("bottomLeft: %f\n", x->costValues[qq][rr].diag);
-
-	// }
-
-	// }
-
-	leastCostPath(x); //finds least cost path
-
+  leastCostPath(x); // finds least cost path
 }
 
 /* Function for when a bang is received
 
-* - Calculates the least cost path between input 1 and againts the other 3 signals
+* - Calculates the least cost path between input 1 and againts the other 3
+signals
 
 * - It is then averaged together and changes the flag value */
 
-void dtw_onBangMsg(t_dynamicTW * x) {
+void dtw_onBangMsg(t_dynamicTW *x) {
 
-	x - >match = 0;
+  x - > match = 0;
 
-	x - >flag = 0; //makes so that lcp value gets stored in lcpValue
+  x - > flag = 0; // makes so that lcp value gets stored in lcpValue
 
-	saveValue = 0.0;
+  saveValue = 0.0;
 
-	arr_position = SIZE_ARRAY - 1;
+  arr_position = SIZE_ARRAY - 1;
 
-	fileReader1(x, "C:\\Users\\Raki\\Documents\\GitHub\\dynamicTW\\TB\\input1.txt"); // read signal 1
+  fileReader1(
+      x, "C:\\Users\\Raki\\Documents\\GitHub\\dynamicTW\\TB\\input1.txt"); // read
+                                                                           // signal
+                                                                           // 1
 
-	fileReader2(x, "C:\\Users\\Raki\\Documents\\GitHub\\dynamicTW\\TB\\input2.txt"); // read signal 2
+  fileReader2(
+      x, "C:\\Users\\Raki\\Documents\\GitHub\\dynamicTW\\TB\\input2.txt"); // read
+                                                                           // signal
+                                                                           // 2
 
-	dtw_genMatrix(x); //perform DTW
+  dtw_genMatrix(x); // perform DTW
 
-	fileReader2(x, "C:\\Users\\Raki\\Documents\\GitHub\\dynamicTW\\TB\\input3.txt");
+  fileReader2(x,
+              "C:\\Users\\Raki\\Documents\\GitHub\\dynamicTW\\TB\\input3.txt");
 
-	dtw_genMatrix(x);
+  dtw_genMatrix(x);
 
-	fileReader2(x, "C:\\Users\\Raki\\Documents\\GitHub\\dynamicTW\\TB\\input4.txt");
+  fileReader2(x,
+              "C:\\Users\\Raki\\Documents\\GitHub\\dynamicTW\\TB\\input4.txt");
 
-	dtw_genMatrix(x);
+  dtw_genMatrix(x);
 
-	saveValue = saveValue / 3;
+  saveValue = saveValue / 3;
 
-	post("saveValue: Least Cost Path is %f", saveValue);
+  post("saveValue: Least Cost Path is %f", saveValue);
 
-	triggerGlobal = 1;
-
+  triggerGlobal = 1;
 }
 
-void dtw_free(t_dynamicTW * x) {
+void dtw_free(t_dynamicTW *x) {
 
-	inlet_free(x - >in_mod_A);
+  inlet_free(x - > in_mod_A);
 
-	inlet_free(x - >in_mod_B);
+  inlet_free(x - > in_mod_B);
 
-	outlet_free(x - >out_A);
-
+  outlet_free(x - > out_A);
 }
 
-void dtw_onSet_A(t_dynamicTW * x, t_floatarg f) {
-	/*function that gets called when an input is received */
+void dtw_onSet_A(t_dynamicTW *x, t_floatarg f) {
+  /*function that gets called when an input is received */
 
-	clock_t t;
+  clock_t t;
 
-	if (triggerGlobal == 0) {
+  if (triggerGlobal == 0) {
 
-		/*do nothing*/
+    /*do nothing*/
+  }
 
-	}
+  // Sleep(2);
 
-	//Sleep(2);
+  post("Number A: %f sending to array. Arr_position is %d", f, arr_position);
 
-	post("Number A: %f sending to array. Arr_position is %d", f, arr_position);
+  post("Delay Time: %f", delayTime);
 
-	post("Delay Time: %f", delayTime);
+  if (x - > match == 1) {
 
-	if (x - >match == 1) {
+    post("Match has been detected. Freezing Program!");
 
-		post("Match has been detected. Freezing Program!");
+  }
 
-	}
+  else if (x - > match == 0) {
 
-	else if (x - >match == 0) {
+    if (arr_position >= 0) { // checks if array is filled. If not then store
+                             // incoming value to next index
 
-		if (arr_position >= 0) { //checks if array is filled. If not then store incoming value to next index
+      x - > signal[arr_position] = f;
 
-			x - >signal[arr_position] = f;
+      arr_position--;
 
-			arr_position--;
+    }
 
-		}
+    else { // If array is filled shift all values by 1 index and store at
+           // beginning of array
 
-		else { //If array is filled shift all values by 1 index and store at beginning of array
+      t = clock();
 
-			t = clock();
+      int i;
 
-			int i;
+      x - > flag = 1; // makes it so that LCP result is stored in compared
+                      // Value;
 
-			x - >flag = 1; //makes it so that LCP result is stored in compared Value;
+      for (i = SIZE_ARRAY - 1; i > 0; i--) {
 
-			for (i = SIZE_ARRAY - 1; i > 0; i--) {
+        x - > signal[i] = x - > signal[i - 1];
+      }
 
-				x - >signal[i] = x - >signal[i - 1];
+      x - > signal[0] = f;
 
-			}
+      replaceSignal2(x); // replaces the value in signal 2
 
-			x - >signal[0] = f;
+      reverseArray(x);
 
-			replaceSignal2(x); //replaces the value in signal 2
+      dtw_genMatrix(x); // performs dtw
 
-			reverseArray(x);
+      t = clock() - t;
 
-			dtw_genMatrix(x); //performs dtw
+      double time_taken = ((double)t) / CLOCKS_PER_SEC; // in seconds
 
-			t = clock() - t;
+      post("DTW took %f seconds to execute", time_taken);
 
-			double time_taken = ((double) t) / CLOCKS_PER_SEC; // in seconds
+      signalMatch(x); // checks is the signal is correct if it is trigger effect
 
-			post("DTW took %f seconds to execute", time_taken);
+      // if(time_taken == .002){
 
-			signalMatch(x); //checks is the signal is correct if it is trigger effect
+      // Sleep(8);
 
-			// if(time_taken == .002){
+      // }
 
-			// Sleep(8);
+      // else if (time_taken == .001){
 
-			// }
+      // Sleep(9);
 
-			// else if (time_taken == .001){
-
-			// Sleep(9);
-
-			// }
-
-		}
-
-	}
-
+      // }
+    }
+  }
 }
 
-void dtw_onSet_B(t_dynamicTW * x, t_floatarg f) {
+void dtw_onSet_B(t_dynamicTW *x, t_floatarg f) { delayTime = f; }
 
-	delayTime = f;
+// initializer for the class
 
+void *dynamicTW_new(t_floatarg f1,
+                    t_floatarg f2) { // parenth contains creation arg. temp
+                                     // stuff will replaced with arrays
+
+  t_dynamicTW *x =
+      (t_dynamicTW *)pd_new(dynamicTW_class); // initialize struct of type dtw
+
+  x - > in_mod_A =
+      inlet_new(&x - > x_obj, &x - > x_obj.ob_pd, &s_float, gensym("ratio_A"));
+
+  x - > in_mod_B =
+      inlet_new(&x - > x_obj, &x - > x_obj.ob_pd, &s_float, gensym("ratio_B"));
+
+  x - > out_A = outlet_new(&x - > x_obj, &s_bang);
+
+  return (void *)x;
 }
 
-//initializer for the class
-
-void * dynamicTW_new(t_floatarg f1, t_floatarg f2) { //parenth contains creation arg. temp stuff will replaced with arrays
-
-	t_dynamicTW * x = (t_dynamicTW * ) pd_new(dynamicTW_class); //initialize struct of type dtw
-
-	x - >in_mod_A = inlet_new( & x - >x_obj, &x - >x_obj.ob_pd, &s_float, gensym("ratio_A"));
-
-	x - >in_mod_B = inlet_new( & x - >x_obj, &x - >x_obj.ob_pd, &s_float, gensym("ratio_B"));
-
-	x - >out_A = outlet_new( & x - >x_obj, &s_bang);
-
-	return (void * ) x;
-
-}
-
-//function to set up the class and call initializer
+// function to set up the class and call initializer
 
 void dynamicTW_setup(void) {
 
-	/*class_new(t_symbol *name, t_newmethod newmethod,
+  /*class_new(t_symbol *name, t_newmethod newmethod,
 
 t_method freemethod, size_t size, int flags, t_atomtype arg1, ...); */
 
-	dynamicTW_class = class_new(gensym("dynamicTW"), //defines the symbol in puredata
+  dynamicTW_class =
+      class_new(gensym("dynamicTW"), // defines the symbol in puredata
 
-	(t_newmethod) dynamicTW_new, //inializing method
+                (t_newmethod)dynamicTW_new, // inializing method
 
-	(t_method) dtw_free,
+                (t_method)dtw_free,
 
-	sizeof(t_dynamicTW),
+                sizeof(t_dynamicTW),
 
-	CLASS_DEFAULT, //makes the box
+                CLASS_DEFAULT, // makes the box
 
-	A_DEFFLOAT,
+                A_DEFFLOAT,
 
-	A_DEFFLOAT,
+                A_DEFFLOAT,
 
-	0);
+                0);
 
-	class_addbang(dynamicTW_class, (t_method) dtw_onBangMsg);
+  class_addbang(dynamicTW_class, (t_method)dtw_onBangMsg);
 
-	class_addmethod(dynamicTW_class,
+  class_addmethod(dynamicTW_class,
 
-	(t_method) dtw_onSet_A,
+                  (t_method)dtw_onSet_A,
 
-	gensym("ratio_A"),
+                  gensym("ratio_A"),
 
-	A_DEFFLOAT,
+                  A_DEFFLOAT,
 
-	0);
+                  0);
 
-	class_addmethod(dynamicTW_class,
+  class_addmethod(dynamicTW_class,
 
-	(t_method) dtw_onSet_B,
+                  (t_method)dtw_onSet_B,
 
-	gensym("ratio_B"),
+                  gensym("ratio_B"),
 
-	A_DEFFLOAT,
+                  A_DEFFLOAT,
 
-	0);
-
+                  0);
 }
 
-Pure Data Header File:
+Pure Data Header File :
 
 /* Copyright (c) 1997-1999 Miller Puckette.
-* For information on usage and redistribution, and for a DISCLAIMER OF ALL
-* WARRANTIES, see the file, "LICENSE.txt," in this distribution. */
+ * For information on usage and redistribution, and for a DISCLAIMER OF ALL
+ * WARRANTIES, see the file, "LICENSE.txt," in this distribution. */
 
 #ifndef __m_pd_h_
 
 #
-if defined(_LANGUAGE_C_PLUS_PLUS) || defined(__cplusplus) extern "C" {#endif
+    if defined (_LANGUAGE_C_PLUS_PLUS) ||
+    defined(__cplusplus) extern "C" {
+#endif
 
-	#define PD_MAJOR_VERSION 0#define PD_MINOR_VERSION 48#define PD_BUGFIX_VERSION 1#define PD_TEST_VERSION ""
-	extern int pd_compatibilitylevel;
-	/* e.g., 43 for pd 0.43 compatibility */
+#define PD_MAJOR_VERSION                                                            \
+  0 #define PD_MINOR_VERSION 48 #define PD_BUGFIX_VERSION 1 #define PD_TEST_VERSION \
+      ""
+      extern int pd_compatibilitylevel;
+/* e.g., 43 for pd 0.43 compatibility */
 
-	/* old name for "MSW" flag -- we have to take it for the sake of many old
+/* old name for "MSW" flag -- we have to take it for the sake of many old
 "nmakefiles" for externs, which will define NT and not MSW */
-	#
-	if defined(NT) && !defined(MSW)#define MSW#endif
+#
+  if defined (NT)
+    &&!defined(MSW) #define MSW #endif
 
-	/* These pragmas are only used for MSVC, not MinGW or Cygwin <hans@at.or.at> */
-	#ifdef _MSC_VER
-	/* #pragma warning( disable : 4091 ) */
-	#pragma warning(disable: 4305)
-	/* uncast const double to float */
-	#pragma warning(disable: 4244)
-	/* uncast float/int conversion etc. */
-	#pragma warning(disable: 4101)
-	/* unused automatic variables */
-	#endif
-	/* _MSC_VER */
+/* These pragmas are only used for MSVC, not MinGW or Cygwin <hans@at.or.at> */
+#ifdef _MSC_VER
+/* #pragma warning( disable : 4091 ) */
+#pragma warning(disable : 4305)
+/* uncast const double to float */
+#pragma warning(disable : 4244)
+/* uncast float/int conversion etc. */
+#pragma warning(disable : 4101)
+/* unused automatic variables */
+#endif
+/* _MSC_VER */
 
-	/* the external storage class is "extern" in UNIX; in MSW it's ugly. */
-	#ifdef _WIN32#ifdef PD_INTERNAL#define EXTERN __declspec(dllexport) extern#
-	else#define EXTERN __declspec(dllimport) extern#endif
-	/* PD_INTERNAL */
-	#
-	else#define EXTERN extern#endif
-	/* _WIN32 */
+/* the external storage class is "extern" in UNIX; in MSW it's ugly. */
+#ifdef _WIN32 #ifdef PD_INTERNAL #define EXTERN __declspec(dllexport) extern #
+        else #define EXTERN __declspec(dllimport) extern #endif
+/* PD_INTERNAL */
+#
+        else #define EXTERN extern #endif
+/* _WIN32 */
 
-	/* On most c compilers, you can just say "struct foo;" to declare a
+/* On most c compilers, you can just say "struct foo;" to declare a
 structure whose elements are defined elsewhere. On MSVC, when compiling
 C (but not C++) code, you have to say "extern struct foo;". So we make
 a stupid macro: */
-	#
-	if defined(_MSC_VER) && !defined(_LANGUAGE_C_PLUS_PLUS)\ && !defined(__cplusplus)#define EXTERN_STRUCT extern struct#
-	else#define EXTERN_STRUCT struct#endif
+#
+        if defined (_MSC_VER) &&
+        !defined(_LANGUAGE_C_PLUS_PLUS)\ &&
+        !defined(__cplusplus) #define EXTERN_STRUCT extern struct
+        #else #define EXTERN_STRUCT struct #endif
 
-	/* Define some attributes, specific to the compiler */
-	#
-	if defined(__GNUC__)#define ATTRIBUTE_FORMAT_PRINTF(a, b) __attribute__((format(printf, a, b)))#
-	else#define ATTRIBUTE_FORMAT_PRINTF(a, b)#endif
+/* Define some attributes, specific to the compiler */
+#
+        if defined (__GNUC__) #define ATTRIBUTE_FORMAT_PRINTF(a, b)
+            __attribute__((format(
+                printf, a, b))) #else #define ATTRIBUTE_FORMAT_PRINTF(a,
+                                                                      b) #endif
 
-	#
-	if ! defined(_SIZE_T) && !defined(_SIZE_T_)#include < stddef.h >
-	/* just for size_t -- how lame! */
-	#endif
+#
+        if !defined(_SIZE_T) &&
+        !defined(_SIZE_T_) #include<stddef.h>
+/* just for size_t -- how lame! */
+#endif
 
-	/* Microsoft Visual Studio is not C99, it does not provide stdint.h */
-	#ifdef _MSC_VER
-	typedef signed __int8 int8_t;
-	typedef signed __int16 int16_t;
-	typedef signed __int32 int32_t;
-	typedef signed __int64 int64_t;
-	typedef unsigned __int8 uint8_t;
-	typedef unsigned __int16 uint16_t;
-	typedef unsigned __int32 uint32_t;
-	typedef unsigned __int64 uint64_t;#
-	else#include < stdint.h > #endif
+/* Microsoft Visual Studio is not C99, it does not provide stdint.h */
+#ifdef _MSC_VER
+        typedef signed __int8 int8_t;
+  typedef signed __int16 int16_t;
+  typedef signed __int32 int32_t;
+  typedef signed __int64 int64_t;
+  typedef unsigned __int8 uint8_t;
+  typedef unsigned __int16 uint16_t;
+  typedef unsigned __int32 uint32_t;
+  typedef unsigned __int64 uint64_t;
+#else #include <
+          stdint.h> #endif
 
-	/* for FILE, needed by sys_fopen() and sys_fclose() only */
-	#include < stdio.h >
+/* for FILE, needed by sys_fopen() and sys_fclose() only */
+#include < stdio.h >
 
-	#define MAXPDSTRING 1000
-	/* use this for anything you want */
-	#define MAXPDARG 5
-	/* max number of args we can typecheck today */
+#define MAXPDSTRING 1000
+/* use this for anything you want */
+#define MAXPDARG 5
+/* max number of args we can typecheck today */
 
-	/* signed and unsigned integer types the size of a pointer: */
-	#
-	if ! defined(PD_LONGINTTYPE)#define PD_LONGINTTYPE long#endif
+/* signed and unsigned integer types the size of a pointer: */
+#
+          if !defined(PD_LONGINTTYPE) #define PD_LONGINTTYPE long #endif
 
-	#
-	if ! defined(PD_FLOATSIZE)
-	/* normally, our floats (t_float, t_sample,...) are 32bit */
-	#define PD_FLOATSIZE 32#endif
+#
+          if !defined(PD_FLOATSIZE)
+/* normally, our floats (t_float, t_sample,...) are 32bit */
+#define PD_FLOATSIZE 32 #endif
 
-	#
-	if PD_FLOATSIZE == 32#define PD_FLOATTYPE float
-	/* an unsigned int of the same size as FLOATTYPE: */
-	#define PD_FLOATUINTTYPE unsigned int
+#
+              if PD_FLOATSIZE ==
+      32 #define PD_FLOATTYPE float
+/* an unsigned int of the same size as FLOATTYPE: */
+#define PD_FLOATUINTTYPE unsigned int
 
-	#elif PD_FLOATSIZE == 64#define PD_FLOATTYPE double#define PD_FLOATUINTTYPE unsigned long#
+#elif PD_FLOATSIZE ==                                                          \
+    64 #define PD_FLOATTYPE double #define PD_FLOATUINTTYPE unsigned long #
 	else#error invalid FLOATSIZE: must be 32 or 64#endif
 
 	typedef PD_LONGINTTYPE t_int;
@@ -1155,11 +1134,11 @@ around after the glist or array is freed. The stub itself is deleted when
 both the glist/array is gone and the refcount is zero, ensuring that no
 gpointers are pointing here. */
 
-	#define GP_NONE 0
+#define GP_NONE 0
 	/* the stub points nowhere (has been cut off) */
-	#define GP_GLIST 1
+#define GP_GLIST 1
 	/* the stub points to a glist element */
-	#define GP_ARRAY 2
+#define GP_ARRAY 2
 	/* ... or array */
 
 	typedef struct _gstub {
@@ -1220,7 +1199,7 @@ gpointers are pointing here. */
 	}
 	t_atomtype;
 
-	#define A_DEFSYMBOL A_DEFSYM
+#define A_DEFSYMBOL A_DEFSYM
 	/* better name for this */
 
 	typedef struct _atom {
@@ -1290,22 +1269,24 @@ gpointers are pointing here. */
 	}
 	t_text;
 
-	#define T_TEXT 0
+#define T_TEXT 0
 	/* just a textual comment */
-	#define T_OBJECT 1
+#define T_OBJECT 1
 	/* a MAX style patchable object */
-	#define T_MESSAGE 2
+#define T_MESSAGE 2
 	/* a MAX type message */
-	#define T_ATOM 3
+#define T_ATOM 3
 	/* a cell to display a number or symbol */
 
-	#define te_pd te_g.g_pd
+#define te_pd te_g.g_pd
 
 	/* t_object is synonym for t_text (LATER unify them) */
 
 	typedef struct _text t_object;
 
-	#define ob_outlet te_outlet#define ob_inlet te_inlet#define ob_binbuf te_binbuf#define ob_pd te_g.g_pd#define ob_g te_g
+#define ob_outlet                                                              \
+  te_outlet #define ob_inlet te_inlet #define ob_binbuf                        \
+      te_binbuf #define ob_pd te_g.g_pd #define ob_g te_g
 
 	typedef void( * t_method)(void);
 	typedef void * ( * t_newmethod)(void);
@@ -1315,7 +1296,7 @@ from a fixed one, so in that special case we make a more restrictive
 definition for t_gotfn. This will break some code in the "chaos" package
 in Pd extended. (that code will run incorrectly anyhow so why not catch it
 at compile time anyhow.) */
-	#
+#
 	if defined(__APPLE__) && defined(__aarch64__) typedef void( * t_gotfn)(void * x);#
 	else typedef void( * t_gotfn)(void * x, ...);#endif
 
@@ -1338,7 +1319,7 @@ at compile time anyhow.) */
 using function lookup but circumventing type checking on arguments. Only
 use for internal messaging protected by A_CANT so that the message can't
 be generated at patch level. */
-	#define mess0(x, s)(( * getfn((x), (s)))((x)))
+#define mess0(x, s) ((*getfn((x), (s)))((x)))
 	typedef void( * t_gotfn1)(void * x, void * arg1);#define mess1(x, s, a)(( * (t_gotfn1) getfn((x), (s)))((x), (a)))
 	typedef void( * t_gotfn2)(void * x, void * arg1, void * arg2);#define mess2(x, s, a, b)(( * (t_gotfn2) getfn((x), (s)))((x), (a), (b)))
 	typedef void( * t_gotfn3)(void * x, void * arg1, void * arg2, void * arg3);#define mess3(x, s, a, b, c)(( * (t_gotfn3) getfn((x), (s)))((x), (a), (b), (c)))
@@ -1357,7 +1338,24 @@ be generated at patch level. */
 
 	/* -------------------- atoms ----------------------------- */
 
-	#define SETSEMI(atom)((atom) - >a_type = A_SEMI, (atom) - >a_w.w_index = 0)#define SETCOMMA(atom)((atom) - >a_type = A_COMMA, (atom) - >a_w.w_index = 0)#define SETPOINTER(atom, gp)((atom) - >a_type = A_POINTER, \ (atom) - >a_w.w_gpointer = (gp))#define SETFLOAT(atom, f)((atom) - >a_type = A_FLOAT, (atom) - >a_w.w_float = (f))#define SETSYMBOL(atom, s)((atom) - >a_type = A_SYMBOL, \ (atom) - >a_w.w_symbol = (s))#define SETDOLLAR(atom, n)((atom) - >a_type = A_DOLLAR, \ (atom) - >a_w.w_index = (n))#define SETDOLLSYM(atom, s)((atom) - >a_type = A_DOLLSYM, \ (atom) - >a_w.w_symbol = (s))
+#define SETSEMI(atom)                                                          \
+  ((atom) - > a_type = A_SEMI, (atom) - > a_w.w_index = 0) #define SETCOMMA(   \
+      atom)((atom) - > a_type = A_COMMA,                                       \
+            (atom) - > a_w.w_index = 0) #define SETPOINTER(atom,               \
+                                                           gp)(                \
+      (atom) - > a_type = A_POINTER, \ (atom) - > a_w.w_gpointer =             \
+                                         (gp)) #define SETFLOAT(atom,          \
+                                                                f)(            \
+      (atom) - > a_type = A_FLOAT,                                             \
+      (atom) - > a_w.w_float = (f)) #define SETSYMBOL(atom,                    \
+                                                      s)(                      \
+      (atom) - > a_type = A_SYMBOL, \ (atom) - > a_w.w_symbol =                \
+                                        (s)) #define SETDOLLAR(atom,           \
+                                                               n)(             \
+      (atom) - > a_type = A_DOLLAR, \ (atom) - > a_w.w_index =                 \
+                                        (n)) #define SETDOLLSYM(atom,          \
+                                                                s)(            \
+      (atom) - > a_type = A_DOLLSYM, \ (atom) - > a_w.w_symbol = (s))
 
 	EXTERN t_float atom_getfloat(t_atom * a);
 	EXTERN t_int atom_getint(t_atom * a);
@@ -1483,11 +1481,12 @@ be generated at patch level. */
 
 	/* -------------------- classes -------------- */
 
-	#define CLASS_DEFAULT 0
+#define CLASS_DEFAULT 0
 	/* flags for new classes below */
-	#define CLASS_PD 1#define CLASS_GOBJ 2#define CLASS_PATCHABLE 3#define CLASS_NOINLET 8
+#define CLASS_PD                                                               \
+  1 #define CLASS_GOBJ 2 #define CLASS_PATCHABLE 3 #define CLASS_NOINLET 8
 
-	#define CLASS_TYPEMASK 3
+#define CLASS_TYPEMASK 3
 
 	EXTERN t_class * class_new(t_symbol * name, t_newmethod newmethod, t_method freemethod, size_t size, int flags, t_atomtype arg1, ...);
 	EXTERN void class_addcreator(t_newmethod newmethod, t_symbol * s, t_atomtype type1, ...);
@@ -1523,7 +1522,13 @@ be generated at patch level. */
 	EXTERN void class_setpropertiesfn(t_class * c, t_propertiesfn f);
 	EXTERN t_propertiesfn class_getpropertiesfn(t_class * c);
 
-	#ifndef PD_CLASS_DEF#define class_addbang(x, y) class_addbang((x), (t_method)(y))#define class_addpointer(x, y) class_addpointer((x), (t_method)(y))#define class_addfloat(x, y) class_doaddfloat((x), (t_method)(y))#define class_addsymbol(x, y) class_addsymbol((x), (t_method)(y))#define class_addlist(x, y) class_addlist((x), (t_method)(y))#define class_addanything(x, y) class_addanything((x), (t_method)(y))#endif
+#ifndef PD_CLASS_DEF #define class_addbang(x, y) class_addbang(                \
+    (x), (t_method)(y)) #define class_addpointer(x, y)                         \
+    class_addpointer((x), (t_method)(y)) #define class_addfloat(x, y)          \
+        class_doaddfloat((x), (t_method)(y)) #define class_addsymbol(x, y)     \
+            class_addsymbol((x), (t_method)(y)) #define class_addlist(x, y)    \
+                class_addlist((x), (t_method)(y)) #define class_addanything(   \
+                    x, y) class_addanything((x), (t_method)(y)) #endif
 
 	/* ------------ printing --------------------------------- */
 	EXTERN void post(const char * fmt, ...);
@@ -1728,19 +1733,21 @@ pointing to the messlist and not vice versa. Externs shouldn't feel it. */
 	t_atomtype arg1, ...);
 	EXTERN void c_addmess(t_method fn, t_symbol * sel, t_atomtype arg1, ...);
 
-	#define t_getbytes getbytes#define t_freebytes freebytes#define t_resizebytes resizebytes#define typedmess pd_typedmess#define vmess pd_vmess
+#define t_getbytes                                                             \
+  getbytes #define t_freebytes freebytes #define t_resizebytes                 \
+      resizebytes #define typedmess pd_typedmess #define vmess pd_vmess
 
 	/* A definition to help gui objects straddle 0.34-0.35 changes. If this is
 defined, there is a "te_xpix" field in objects, not a "te_xpos" as before: */
 
-	#define PD_USE_TE_XPIX
+#define PD_USE_TE_XPIX
 
-	#ifndef _MSC_VER
+#ifndef _MSC_VER
 	/* Microoft compiler can't handle "inline" function/macros */
-	#
+#
 	if defined(__i386__) || defined(__x86_64__) || defined(__arm__)
 	/* a test for NANs and denormals. Should only be necessary on i386. */
-	#
+#
 	if PD_FLOATSIZE == 32
 
 	typedef union {
@@ -1766,7 +1773,7 @@ defined, there is a "te_xpix" field in objects, not a "te_xpos" as before: */
 		return ((pun.ui & 0x20000000) == ((pun.ui >> 1) & 0x20000000));
 	}
 
-	#elif PD_FLOATSIZE == 64
+#elif PD_FLOATSIZE == 64
 
 	typedef union {
 		t_float f;
@@ -1791,23 +1798,28 @@ defined, there is a "te_xpix" field in objects, not a "te_xpos" as before: */
 		return ((pun.ui[1] & 0x20000000) == ((pun.ui[1] >> 1) & 0x20000000));
 	}
 
-	#endif
+#endif
 	/* PD_FLOATSIZE */
-	#
+#
 	else
 	/* not INTEL or ARM */
-	#define PD_BADFLOAT(f) 0#define PD_BIGORSMALL(f) 0#endif
+#define PD_BADFLOAT(f) 0 #define PD_BIGORSMALL(f) 0 #endif
 
-	#
+#
 	else
 	/* _MSC_VER */
-	#
+#
 	if PD_FLOATSIZE == 32#define PD_BADFLOAT(f)(((( * (unsigned int * ) & (f)) & 0x7f800000) == 0) || \ ((( * (unsigned int * ) & (f)) & 0x7f800000) == 0x7f800000))
 	/* more stringent test: anything not between 1e-19 and 1e19 in absolute val */
-	#define PD_BIGORSMALL(f)(((( * (unsigned int * ) & (f)) & 0x60000000) == 0) || \ ((( * (unsigned int * ) & (f)) & 0x60000000) == 0x60000000))#
+#define PD_BIGORSMALL(f)                                                       \
+  ((((*(unsigned int *)&(f)) & 0x60000000) ==                                  \
+    0) || \ (((*(unsigned int *)&(f)) & 0x60000000) == 0x60000000)) #
 	else
 	/* 64 bits... don't know what to do here */
-	#define PD_BADFLOAT(f)(!(((f) >= 0) || ((f) <= 0)))#define PD_BIGORSMALL(f)((f) > 1e150 || (f) < -1e150\ || (f) > -1e-150 && (f) < 1e-150)#endif#endif
+#define PD_BADFLOAT(f)                                                         \
+  (!(((f) >= 0) || ((f) <= 0))) #define PD_BIGORSMALL(f)(                      \
+      (f) > 1e150 || (f) < -1e150\ ||                                          \
+      (f) > -1e-150 && (f) < 1e-150) #endif #endif
 	/* _MSC_VER */
 	/* get version number at run time */
 	EXTERN void sys_getversion(int * major, int * minor, int * bugfix);
@@ -1822,7 +1834,7 @@ defined, there is a "te_xpix" field in objects, not a "te_xpos" as before: */
 
 	EXTERN_STRUCT _instancestuff;#define t_instancestuff struct _instancestuff
 
-	#ifndef PDTHREADS#define PDTHREADS 1#endif
+#ifndef PDTHREADS #define PDTHREADS 1 #endif
 
 	struct _pdinstance {
 		double pd_systime;
@@ -1847,7 +1859,7 @@ defined, there is a "te_xpix" field in objects, not a "te_xpos" as before: */
 		/* semi-private stuff in s_stuff.h */
 		t_pd * pd_newest;
 		/* most recently created object */
-		#ifdef PDINSTANCE
+#ifdef PDINSTANCE
 		t_symbol pd_s_pointer;
 		t_symbol pd_s_float;
 		t_symbol pd_s_symbol;
@@ -1865,24 +1877,31 @@ defined, there is a "te_xpix" field in objects, not a "te_xpos" as before: */
 	EXTERN t_pdinstance pd_maininstance;
 
 	/* m_pd.c */
-	#ifdef PDINSTANCE
+#ifdef PDINSTANCE
 	EXTERN t_pdinstance * pdinstance_new(void);
 	EXTERN void pd_setinstance(t_pdinstance * x);
 	EXTERN void pdinstance_free(t_pdinstance * x);#endif
 	/* PDINSTANCE */
 
-	#
+#
 	if defined(PDTHREADS) && defined(PDINSTANCE)#define PERTHREAD __thread#
 	else#define PERTHREAD#endif
 
-	#ifdef PDINSTANCE
+#ifdef PDINSTANCE
 	EXTERN PERTHREAD t_pdinstance * pd_this;
 	EXTERN t_pdinstance * *pd_instances;
 	EXTERN int pd_ninstances;#
 	else#define pd_this( & pd_maininstance)#endif
 	/* PDINSTANCE */
 
-	#ifdef PDINSTANCE#define s_pointer(pd_this - >pd_s_pointer)#define s_float(pd_this - >pd_s_float)#define s_symbol(pd_this - >pd_s_symbol)#define s_bang(pd_this - >pd_s_bang)#define s_list(pd_this - >pd_s_list)#define s_anything(pd_this - >pd_s_anything)#define s_signal(pd_this - >pd_s_signal)#define s__N(pd_this - >pd_s__N)#define s__X(pd_this - >pd_s__X)#define s_x(pd_this - >pd_s_x)#define s_y(pd_this - >pd_s_y)#define s_(pd_this - >pd_s_)#
+#ifdef PDINSTANCE #define s_pointer(pd_this - > pd_s_pointer) #define s_float(                                                                                                                                                                                                                                                                           \
+    pd_this -                                                                                                                                                                                                                                                                                                                                            \
+    > pd_s_float) #define s_symbol(pd_this -                                                                                                                                                                                                                                                                                                             \
+                                   > pd_s_symbol) #define s_bang(pd_this - >                                                                                                                                                                                                                                                                             \
+                                                                 pd_s_bang) #define s_list(pd_this - > pd_s_list) #define s_anything(pd_this - > pd_s_anything) #define s_signal(pd_this - > pd_s_signal) #define s__N(pd_this - > pd_s__N) #define s__X(pd_this -                                                                                       \
+                                                                                                                                                                                                                                                         > pd_s__X) #define s_x(pd_this - > pd_s_x) #define s_y(pd_this - > pd_s_y) #define s_(pd_this - \
+                                                                                                                                                                                                                                                                                                                                               >         \
+                                                                                                                                                                                                                                                                                                                                               pd_s_) #
 	else EXTERN t_symbol s_pointer,
 	s_float,
 	s_symbol,
@@ -1899,9 +1918,9 @@ defined, there is a "te_xpix" field in objects, not a "te_xpos" as before: */
 	EXTERN t_canvas * pd_getcanvaslist(void);
 	EXTERN int pd_getdspstate(void);
 
-	#
+#
 	if defined(_LANGUAGE_C_PLUS_PLUS) || defined(__cplusplus)
 }#endif
 
-#define __m_pd_h_#endif
+#define __m_pd_h_ #endif
 /* __m_pd_h_ */

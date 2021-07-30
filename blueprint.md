@@ -1,14 +1,14 @@
 Triggered Guitar Effects Platform
 
- 
 
-DTW  Audio Sub Sequence Matching for Autonomus Audio Control Actions
 
- 
+DTW Audio Sub Sequence Matching for Autonomus Audio Control Actions
+
+
 
 ![](Final%20Report%20SP2_files/image001.gif)
 
- 
+
 
 ## Team Members:
 
@@ -18,61 +18,61 @@ Haley Scott
 
 Ralph Quinto
 
- 
+
 
 Primary Advisor: Dr. Ambrose Adegbege
 
 May, 2018
 
- 
+
 
 Acknowledgements
 
 The team would like to thank Dr. Ambrose Adegbege for his input and enthusiasm towards tackling our design challenges. We would also like thank Dr. Larry Pearlstein for his guidance and suggestion of Dynamic Time Warping. In addition, our team thanks Mihir Beg for his consultation on MIDI transcription and suggestion of Pure Data.
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
-* * * * *
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
 
 Abstract
 
 In live performance, guitar effect pedals are a versatile yet limiting asset. They require presence of mind on the part of the performer, and restrict the performer to the area of the stage in which the pedal board is located. These constraints limit the performance quality and stage presence by splitting the performers focus. This project proposes an automatic solution to the restrictions that guitar effect pedals present. The performer will record the primary performances into the proposed software, which will analyze and store the sequential frequencies. The performer will then utilize the software during a subsequent live performance, to trigger effects when preceding frequencies of the live performance are recognized against the first performance. This platform is realized through the use of Pure Data, a GUI (Graphical User Interface) for audio manipulation applications. Our team has designed an application that implements dynamic time warping (DTW) in order to compare the first performances against the live performance. The system compares MIDI data using the dynamic time warping distance threshold, opposed to the Euclidean distance threshold, making it a robust approach to mitigating live performance error.
 
- 
 
- 
+
+
 
 **Keywords: Pure Data, Dynamic Time Warping**
 
-* * * * *
+---
 
- 
+
 
 Contents
 
@@ -154,7 +154,7 @@ Specifications...........7
 
 6.3 Expectations and Modifications.......38
 
- 
+
 
 Appendices:
 
@@ -162,19 +162,19 @@ Appendix A: Project Overview
 
 Appendix B: Project Management
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
+
+
+
+
+
+
+
 
 Nomenclature
 
@@ -190,45 +190,45 @@ The alternate approach is the implementation of a frequency counting algorithm. 
 
 Throughout this report, our team presents the methods instated in our current project, as well as the next steps in the design and modification process. A more in-depth description of the two aforementioned methods is given, including both the pros and cons of each.
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
+
+
+
+
+
+
+
+
+
+
 
 Specifications
 
 The project was designed to make integration as seamless as possible with current guitar setups. Minimizing the delay between the performance and effect triggering is crucial so that musicians are not thrown off by the offset. Based on the research that our team has completed, the threshold of our system was set to have a maximum trigger latency of 1 second. Anything longer would be too disruptive to the performance. Another crucial specification is having a sampling rate twice as large as the fundamental frequencies of the guitar. For electric guitars, frequencies range from 80 Hz to nearly 400Hz. The software utilized in this project has a default sampling rate of 44,100 Hz, which is more than enough to satisfy the Nyquist criteria. In addition, having many guitar effects offers great versatility to a performance. The group has set a goal to implement three different guitar effects along with the completion of our system.
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
+
+
+
+
+
+
+
+
 
 1.0 Chapter 1: Background
 
@@ -248,9 +248,9 @@ In order to accurately trigger effects based on an audio signal, one must accura
 
 Preliminary research on this project focused on accurate transcription techniques that could be used to create a profile for each song that was so accurate that subsequent performances could be compared within certain tolerances on a nearly note-for-note basis. Eventually, it became apparent that this methodology was fraught with pitfalls. The most obvious is that these analysis techniques are complex and computationally expensive. The next challenge was that even if the features could be accurately extrapolated, how could they be combined in real time for a comparison? It became apparent that most techniques did not account for large differences in tempo between performances or even moments of silence in the guitar signal. While solutions for the integration of some of these techniques were available or even obvious, it appeared that there would be many challenges to overcome. Further, even if accurate transcription were achievable, would the comparison from one performance to another be reliable with the introduction of human error? Taking into account all of the following hurdles, the most economic approach would be to focus on the comparison of two recordings rather than deciphering the information contained within them. This mentality on effect triggering has proven to be not only immeasurably more efficient, but also more robust. The efficiency is gained through the simplistic spectral analysis employed, and the obsolescence of combining different analyses. The strength of this approach is gained in the fact that focusing on a comparison technique allows for much more variance in the timing of the performances of a given song. Further, if transcription-centric effect triggering was at the forefront of consideration, a comparison technique would still be necessary, and so focusing on comparison first allows for redesign and reconsideration later on. The only consideration this methodology is hinging upon is that less precise transcription techniques are consistently misrepresenting the information in the audio signal the same way every time.
 
- 
 
- 
+
+
 
 2.0 Chapter 2: The Counting Method
 
@@ -262,7 +262,7 @@ The initial material researched by each team member contributed greatly to the o
 
 In order to compare a live performance, the device would need to be able to accurately count and threshold a pre-recorded performance. Our team proceeded by developing an algorithm to accurately and precisely map the pre-recorded performance. After completing research on windowing and frequency bins, we agreed that a straightforward approach would be applied. The guitar signal would enter the computer as a bit stream, and would be analyzed using a windowed Fast Fourier Transform (FFT). This data describes the song in a sequential frequency representation. Essentially, this information defines the song in terms of the notes being played, as each note represents a unique frequency.
 
- 
+
 
 2.1.2 Primary Analysis
 
@@ -294,7 +294,7 @@ Our team designed a guitar delay effect to play back the delayed signal into the
 
 ![](Final%20Report%20SP2_files/image002.gif)
 
-*Figure 1: Delay Effect Pd*
+_Figure 1: Delay Effect Pd_
 
 2.2.3 Fuzz Effect in Pure Data
 
@@ -302,7 +302,7 @@ Our team designed a guitar fuzz effect to implement a distortion effect on the g
 
 ![](Final%20Report%20SP2_files/image003.gif)
 
-*Figure 2: Fuzz Effect Pd*
+_Figure 2: Fuzz Effect Pd_
 
 2.2.4 Reverb Effect in Pure Data
 
@@ -310,7 +310,7 @@ Our team designed a reverb guitar effect, which mirrors a large number of reflec
 
 ![](Final%20Report%20SP2_files/image004.gif)
 
-*Figure 3: Reverb Effect Pd*
+_Figure 3: Reverb Effect Pd_
 
 2.2.5 Spectral Delay Effect in Pure Data
 
@@ -318,72 +318,72 @@ Our team designed a spectral delay effect to scatter the original guitar sound, 
 
 ![](Final%20Report%20SP2_files/image005.gif)
 
-*Figure 4: Spectral Delay Effect Pd*
+_Figure 4: Spectral Delay Effect Pd_
 
-* *
+\* \*
 
-* *
+\* \*
 
-* *
+\* \*
 
-* *
+\* \*
 
-* *
+\* \*
 
-* *
+\* \*
 
-* *
+\* \*
 
-* *
+\* \*
 
-* *
+\* \*
 
-* *
+\* \*
 
-* *
+\* \*
 
-* *
+\* \*
 
-* *
+\* \*
 
-* *
+\* \*
 
 3.0 Chapter 3: Dynamic Time Warping
 
 3.1 Dynamic Time Warping (DTW)
- Dynamic Time Warping is an algorithm for the measurement of similarity between two temporal sequences, which may vary in speed. The algorithm calculates an optimal match between two given sequences in the form of a distance that is the sum of localized cost functions. The process can be thought of conceptually as arranging the two sequences on the sides of a grid. Each cell within the grid will be filled in with a distance measure comparing the corresponding elements of the two sequences. This measure can be just subtraction of one sequence from another, but more often each cell is computed by more symmetric measures like the square of the difference. In order to find the best path through the grid, we search for a path that minimizes the total distance between them. The procedure for finding an overall distance measure is to find all the possible routes through the grid and calculate the total distance for each. Note that because we are looking for a minimum length path, each routes total distance is the minimum of the sum of distances between individual elements on the path divided by the sum of the warping function. Most instances of the DTW algorithm share common optimizations. The most obvious is known as the monotonic condition, which simply stated is the rule that the path will not turn back on itself and therefore the indexes of the matrix must either remain the same or increase during each subsequent iteration. Further, examining the literal definition of a path, the elements selected must to some degree border each other, and so the indexes may only increase by 1 from each element of the path to the next. Another commonality in DTW algorithms is the boundary condition, which requires that the path must begin at the intersection of each sequences respective first elements and end on the intersection of each sequences respective last elements. Some other optimizations are common but not integral, for example, the adjustment window condition postulates optimizations to keep the path from wandering too far from a diagonal through the grid, which while sometimes a critical flaw, usually results in huge computational efficiency gains. Another such optimization is a slope constraint which ensures that particularly long sequences arent matched with short sequences, but this can result in inaccuracies if one of the signals was particularly dilated or contracted in time. Since this technique has been at the forefront of comparing temporal signals since the 1980s, the list of variations on the classic algorithm is extensive.
- 3.2 Why Dynamic Time Warping is a Good Choice for Effect Triggering
- In the more simplistic counting approach employed, the guitarist is required to replicate the performance both faithfully in time and in accuracy. Small inaccuracies in either metric could easily cause the triggering scheme to miscount out of our predetermined range. DTW is a suitable alternative because it is relatively insensitive to time-scale contraction or dilation in either the database or query signals. Further, even if the performer makes numerous mistakes in the performance, as long as the section is the closest match to the database sequence the program will consider it a match. This robust algorithm can be proven time in and time out by any speech dictation software where the tolerance for difference between the two signals is astounding. Moreover, when considering different musical feature measures, the methods of comparison differ depending on the musical feature with some necessitating convoluted applications such as neural networks. Even more demanding is the need to combine different features in a useful way. Dynamic Time Warping works as an accurate comparison between features so long as they are structured in time (even if the information they convey is in frequency). In addition, because the features considered for a DTW algorithm are set in time, if one were to choose to track multiple features concurrently, (no longer necessary in the context of DTW) it would likely be simple to correlate detected matches between different features by a simple timing threshold. Following this train of thought, one could set the effects platform to trigger on or shortly after the occurrence of the secondary detection, allowing the system to virtually guarantee the absence of preemptive triggering. As if these arguments were not persuasive enough, another benefit of DTW is that if the system were to require multiple database performances, then section specific DTW-distance thresholds could be set for each part of a song as to ensure accuracy for multiple trigger events or different effects triggered on different instances of specific recurring parts of a song. Most importantly, because of the extensive resources already invested into the DTW algorithm, there is a wealth of optimization options and configurations that enable computationally efficient approaches to be selected based on the needs of a specific application.
+Dynamic Time Warping is an algorithm for the measurement of similarity between two temporal sequences, which may vary in speed. The algorithm calculates an optimal match between two given sequences in the form of a distance that is the sum of localized cost functions. The process can be thought of conceptually as arranging the two sequences on the sides of a grid. Each cell within the grid will be filled in with a distance measure comparing the corresponding elements of the two sequences. This measure can be just subtraction of one sequence from another, but more often each cell is computed by more symmetric measures like the square of the difference. In order to find the best path through the grid, we search for a path that minimizes the total distance between them. The procedure for finding an overall distance measure is to find all the possible routes through the grid and calculate the total distance for each. Note that because we are looking for a minimum length path, each routes total distance is the minimum of the sum of distances between individual elements on the path divided by the sum of the warping function. Most instances of the DTW algorithm share common optimizations. The most obvious is known as the monotonic condition, which simply stated is the rule that the path will not turn back on itself and therefore the indexes of the matrix must either remain the same or increase during each subsequent iteration. Further, examining the literal definition of a path, the elements selected must to some degree border each other, and so the indexes may only increase by 1 from each element of the path to the next. Another commonality in DTW algorithms is the boundary condition, which requires that the path must begin at the intersection of each sequences respective first elements and end on the intersection of each sequences respective last elements. Some other optimizations are common but not integral, for example, the adjustment window condition postulates optimizations to keep the path from wandering too far from a diagonal through the grid, which while sometimes a critical flaw, usually results in huge computational efficiency gains. Another such optimization is a slope constraint which ensures that particularly long sequences arent matched with short sequences, but this can result in inaccuracies if one of the signals was particularly dilated or contracted in time. Since this technique has been at the forefront of comparing temporal signals since the 1980s, the list of variations on the classic algorithm is extensive.
+3.2 Why Dynamic Time Warping is a Good Choice for Effect Triggering
+In the more simplistic counting approach employed, the guitarist is required to replicate the performance both faithfully in time and in accuracy. Small inaccuracies in either metric could easily cause the triggering scheme to miscount out of our predetermined range. DTW is a suitable alternative because it is relatively insensitive to time-scale contraction or dilation in either the database or query signals. Further, even if the performer makes numerous mistakes in the performance, as long as the section is the closest match to the database sequence the program will consider it a match. This robust algorithm can be proven time in and time out by any speech dictation software where the tolerance for difference between the two signals is astounding. Moreover, when considering different musical feature measures, the methods of comparison differ depending on the musical feature with some necessitating convoluted applications such as neural networks. Even more demanding is the need to combine different features in a useful way. Dynamic Time Warping works as an accurate comparison between features so long as they are structured in time (even if the information they convey is in frequency). In addition, because the features considered for a DTW algorithm are set in time, if one were to choose to track multiple features concurrently, (no longer necessary in the context of DTW) it would likely be simple to correlate detected matches between different features by a simple timing threshold. Following this train of thought, one could set the effects platform to trigger on or shortly after the occurrence of the secondary detection, allowing the system to virtually guarantee the absence of preemptive triggering. As if these arguments were not persuasive enough, another benefit of DTW is that if the system were to require multiple database performances, then section specific DTW-distance thresholds could be set for each part of a song as to ensure accuracy for multiple trigger events or different effects triggered on different instances of specific recurring parts of a song. Most importantly, because of the extensive resources already invested into the DTW algorithm, there is a wealth of optimization options and configurations that enable computationally efficient approaches to be selected based on the needs of a specific application.
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
+
+
+
+
+
+
+
 
 4.0 Chapter 4 Implementation
 
 4.1 Introduction
- When designing the system for the project, the group learned that there were many different methods to approach the problem. Hardware, software platforms, and analysis methods were components that had to be carefully chosen to meet the full demands of the system. When designing the structure for the project, the group went through many approaches before settling on the final architecture. The various criterion that needed to be met entailed challenges such as mobility, robustness, speed, and usability.
- 4.2 First Approach
- The first approach consisted of using a physical component that would offset and amplify the guitar signal, an external ADC, and a raspberry pi. The physical component was required because the signal of an electric guitar fell within the millivolt range, and the external ADC operated with a minimum of 1 volt. Signals coming to the electric guitar would be fed through the component and then onto the ADC. The raspberry pi would then read the discretized signal through a python program. When the system detects a trigger event, it would output a signal through the built in DAC and trigger a physical guitar pedal. This approach was dismissed due to the unnecessary use of a microcontroller and physical effect pedals. To perform signal analysis, it is important to use a CPU with a fast enough processing speed. Although the raspberry pi has one of the fastest processing speeds on the market, it still falls short to the speed a laptop can provide.
+When designing the system for the project, the group learned that there were many different methods to approach the problem. Hardware, software platforms, and analysis methods were components that had to be carefully chosen to meet the full demands of the system. When designing the structure for the project, the group went through many approaches before settling on the final architecture. The various criterion that needed to be met entailed challenges such as mobility, robustness, speed, and usability.
+4.2 First Approach
+The first approach consisted of using a physical component that would offset and amplify the guitar signal, an external ADC, and a raspberry pi. The physical component was required because the signal of an electric guitar fell within the millivolt range, and the external ADC operated with a minimum of 1 volt. Signals coming to the electric guitar would be fed through the component and then onto the ADC. The raspberry pi would then read the discretized signal through a python program. When the system detects a trigger event, it would output a signal through the built in DAC and trigger a physical guitar pedal. This approach was dismissed due to the unnecessary use of a microcontroller and physical effect pedals. To perform signal analysis, it is important to use a CPU with a fast enough processing speed. Although the raspberry pi has one of the fastest processing speeds on the market, it still falls short to the speed a laptop can provide.
 
- 4.3 Python Implementation
- For the next approach of the system, a laptop and a quarter-inch to USB adapter was to be used in lieu of the raspberry pi and external components. Python, due to the large number of available libraries, was chosen for this implementation. Numpy, Scipy, and Matplotlib, are mathematical libraries that allow Python to perform MATLAB like operations. To test the speed at which Python performed analysis on a live signal, a test module was created to read in input from a microphone. Using the aforementioned data science libraries, various audio analysis techniques were performed on the signal. The incoming signals were first stored in arrays of size 4096 samples. The data was then converted from bytes to integers so that operations could be performed on the signal. To visualize the operations, we plotted the live signal, the real time Fast Fourier transform, and the zero crossings on the same window. While running the program, the group noticed many issues, the first being the latency between the plots. This was to be expected due to the sequential nature of Python. Another pitfall to this approach was the low resolution of the signal. An approach to amend this issue was to increase the sample size. However, once the sample size was increased, there was an increased drop in the frames per second of the plot. All in all, while python was able to perform analysis on the signal, the team did not view this system to be an adequate approach.
- 4.4 Pure Data Design
- Pure Data (pd) is an open source visual programming language designed for audio and music manipulations. It was first released in the mid 1990s by Miller Puckette with simple audio manipulation objects. Since then, many iterations of the program have released along with dozens of complex modules contributed by open source users. With its modular design, users can create their own pure data objects or externals with the programming language of their choice. Pure Data was chosen as the platform to build the system on because of the simple visualization of data flow, processing capabilities, as well as the large library of pure data objects.
+4.3 Python Implementation
+For the next approach of the system, a laptop and a quarter-inch to USB adapter was to be used in lieu of the raspberry pi and external components. Python, due to the large number of available libraries, was chosen for this implementation. Numpy, Scipy, and Matplotlib, are mathematical libraries that allow Python to perform MATLAB like operations. To test the speed at which Python performed analysis on a live signal, a test module was created to read in input from a microphone. Using the aforementioned data science libraries, various audio analysis techniques were performed on the signal. The incoming signals were first stored in arrays of size 4096 samples. The data was then converted from bytes to integers so that operations could be performed on the signal. To visualize the operations, we plotted the live signal, the real time Fast Fourier transform, and the zero crossings on the same window. While running the program, the group noticed many issues, the first being the latency between the plots. This was to be expected due to the sequential nature of Python. Another pitfall to this approach was the low resolution of the signal. An approach to amend this issue was to increase the sample size. However, once the sample size was increased, there was an increased drop in the frames per second of the plot. All in all, while python was able to perform analysis on the signal, the team did not view this system to be an adequate approach.
+4.4 Pure Data Design
+Pure Data (pd) is an open source visual programming language designed for audio and music manipulations. It was first released in the mid 1990s by Miller Puckette with simple audio manipulation objects. Since then, many iterations of the program have released along with dozens of complex modules contributed by open source users. With its modular design, users can create their own pure data objects or externals with the programming language of their choice. Pure Data was chosen as the platform to build the system on because of the simple visualization of data flow, processing capabilities, as well as the large library of pure data objects.
 
 A block diagram of the groups first implementation can be seen on Figure 5 below. The approach for the basic system was to read signals coming from the quarter inch to USB adapter using the ADC object of Pd. It was decided that digital effects would be used in lieu of a physical guitar pedal as the costs were above the project budget. A low pass filter is applied to the signal because the fundamental frequencies of an electric guitar do not extend beyond 400 Hz. The signal is then fed through the fiddle object. Fiddle converts the pitch of the audio signal to MIDI. This is a useful feature as it allows the ease use of mathematical operations. Using comparator operators, the system can count the instances of a specific note and trigger an effect once it reaches a predefined threshold. In testing the program, Mary Had a Little Lamb was tested as it does not contain any complex chords. The MIDI value of 76 was verified with comparators. A counter was built and attached to count the number of times the comparators returned a true statement. Once the count had reached a value of 12, the delay effect was triggered. This was accomplished by using the moses object. Moses acts like an if else statement. If the incoming value is below the threshold, it sends a trigger to the left, or dry output. When the value is greater than or equal to the threshold, it sends a trigger to the right, or effect output. In the design, when the value is below the threshold, the input goes straight to the DAC. When the trigger conditions are met, the signal is first fed through the delay effect before the signal is passed through the DAC. Upon testing our system with Mary Had a Little Lamb, we were able to successfully trigger the guitar effect. ![](Final%20Report%20SP2_files/image006.jpg)
 
-*Figure 6: Block Diagram of Basic Trigger PD Patch*
+_Figure 6: Block Diagram of Basic Trigger PD Patch_
 
 After evaluating the test results, the group noticed several issues with the implementation. The first of which was that the system was sensitive to performance speed and articulation. When the the user articulated a note for too long, the counter block would continue to count up even though the note was played only once. This lead to inconsistencies in count accuracy. In testing our system, the group found that the system would trigger at the correct timing 60% of the time. One of the goals of this project was that the system should handle up to 10 note onsets per second. Currently, the system is capable of handling up to 10 notes albeit there are inconsistencies due to sensitivity issues. To resolve this issue, the group plans on narrowing the range of MIDI values to check for. Another issue with this implementation is that similar songs may trigger an effect configured for a specific song. For example, if the program is configured for Mary Had a Little Lamb, playing London Bridge is Falling Down may trigger the system. This is due to the fact that London Bridge is Falling Down contains many of the same notes as Mary Had a Little Lamb. One final issue is that this system is geared towards handling 1 note at a time as opposed to chords. The reason for this is that the fiddle object looks at the highest peak when looking at the FFT of the signal. When fiddle reads in a chord, it finds the highest peak of the signal in the frequency domain and uses that point to convert to MIDI. The group decided to resolve these issues with the implementation of Dynamic Time Warping.
 
@@ -393,31 +393,31 @@ In order to gain a better understanding of Dynamic Time Warping, the group creat
 
 ![](Final%20Report%20SP2_files/image007.gif)
 
-*Figure 7: Dynamic Time Warping*
+_Figure 7: Dynamic Time Warping_
 
 For each cell, the cost of arriving at the cell from the bottom, left, and bottom-left is calculated. On the point (2,2) of Figure 7 below, it costs 2 units to arrive from the bottom cell because the bottom cells lowest value plus the current cell value is 2. It costs 1 to arrive from the left because 2 + 0 = 2. It costs 1 to arrive from the bottom left because 1 + ()\*0 = 1. After calculating the costs for each cell, the least cost path can be determined. To find the least cost path, one must make three assumptions. The first is that the path always begins at point (1,1) and end at the upper right most cell. Secondly, it is assumed that the least cost path should lie along the diagonal of the matrix, so diagonal movement should be favored over lateral movement. The group handled this in the implementation by reducing the cost of diagonal movement by 50%. Finally, the third assumption is that because time moves forward, one should never move backwards to find the least cost path. Calculating the least cost path involves starting at the upper right most cell and working backwards to the starting cell. The path chosen should be the cell with the lowest cost of arrival.
 
-*![](Final%20Report%20SP2_files/image008.gif)*
+_![](Final%20Report%20SP2_files/image008.gif)_
 
-*Figure 8: Cost Arrival Per Cell*
+_Figure 8: Cost Arrival Per Cell_
 
 The java implementation of this approach and the corresponding code can be seen in the appendix below. Figure 8 below displays the two example test cases that were processed into the system and tested.
 
 ![](Final%20Report%20SP2_files/image009.gif)
 
- 
 
-*Figure 9: Signals Tested for DTW Implementation*
+
+_Figure 9: Signals Tested for DTW Implementation_
 
 The first scenario tested involved two identical signals being compared against each other. Since the points being checked are exactly the same, a least cost path of zero can be expected. The second test scenario involved two different signals of the same length. This test case should result in a non-zero value. Manually calculating the least cost path of this test case, the group determined a least cost path value of 5. After running the program, the system printed the results shown in Figure 9 below.
 
 ![](Final%20Report%20SP2_files/image010.gif)
 
-*Figure 10: Java Implementation Results*
+_Figure 10: Java Implementation Results_
 
 Comparing the actual results with the expected, it can be seen that the group was successful in the implementation of dynamic time warping.
 
- 
+
 
 4.6 DTW in Pure Data
 
@@ -425,7 +425,7 @@ Since Pure Data does not have a dynamic time warping pure data object, the group
 
 ![](Final%20Report%20SP2_files/image011.gif)
 
-*Figure 11: PD Patch to Save Sub Signal Recordings*
+_Figure 11: PD Patch to Save Sub Signal Recordings_
 
 The first step was to include the pd header file into our CodeBlocks project file. A struct was generated as it served as the object instance of our external. We defined three inlets, A bang and 2 float inlets. The bang inlets purpose was to calculate the least cost path of the signal in the recording phase. The first float inlets purpose is to receive the incoming signal from the adc object. Pure Data has a sample rate of 44,100Hz and the fiddle object produces a midi value based on the most recent 1024 samples. Effectively, our object should be able to read in a value every 22ms. The second float inlets purpose is to receive the float value that defines delay triggering time. An outlet was also defined so that it would send out a bang when a match between the signal works.
 
@@ -437,17 +437,17 @@ The completed pure data object can be seen in Figure 12 below. In order to test 
 
 ![](Final%20Report%20SP2_files/image012.gif)
 
-*Figure 12: Generated Dynamic Time Warping PD Object*
+_Figure 12: Generated Dynamic Time Warping PD Object_
 
-* *
+\* \*
 
-*![](Final%20Report%20SP2_files/image013.gif)*
+_![](Final%20Report%20SP2_files/image013.gif)_
 
-*Figure 12: PD Patch to test dynamicTW object*
+_Figure 12: PD Patch to test dynamicTW object_
 
 5.0 Chapter 5: Testing and Validation Execution
 
-* *
+\* \*
 
 5.1 Methods of Functionality Testing
 
@@ -471,11 +471,11 @@ As previously mentioned, determining the latency was trivial with the use of the
 
 In order for the system to be marketable, none of the effects we create can be allowed to amplify a signal to amplitudes that might be hazardous to the amplification circuitry. It is for this reason that for example, in our Fuzz effect, the bounds of the clip are very tight. Another constraint is the volume of the output, which is desired to be between 20 dB and 65 dB however this is a constraint on the amplification rather than the triggering platform. Further, our system requires a computer running a windows operating system, limiting the situations in which it can be utilized. Another constraint is the systems current inability to interface with analog guitar pedals in the current state of development. This platform is constrained by the trigger latency of 2ms and the minimum note onset separation which is 43 notes per second, both of which are well within the workable range that our team established at the onset of this project. These constraints are based on the assumption of a computer with more than ample processing speed which may become a constraint if a user computer does not have adequate processing power. Finally, the system is constrained by a tradeoff between query sequence length and computational speed, all of the parameters provided above are based on the assumption of three second long trigger sequences and windows of 300 feature samples of the live input shifted by one feature sample per iteration.
 
- 
 
- 
 
- 
+
+
+
 
 6.0 Chapter 6: Conclusion
 
@@ -483,7 +483,7 @@ In order for the system to be marketable, none of the effects we create can be a
 
 This project serves to automate the process of guitar effect triggering. In order to simplify tasks for the performer, our device records the effect trigger points, and executes the procedure with no manual interjection. The design streamlines the duties of the performer, and creates a more interactive experience for any potential audience. Our teams current model successfully achieves the task of automatic on triggering. The methodology involves the DTW process defined in Chapter 3.3.
 
- 
+
 
 6.2 Results Achieved
 
@@ -497,7 +497,7 @@ Due to the prohibitive cost of effects pedals, Pure Data serves as a cost effect
 
 The most promising approach to the aforementioned pitfalls is a technique known as subsequence dynamic time warping. For the purposes of signal comparison between performances, the sequences to be compared may have a significant difference in length. Instead of aligning these sequences globally, it is imperative to find a subsequence within the longer sequence that matches the shorter sequence. For example, assuming that the longer sequence represents a database to be searched and the shorter sequence an incoming performance, our objective is to identify the subsequence within the database that is most similar to the incoming signal. Influenced by the work of [21] (Muller, M), an algorithm for match detection can be reverse engineered from the subsequence list generator. It is presented below in a combination of mathematical notation and algorithmic pseudocode.
 
- 
+
 
 Let X = (x1,x2,...,xN) and Y = (y1,y2,...,yM) be midi sequences from the Pure Data Fiddle object, where M\>\>N(this means that Y is the database sequence).Next, a local cost function c is assigned to each element of the DTW grid. At this point the algorithm must find a subsequence Y(a∗ : b∗) := (ya∗,ya∗+1,...,yb∗) that minimizes the DTWdistance to our incoming signal over all possible subsequences of the recorded feature sequence.
 
@@ -517,7 +517,7 @@ Set
 
 D(n,m) = DTW(X(1:n),Y (1:m))
 
-D(n, m) is a N M matrix D called the *accumulated cost matrix* . A tuple (n, m) representing a matrix entry of the *cost matrix* C or of D will be referred to as a cell.
+D(n, m) is a N M matrix D called the _accumulated cost matrix_ . A tuple (n, m) representing a matrix entry of the _cost matrix_ C or of D will be referred to as a cell.
 
 D satisfies the following:
 
@@ -567,9 +567,9 @@ The optimal warping path between X and Y (a∗ : b∗) is given by (pl,...,pL)
 
 ![](Final%20Report%20SP2_files/image014.gif)
 
-*Figure 5: Database Subsequence Match against Incoming Sequence*
+_Figure 5: Database Subsequence Match against Incoming Sequence_
 
- 
+
 
 D can be used to generate a list of subsequences of incoming signal that match the recorded trigger point.
 
@@ -583,7 +583,7 @@ Create distance function :
 
 If ∆(b) is small \$b ∈ [1 : M] and if a ∈ [1 : M] denotes the corresponding DTW-minimizing index, then the subsequence Y (a:b) matches the incoming section
 
-Input: *incoming signal* X = (x1,...,xN), *database sequence* = (y1,...,yM),
+Input: _incoming signal_ X = (x1,...,xN), _database sequence_ = (y1,...,yM),
 
 cost threshold: τ
 
@@ -593,19 +593,19 @@ Algorithm: (Match list tracker)
 
 1.)Ranked list must initially be empty
 
-2.)Calculate D 
+2.)Calculate D
 
 3.)Calculate distance function ∆ using ∆(b) for each subsequence of the database Y
 
-4.)Select minimum b∗ of∆. 
+4.)Select minimum b∗ of∆.
 
-5.)If ∆(b∗) \> τ then a *match has been detected*.
+5.)If ∆(b∗) \> τ then a _match has been detected_.
 
 6.)Calculate corresponding match-subsequence index a∗ ∈ [1 : M]
 
 7.)add subsequence Y (a∗ : b∗ ) to ranked list
 
-8.)Set ∆(b) = ∞ "b within a suitable neighborhood of b∗ 
+8.)Set ∆(b) = ∞ "b within a suitable neighborhood of b∗
 
 9.)Continue by calculating the next minimizing index until input ends.
 
@@ -615,43 +615,43 @@ This approach is a feasible solution because rather than scanning the song for a
 
 Potential modifications to this platform include but are not limited to any control action as the result of the reading in of an audio sequence. For example, one could use the audio signal of virtually any instrument to control stage lighting, or advance a musical score for a symphony. It is also possible to design a physical hardware kill switch that temporarily suspends the program, allowing the musician to improvise and then jump back into the song without throwing off the system. If time permits, this system could even be expanded to include hardware effect pedals that are integrated seamlessly into the system or to control the volume level of different performers in relation both to each other and the current section of a song.
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 List of References:
 
@@ -699,33 +699,33 @@ List of References:
 
 [22] Cq2midi Polyphonic MIDI notes from audio for Pure Data. (n.d.). Retrieved December 11, 2017, from https://grrrr.org/research/software/cq2midi/
 
-[23] Chordetector\_pd. (n.d.). Retrieved December 11, 2017, from https://patchstorage.com/chordetector\_pd/
+[23] Chordetector_pd. (n.d.). Retrieved December 11, 2017, from https://patchstorage.com/chordetector\_pd/
 
 [24] K. (n.d.). [Pd\~] graphical dsp programming. Retrieved December 10, 2017, from http://www.katjaas.nl/puredata/puredata.html
 
-[25] C. (n.d.). Retrieved December 10, 2017, from [http://www.phon.ox.ac.uk/jcoleman/old\_SLP/Lecture\_5/DTW\_explanation.html](http://www.phon.ox.ac.uk/jcoleman/old_SLP/Lecture_5/DTW_explanation.html)
+[25] C. (n.d.). Retrieved December 10, 2017, from [http://www.phon.ox.ac.uk/jcoleman/old_SLP/Lecture_5/DTW_explanation.html](http://www.phon.ox.ac.uk/jcoleman/old_SLP/Lecture_5/DTW_explanation.html)
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 Appendices:
 
@@ -737,19 +737,19 @@ Appendices:
 
 Ralph Quinto is a Senior studying Computer Engineering at The College of New Jersey. He is the software engineer of the group and is tasked to research for possible programming platforms. In addition he is responsible for reading electric guitar signals, creating the signal analysis patches in pure data, and triggering digital guitar effects. Post graduation, Ralph plans on entering the industry as a software engineer and eventually obtaining his master's in Cybersecurity. Ralphs hobbies includes competing in basketball, cooking, and playing video games.
 
- 
+
 
 ![](Final%20Report%20SP2_files/image016.gif)
 
 Haley Scott is a senior studying Electrical Engineering at The College of New Jersey. She is the architectural manager of this design project, handling tasks such as the research of system methods, the design and creation of digital effects, as well as project and organizational management. She will also ensure the successful integration of all project components. Upon graduation, Haley plans on entering the water and wastewater industry, and furthering her education after gaining experience in the electrical design sector of the field. In her free time, Haley enjoys playing the piano, spending time with family and friends, and playing golf.
 
- 
+
 
 ![](Final%20Report%20SP2_files/image017.jpg)
 
 Bryan Guner is a senior studying Electrical Engineering at The College of New Jersey. He is team leader as well as being tasked with developing a protocol for digital signal processing of the guitar signal in order to create a time-sequential record of the frequency content of the guitar signal, and a comparison between pre recorded songs and live performances. Upon graduation Bryan intends to work in industry hopefully in addition to pursuing a masters degree. Hobbies include but are not limited to: guitar, music, hockey, physics, philosophy, art, and spending time with good friends.
 
- 
+
 
 **Engineering Standards:**
 
@@ -757,7 +757,7 @@ Bryan Guner is a senior studying Electrical Engineering at The College of New Je
 
 ●       Software utilized will meet quality requirements according to the IEEE 730-2014 Standard for Software Quality Assurance Processes
 
- 
+
 
 **Realistic Constraints:**
 
@@ -788,11 +788,11 @@ Bryan Guner is a senior studying Electrical Engineering at The College of New Je
 </tbody>
 </table>
 
- 
 
- 
 
- 
+
+
+
 
 **Modern Engineering Tools:**
 
@@ -812,13 +812,13 @@ Bryan Guner is a senior studying Electrical Engineering at The College of New Je
 
 **![](Final%20Report%20SP2_files/image018.gif)**
 
- 
 
- 
 
-** **
 
-** **
+
+\*\* \*\*
+
+\*\* \*\*
 
 **Time Budget**
 
@@ -832,7 +832,7 @@ Bryan Guner is a senior studying Electrical Engineering at The College of New Je
 
 ○       Adegebega@tcnj.edu
 
- 
+
 
 **Material List:**
 
@@ -844,9 +844,9 @@ Bryan Guner is a senior studying Electrical Engineering at The College of New Je
 
 ●       PureData
 
- 
 
- 
+
+
 
 **Financial Budget**
 
@@ -856,269 +856,269 @@ Bryan Guner is a senior studying Electrical Engineering at The College of New Je
 
 ![](Final%20Report%20SP2_files/image020.gif)
 
-** **
+\*\* \*\*
 
 **Project Meeting Minutes:**
 
- Meeting 1
- Date: August 30, 2017
- Time: 30 Minutes
- Present: Bryan, Haley, Ralph, Dr. Adegbege
- Absent: None
- Discussion Items:
- Possible solutions for project
- Organizational management for semester
- Design ideas and concepts
- Meeting 2
- Date: September 6, 2017
- Time: 60 Minutes
- Present: Bryan, Haley, Ralph, Dr. Adegbege
- Absent: None
- Discussion Items:
- Initial design review ideas
- Design review 1
- Project solutions (Logic, GarageBand, MIDI)
- Meeting 3
- Date: September 11, 2017
- Time: 30 Minutes
- Present: Bryan, Haley, Ralph, Dr. Adegbege
- Absent: None
- Discussion Items:
- Design review
- Scheduling
- Possible candidate platforms
- Meeting 4
- Date: September 27, 2017
- Time: 30 minutes
- Present: Bryan, Haley, Ralph
- Absent: Dr. Adegbege
- Discussion Items:
- Action items
- Reviewed individual research
- Meeting 5
- Date: October 4, 2017
- Time: 60 Minutes
- Present: Bryan, Haley, Ralph, Dr. Adegbege
- Absent: None
- Discussion Items:
- System architecture
- Adaptive threshold concept
- Neural network implementation
- Low pass filter implementation
- Python implementation
- Meeting 6
- Date: October 11, 2017
- Time: 60 Minutes
- Present: Bryan, Haley, Ralph, Dr. Adegbege
- Absent: None
- Discussion Items:
- Feature identification
- Rhythm (transient)
- Pitch (steady state)
- Applying our concepts to other projects (automatic scoring)
- Meeting 7
- Date: October 18, 2017
- Time: 30 Minutes
- Present: Bryan, Ralph, Dr. Adegbege
- Absent: Haley
- Discussion Items:
- Fuzzy logic
- Dynamic Time warping
- Implementation ideas
- Meeting 8
- Date: November 1, 2017
- Time: 30 Minutes
- Present: Bryan, Haley, Ralph, Dr. Adegbege
- Absent: None
- Discussion Items:
- Adaptive filtering
- Dynamic Time warping
- Low pass filtering
- Pure Data
- User interface
- Meeting 9
- Date: November 8, 2017
- Time: 30 Minutes
- Present: Bryan, Haley, Dr. Adegbege
- Absent: Ralph
- Discussion Items:
- LabVIEW
- Guitar tuner
- Binary search algorithm in matching sequences
- Website/Wordpress
- Meeting 10
- Date: November 15, 2017
- Time: 60 Minutes
- Present: Bryan, Haley, Dr. Adegbege
- Absent: Ralph
- Discussion Items:
- Baseline functionality
- Demonstrations and testing
- Contents of final report
- Importance of abstract
- Meeting 11
- Date: November 29, 2017
- Time: 30 Minutes
- Present: Bryan, Haley, Ralph, Dr. Adegbege
- Absent: None
- Discussion Items:
- Realistic constraints
- Final design review
- Final report
- Video demonstration ideas
+Meeting 1
+Date: August 30, 2017
+Time: 30 Minutes
+Present: Bryan, Haley, Ralph, Dr. Adegbege
+Absent: None
+Discussion Items:
+Possible solutions for project
+Organizational management for semester
+Design ideas and concepts
+Meeting 2
+Date: September 6, 2017
+Time: 60 Minutes
+Present: Bryan, Haley, Ralph, Dr. Adegbege
+Absent: None
+Discussion Items:
+Initial design review ideas
+Design review 1
+Project solutions (Logic, GarageBand, MIDI)
+Meeting 3
+Date: September 11, 2017
+Time: 30 Minutes
+Present: Bryan, Haley, Ralph, Dr. Adegbege
+Absent: None
+Discussion Items:
+Design review
+Scheduling
+Possible candidate platforms
+Meeting 4
+Date: September 27, 2017
+Time: 30 minutes
+Present: Bryan, Haley, Ralph
+Absent: Dr. Adegbege
+Discussion Items:
+Action items
+Reviewed individual research
+Meeting 5
+Date: October 4, 2017
+Time: 60 Minutes
+Present: Bryan, Haley, Ralph, Dr. Adegbege
+Absent: None
+Discussion Items:
+System architecture
+Adaptive threshold concept
+Neural network implementation
+Low pass filter implementation
+Python implementation
+Meeting 6
+Date: October 11, 2017
+Time: 60 Minutes
+Present: Bryan, Haley, Ralph, Dr. Adegbege
+Absent: None
+Discussion Items:
+Feature identification
+Rhythm (transient)
+Pitch (steady state)
+Applying our concepts to other projects (automatic scoring)
+Meeting 7
+Date: October 18, 2017
+Time: 30 Minutes
+Present: Bryan, Ralph, Dr. Adegbege
+Absent: Haley
+Discussion Items:
+Fuzzy logic
+Dynamic Time warping
+Implementation ideas
+Meeting 8
+Date: November 1, 2017
+Time: 30 Minutes
+Present: Bryan, Haley, Ralph, Dr. Adegbege
+Absent: None
+Discussion Items:
+Adaptive filtering
+Dynamic Time warping
+Low pass filtering
+Pure Data
+User interface
+Meeting 9
+Date: November 8, 2017
+Time: 30 Minutes
+Present: Bryan, Haley, Dr. Adegbege
+Absent: Ralph
+Discussion Items:
+LabVIEW
+Guitar tuner
+Binary search algorithm in matching sequences
+Website/Wordpress
+Meeting 10
+Date: November 15, 2017
+Time: 60 Minutes
+Present: Bryan, Haley, Dr. Adegbege
+Absent: Ralph
+Discussion Items:
+Baseline functionality
+Demonstrations and testing
+Contents of final report
+Importance of abstract
+Meeting 11
+Date: November 29, 2017
+Time: 30 Minutes
+Present: Bryan, Haley, Ralph, Dr. Adegbege
+Absent: None
+Discussion Items:
+Realistic constraints
+Final design review
+Final report
+Video demonstration ideas
 
 Meeting 12
- Date: January 31, 2018
- Time: 60 Minutes
- Present: Bryan, Haley, Ralph, Dr. Adegbege
- Absent: None
- Discussion Items:
- Semester plans and schedules
- Progress with external for Pd
- PDR presentation
- Modify DTW
+Date: January 31, 2018
+Time: 60 Minutes
+Present: Bryan, Haley, Ralph, Dr. Adegbege
+Absent: None
+Discussion Items:
+Semester plans and schedules
+Progress with external for Pd
+PDR presentation
+Modify DTW
 
 Meeting 13
- Date: February 5, 2018
- Time: 30 Minutes
- Present: Bryan, Haley, Ralph
- Absent: None
- Discussion Items:
- Review PDR
- Convert pseudocode into C
- Design more complex effect
- Research externals
+Date: February 5, 2018
+Time: 30 Minutes
+Present: Bryan, Haley, Ralph
+Absent: None
+Discussion Items:
+Review PDR
+Convert pseudocode into C
+Design more complex effect
+Research externals
 
 Meeting 14
- Date: February 7, 2018
- Time: 30 Minutes
- Present: Haley, Ralph, Dr. Adegbege
- Absent: Bryan
- Discussion Items:
- Progress on effect
- WAV file research
- TCF preparation
- Demonstration preparation
+Date: February 7, 2018
+Time: 30 Minutes
+Present: Haley, Ralph, Dr. Adegbege
+Absent: Bryan
+Discussion Items:
+Progress on effect
+WAV file research
+TCF preparation
+Demonstration preparation
 
 Meeting 15
- Date: February 14, 2018
- Time: 60 Minutes
- Present: Haley, Bryan, Ralph, Dr. Adegbege
- Absent:
- Discussion Items:
- Reimbursement for cable
- Roadblocks with input format
- Progress on effect
- Realistic constraint discussion
+Date: February 14, 2018
+Time: 60 Minutes
+Present: Haley, Bryan, Ralph, Dr. Adegbege
+Absent:
+Discussion Items:
+Reimbursement for cable
+Roadblocks with input format
+Progress on effect
+Realistic constraint discussion
 
 Meeting 16
- Date: February 26, 2018
- Time: 60 Minutes
- Present: Haley, Ralph
- Absent: Bryan
- Discussion Items:
- Code manipulation completed
- Discussion of testing phase
- Test procedure
- Reimbursement not yet delivered
+Date: February 26, 2018
+Time: 60 Minutes
+Present: Haley, Ralph
+Absent: Bryan
+Discussion Items:
+Code manipulation completed
+Discussion of testing phase
+Test procedure
+Reimbursement not yet delivered
 
 Meeting 17
- Date: February 28, 2018
- Time: 120 Minutes
- Present: Bryan, Haley, Ralph, Dr. Adegbege
- Absent: None
- Discussion Items:
- Progress with basic GUI
- Testing and implementation
- Effect progress
- External progress
+Date: February 28, 2018
+Time: 120 Minutes
+Present: Bryan, Haley, Ralph, Dr. Adegbege
+Absent: None
+Discussion Items:
+Progress with basic GUI
+Testing and implementation
+Effect progress
+External progress
 
 Meeting 18
- Date: March 3, 2018
- Time: 60 Minutes
- Present: Bryan, Haley, Ralph
- Absent: None
- Discussion Items:
- Poster Layout
- Poster Content
- Draft report
- Modify DTW code
+Date: March 3, 2018
+Time: 60 Minutes
+Present: Bryan, Haley, Ralph
+Absent: None
+Discussion Items:
+Poster Layout
+Poster Content
+Draft report
+Modify DTW code
 
 Meeting 19
- Date: March 27, 2018
- Time: 60 Minutes
- Present: Bryan, Haley, Ralph, Dr. Adegbege
- Absent: None
- Discussion Items:
- Testing of software
- Celebration preparation
- Presentation preparation
- Reimbursement for poster
+Date: March 27, 2018
+Time: 60 Minutes
+Present: Bryan, Haley, Ralph, Dr. Adegbege
+Absent: None
+Discussion Items:
+Testing of software
+Celebration preparation
+Presentation preparation
+Reimbursement for poster
 
 Meeting 20
- Date: April 3, 2018
- Time: 120 Minutes
- Present: Bryan, Haley, Ralph
- Absent: None
- Discussion Items:
- Software testing
- Latency testing
- Triggering testing and adjustments
- Schedule planning and updates
+Date: April 3, 2018
+Time: 120 Minutes
+Present: Bryan, Haley, Ralph
+Absent: None
+Discussion Items:
+Software testing
+Latency testing
+Triggering testing and adjustments
+Schedule planning and updates
 
 Meeting 21
- Date: April 11, 2018
- Time: 60 Minutes
- Present: Bryan, Haley, Ralph
- Absent: None
- Discussion Items:
- Software testing
- Software adjustments
- Scheduling for time and budget
- Reimbursement (1) received
+Date: April 11, 2018
+Time: 60 Minutes
+Present: Bryan, Haley, Ralph
+Absent: None
+Discussion Items:
+Software testing
+Software adjustments
+Scheduling for time and budget
+Reimbursement (1) received
 
 Meeting 22
- Date: April 15, 2018
- Time: 60 Minutes
- Present: Haley, Ralph
- Absent: Bryan
- Discussion Items:
- Guitar testing with simple sequence
- Software adjustments
- Plans for draft, final presentation
- Planned next meeting with Dr. Adegbege
+Date: April 15, 2018
+Time: 60 Minutes
+Present: Haley, Ralph
+Absent: Bryan
+Discussion Items:
+Guitar testing with simple sequence
+Software adjustments
+Plans for draft, final presentation
+Planned next meeting with Dr. Adegbege
 
 Meeting 23
- Date: April 17, 2018
- Time: 60 Minutes
- Present: Bryan, Haley, Ralph
- Absent: None
- Discussion Items:
- Software testing
- Software adjustments
- Testing data recorded
- Testing with different time windows
+Date: April 17, 2018
+Time: 60 Minutes
+Present: Bryan, Haley, Ralph
+Absent: None
+Discussion Items:
+Software testing
+Software adjustments
+Testing data recorded
+Testing with different time windows
 
 Meeting 24
- Date: April 24, 2018
- Time: 60 Minutes
- Present: Haley, Ralph
- Absent: Bryan
- Discussion Items:
- Final report
- Packaging of project
- Demonstration feasibility
- Reimbursement
+Date: April 24, 2018
+Time: 60 Minutes
+Present: Haley, Ralph
+Absent: Bryan
+Discussion Items:
+Final report
+Packaging of project
+Demonstration feasibility
+Reimbursement
 
 Meeting 1
- Date: April 29, 2018
- Time: 120 Minutes
- Present: Bryan, Haley, Ralph
- Absent: None
- Discussion Items:
- Finalization of presentation
- Organizational management for semester
- Rehearsal of final presentation
+Date: April 29, 2018
+Time: 120 Minutes
+Present: Bryan, Haley, Ralph
+Absent: None
+Discussion Items:
+Finalization of presentation
+Organizational management for semester
+Rehearsal of final presentation
 
 **Supporting Figures: Ralph**
 
@@ -1126,13 +1126,13 @@ Meeting 1
 
 Figure 1: Fuzz Effect Pd
 
- 
+
 
 ![](Final%20Report%20SP2_files/image022.gif)
 
 Figure 2: Delay Effect Pd
 
- 
+
 
 ![](Final%20Report%20SP2_files/image023.gif)
 
@@ -1142,299 +1142,294 @@ Figure 3: Reverb Effect Pd
 
 Figure 4: Spectral Delay Effect Pd
 
- 
+
 
 ![](Final%20Report%20SP2_files/image025.gif)
 
 Figure 5: Pd Module
 
- 
+
 
 ![](Final%20Report%20SP2_files/image026.jpg)
 
 Figure 6: Simplified Pd Block Diagram
 
- 
+
 
 ![](Final%20Report%20SP2_files/image027.gif)
 
 Figure 7: DTW Pd Object
 
- 
+
 
 **Java Code of Dynamic Time Warping:**
 
 public class DTW {
+private
+  double[] horizontalInput;
 
-private double[] horizontalInput;
+private
+  double[] verticalInput;
 
-private double[] verticalInput;
+public
+  DTW(double[] horizontalInput, double[] verticalInput) {
 
-public DTW(double[] horizontalInput, double[] verticalInput) {
+    this.horizontalInput = horizontalInput;
 
-this.horizontalInput = horizontalInput;
+    this.verticalInput = verticalInput;
+  }
 
-this.verticalInput = verticalInput;
+  \* /\*\*
 
-}
+          _Finds the minimum cost path to reach current value_
 
-*/\**
+              _\* /
+      _
 
-*Finds the minimum cost path to reach current value*
+      private static double
+      min(MatrixTriplet matrixTriplet) {
 
-*\*/*
+    return Math.min(Math.min(matrixTriplet.left, matrixTriplet.bottom),
 
-private static double min(MatrixTriplet matrixTriplet) {
+                    matrixTriplet.bottomLeft);
+  }
 
-return Math.min(Math.min(matrixTriplet.left, matrixTriplet.bottom),
+  \* /\*\*
 
-matrixTriplet.bottomLeft);
+          _This finds the squared difference of the matrix points_
 
-}
+              _Generates a 2D array and returns the symmetrical distance
+                  measure_
 
- 
+                      _\* /
+      _
 
-*/\**
+      private double[][] buildDistanceMatrix() {
 
-*This finds the squared difference of the matrix points*
+    int rows = verticalInput.length;
 
-*Generates a 2D array and returns the symmetrical distance measure*
+    int cols = horizontalInput.length;
 
-*\*/*
+    double[][] matrix = new double[rows + 1][cols + 1];
 
-private double[][] buildDistanceMatrix(){
+    for (int i = 1; i \< matrix[0].length; ++i) {
 
-int rows = verticalInput.length;
+      matrix[0][i] = horizontalInput[i - 1];
+    }
 
-int cols = horizontalInput.length;
+    for (int i = 1; i \< matrix.length; ++i) {
 
-double[][] matrix = new double[rows + 1][cols + 1];
+      matrix[i][0] = verticalInput[i - 1];
+    }
 
-for(int i = 1; i \< matrix[0].length; ++i) {
+    for (int row = 1; row \<= rows; ++row) {
 
-matrix[0][i] = horizontalInput[i-1];
+      for (int col = 1; col \<= cols; ++col) {
 
-}
+        matrix[row][col] = (int)Math.pow(matrix[0][col] - matrix[row][0], 2);
+      }
+    }
 
-for(int i = 1; i \< matrix.length; ++i) {
+    return matrix;
+  }
 
-matrix[i][0] = verticalInput[i-1];
+  \* /\*\*
 
-}
+          _Finds the left and bottom initial cost values.Initialization phase_
 
-for(int row = 1; row \<= rows; ++row) {
+              _\* /
+      _
 
-for(int col = 1; col \<= cols; ++col) {
+      private static MatrixTriplet[][] buildTripleMatrixWithLeftAndBottomValues(
+          double[][] distanceMatrix) {
 
-matrix[row][col] = (int)Math.pow(matrix[0][col]-matrix[row][0], 2);
+    int rows = distanceMatrix.length;
 
-}
+    int cols = distanceMatrix[0].length;
 
-}
+    MatrixTriplet[][] leftAndBottomMatrix = new MatrixTriplet[rows][cols];
 
-return matrix;
+    for (int row = 0; row \< rows; ++row) {
 
-}
+      for (int col = 0; col \< cols; ++col) {
 
-*/\**
+        leftAndBottomMatrix[row][col] =
+            new MatrixTriplet(distanceMatrix[row][col]);
+      }
+    }
 
-*Finds the left and bottom initial cost values. Initialization phase*
+    leftAndBottomMatrix[1][1].left = distanceMatrix[1][1];
 
-*\*/*
+    for (int col = 2; col\< cols; ++col) {
 
-private static MatrixTriplet[][] buildTripleMatrixWithLeftAndBottomValues(double[][]distanceMatrix){
+      leftAndBottomMatrix[1][col].left = leftAndBottomMatrix[1][col - 1].left
 
-int rows = distanceMatrix.length;
+                                         - distanceMatrix[1][col];
 
-int cols = distanceMatrix[0].length;
+      leftAndBottomMatrix[1][col].bottom = leftAndBottomMatrix[1][col].left;
+    }
 
-MatrixTriplet[][] leftAndBottomMatrix = new MatrixTriplet[rows][cols];
+    leftAndBottomMatrix[1][1].bottom = distanceMatrix[1][1];
 
-for(int row = 0; row \< rows; ++row) {
+    for (int row = 2; row\< rows; ++row) {
 
-for(int col = 0; col \< cols; ++col) {
+      leftAndBottomMatrix[row][1].bottom =
+          leftAndBottomMatrix[row - 1][1].bottom
 
-leftAndBottomMatrix[row][col] = new MatrixTriplet(distanceMatrix[row][col]);
+          - distanceMatrix[row][1];
 
-}
+      leftAndBottomMatrix[row][1].left = leftAndBottomMatrix[row][1].bottom;
+    }
 
-}
+    return leftAndBottomMatrix;
+  }
 
-leftAndBottomMatrix[1][1].left = distanceMatrix[1][1];
+  \* /\*\*
 
-for(int col = 2; col\<cols; ++col) {
+          _Finds the left /
+      bottom /
+      bottomleft cost values_
 
-leftAndBottomMatrix[1][col].left = leftAndBottomMatrix[1][col-1].left
+          _\* /
+      _
 
-+ distanceMatrix[1][col];
+      private static MatrixTriplet[][] buildFinalMatrix(
+          MatrixTriplet[][] leftAndBottomMatrix) {
 
-leftAndBottomMatrix[1][col].bottom = leftAndBottomMatrix[1][col].left;
+    int rows = leftAndBottomMatrix.length;
 
-}
+    int cols = leftAndBottomMatrix.length;
 
-leftAndBottomMatrix[1][1].bottom = distanceMatrix[1][1];
+    MatrixTriplet[][] finalMatrix = new MatrixTriplet[rows][cols];
 
-for(int row = 2; row\<rows; ++row) {
+    for (int row = 0; row \< rows; ++row) {
 
-leftAndBottomMatrix[row][1].bottom = leftAndBottomMatrix[row-1][1].bottom
+      for (int col = 0; col\< cols; ++col) {
 
-+ distanceMatrix[row][1];
+        finalMatrix[row][col] = new
 
-leftAndBottomMatrix[row][1].left = leftAndBottomMatrix[row][1].bottom;
+            MatrixTriplet(leftAndBottomMatrix[row][col].initial,
 
-}
+                          leftAndBottomMatrix[row][col].left,
 
-return leftAndBottomMatrix;
+                          leftAndBottomMatrix[row][col].bottom,
 
-}
+                          leftAndBottomMatrix[row][col].bottomLeft);
+      }
+    }
 
-*/\**
+    for (int row = 2; row \< rows; ++row) {
 
-*Finds the left/bottom/bottomleft cost values*
+      for (int col = 2; col \< cols; ++col) {
 
-*\*/*
+        finalMatrix[row][col].left = min(finalMatrix[row][col - 1])
 
-private static MatrixTriplet[][] buildFinalMatrix(MatrixTriplet[][] leftAndBottomMatrix){
+                                     - finalMatrix[row][col].initial;
 
-int rows = leftAndBottomMatrix.length;
+        finalMatrix[row][col].bottom = min(finalMatrix[row - 1][col])
 
-int cols = leftAndBottomMatrix.length;
+                                       - finalMatrix[row][col].initial;
 
-MatrixTriplet[][] finalMatrix = new MatrixTriplet[rows][cols];
+        finalMatrix[row][col].bottomLeft = min(finalMatrix[row - 1][col - 1])
 
-for(int row = 0; row \< rows; ++row) {
+                                           - finalMatrix[row][col].initial;
+      }
+    }
 
-for(int col = 0; col\<cols; ++col) {
+    return finalMatrix;
+  }
 
-finalMatrix[row][col] = new
+private
+  double compute() {
 
-MatrixTriplet(leftAndBottomMatrix[row][col].initial,
+    double[][] distanceMatrix = buildDistanceMatrix();
 
-leftAndBottomMatrix[row][col].left,
+    MatrixTriplet[][] leftAndBottomValuesTripletMatrix =
 
-leftAndBottomMatrix[row][col].bottom,
+        buildTripleMatrixWithLeftAndBottomValues(distanceMatrix);
 
-leftAndBottomMatrix[row][col].bottomLeft);
+    MatrixTriplet[][] finalMatrix =
+        buildFinalMatrix(leftAndBottomValuesTripletMatrix);
 
-}
+    return min(finalMatrix[verticalInput.length][horizontalinput.length]);
+  }
 
-}
+private
+  static class MatrixTriplet {
 
-for(int row = 2; row \< rows; ++row) {
+    double initial = Double.POSITIVE_INFINITY;
 
-for(int col = 2; col \< cols; ++col) {
+    double left = Double.POSITIVE_INFINITY;
 
-finalMatrix[row][col].left = min(finalMatrix[row][col -1])
+    double bottom = Double.POSITIVE_INFINITY;
 
-+ finalMatrix[row][col].initial;
+    double bottomLeft = Double.POSITIVE_INFINITY;
 
-finalMatrix[row][col].bottom = min(finalMatrix[row-1][col])
+    MatrixTriplet(double initial, double left, double bottom,
+                  double bottomLeft) {
 
-+ finalMatrix[row][col].initial;
+      this.initial = initial;
 
-finalMatrix[row][col].bottomLeft = min(finalMatrix[row - 1][col - 1])
+      this.left = left;
 
-+ finalMatrix[row][col].initial;
+      this.bottom = bottom;
 
-}
+      this.bottomLeft = bottomLeft;
+    }
 
-}
+    MatrixTriplet(double initial) { this.initial = initial; }
 
-return finalMatrix;
+  }
 
-}
+  public static void
+  main(String[] args) {
 
-private double compute() {
+    _ // double [] horizontalInput1 = {1.0, 1.0, 2.0, 3.0, 2.0, 0.0};_
 
-double[][] distanceMatrix = buildDistanceMatrix();
+        _ // double [] verticalInput1 = {0.0, 1.0, 1.0, 2.0, 3.0, 2.0, 1.0};_
 
-MatrixTriplet[][] leftAndBottomValuesTripletMatrix =
+            _ // DTW similarInputs = new DTW(horizontalInput1, verticalInput1);_
 
-buildTripleMatrixWithLeftAndBottomValues(distanceMatrix);
+                _ // double result = similarInputs.compute();_
 
-MatrixTriplet[][] finalMatrix = buildFinalMatrix(leftAndBottomValuesTripletMatrix);
+        double[] horizontalInput2 = {0.0, 1.0, 1.0, 2.0, 3.0, 2.0, 1.0};
 
-return min(finalMatrix[verticalInput.length][horizontalInput.length]);
+    double[] verticalInput2 = {0.0, 1.0, 1.0, 2.0, 3.0, 2.0, 1.0};
 
-}
+    DTW sameInputs = new DTW(horizontalInput2, verticalInput2);
 
-private static class MatrixTriplet{
+    double result2 = sameInputs.compute();
 
-double initial = Double.POSITIVE\_INFINITY;
+    System.out.println("Least cost path of Test 1: " + result2);
 
-double left = Double.POSITIVE\_INFINITY;
+    double[] horizontalInput3 = {1.0, 1.0, 2.0, 3.0, 2.0, 0.0};
 
-double bottom = Double.POSITIVE\_INFINITY;
+    double[] verticalInput3 = {0.0, 0.0, 1.0, 2.0, 1.0, -1.0};
 
-double bottomLeft = Double.POSITIVE\_INFINITY;
+    DTW sameInputsOutPhase = new DTW(horizontalInput3, verticalInput3);
 
-MatrixTriplet(double initial, double left, double bottom, double bottomLeft){
+    double result3 = sameInputsOutPhase.compute();
 
-this.initial = initial;
+    System.out.println("Least cost path of Test 2: " + result3);
 
-this.left = left;
+    _ // double [] horizontalInput4 = {1.0, 2.0, 3.0, 4.0, 2.0, 1.0};_
 
-this.bottom = bottom;
+        _ // double [] verticalInput4 = {5.0, 0.0, 1.0, 4.0, 2.0, 0.0, 3.0};_
 
-this.bottomLeft = bottomLeft;
+            _ // DTW differentInputs = new DTW(horizontalInput4,
+              // verticalInput4);_
 
-}
+                  _ // double result4 = differentInputs.compute();_
 
-MatrixTriplet(double initial){
-
-this.initial = initial;
-
-}
-
-}
-
-public static void main(String[] args) {
-
-*// double [] horizontalInput1 = {1.0, 1.0, 2.0, 3.0, 2.0, 0.0};*
-
-*// double [] verticalInput1 = {0.0, 1.0, 1.0, 2.0, 3.0, 2.0, 1.0};*
-
-*// DTW similarInputs = new DTW(horizontalInput1, verticalInput1);*
-
-*// double result = similarInputs.compute();*
-
-double [] horizontalInput2 = {0.0, 1.0, 1.0, 2.0, 3.0, 2.0, 1.0};
-
-double [] verticalInput2 = {0.0, 1.0, 1.0, 2.0, 3.0, 2.0, 1.0};
-
-DTW sameInputs = new DTW(horizontalInput2, verticalInput2);
-
-double result2 = sameInputs.compute();
-
-System.out.println("Least cost path of Test 1: " + result2);
-
-double [] horizontalInput3 = {1.0, 1.0, 2.0, 3.0, 2.0, 0.0};
-
-double [] verticalInput3 = {0.0, 0.0, 1.0, 2.0, 1.0, -1.0};
-
-DTW sameInputsOutPhase = new DTW(horizontalInput3, verticalInput3);
-
-double result3 = sameInputsOutPhase.compute();
-
-System.out.println("Least cost path of Test 2: " + result3);
-
-*// double [] horizontalInput4 = {1.0, 2.0, 3.0, 4.0, 2.0, 1.0};*
-
-*// double [] verticalInput4 = {5.0, 0.0, 1.0, 4.0, 2.0, 0.0, 3.0};*
-
-*// DTW differentInputs = new DTW(horizontalInput4, verticalInput4);*
-
-*// double result4 = differentInputs.compute();*
-
-*// System.out.println("Least cost path of Test 4: " + result4);*
-
-}
+                      _ // System.out.println("Least cost path of Test 4: " +
+                        // result4);_
+  }
 
 }
 
 **Dynamic Time Warping PD Object C code:**
 
-\#include "m\_pd.h"
+\#include "m_pd.h"
 
 \#include \<math.h\>
 
@@ -1448,21 +1443,21 @@ System.out.println("Least cost path of Test 2: " + result3);
 
 \#include \<windows.h\>
 
- 
 
-\#define SIZE\_ARRAY 300
 
-\#define TEST\_SIZE 300
+\#define SIZE_ARRAY 300
 
- 
+\#define TEST_SIZE 300
 
-static t\_class \*dynamicTW\_class; //handle for the class
 
- 
 
-float recording\_array[SIZE\_ARRAY] = {0};
+static t_class \*dynamicTW_class; //handle for the class
 
-int arr\_position = SIZE\_ARRAY - 1;
+
+
+float recording_array[SIZE\_ARRAY] = {0};
+
+int arr_position = SIZE_ARRAY - 1;
 
 float saveValue = 0.0;
 
@@ -1470,257 +1465,250 @@ int triggerGlobal = 0;
 
 float delayTime = 0.0;
 
- 
+
 
 /\* struct to hold cost of arrival from left, bottom, and diagonal \*/
 
 typedef struct \_leftbottom{
+  float left;
 
-float left;
+  float bottom;
 
-float bottom;
-
-float diag;
+  float diag;
 
 }leftBD; //typedef name
 
- 
+
 
 typedef struct \_dynamicTW{
+  t_object x_obj;
 
-t\_object x\_obj;
+  int flag; // differentiates if how result of lcp is stored
 
- 
+  int match; // if 0 signal does not match else matches
 
-int flag; //differentiates if how result of lcp is stored
+  float testArray[TEST\_SIZE];
 
-int match; //if 0 signal does not match else matches
+  float storedSignalOne[SIZE\_ARRAY];
 
-float testArray[TEST\_SIZE];
+  float storedSignalTwo[SIZE\_ARRAY];
 
-float storedSignalOne[SIZE\_ARRAY];
+  t_inlet \*in_mod_A, \*in_mod_B;
 
-float storedSignalTwo[SIZE\_ARRAY];
+  t_outlet \*out_A;
 
- 
+  float signal[SIZE\_ARRAY];
 
-t\_inlet \*in\_mod\_A, \*in\_mod\_B;
+  float lcpValue;
 
-t\_outlet \*out\_A;
+  float compareValue;
 
- 
+  float initMatrix[SIZE_ARRAY][size\_array];
 
-float signal[SIZE\_ARRAY];
+  leftBD costValues[SIZE_ARRAY - 1][size\_array - 1];
 
-float lcpValue;
 
-float compareValue;
 
- 
+}t_dynamicTW; //typedef name
 
-float initMatrix[SIZE\_ARRAY][SIZE\_ARRAY];
 
-leftBD costValues[SIZE\_ARRAY-1][SIZE\_ARRAY-1];
 
- 
+void checkStorage(t_dynamicTW \*x){ //check if values being stored correctly
+  int i;
 
-}t\_dynamicTW; //typedef name
+  post("in check storage");
 
- 
+  for (i = 0; i \< TEST_SIZE; i++) {
 
-void checkStorage(t\_dynamicTW \*x){ //check if values being stored correctly
+    post("Signal 1: %f", x -\> storedSignalOne[i]);
 
-int i;
-
-post("in check storage");
-
-for(i = 0; i \< TEST\_SIZE; i++){
-
-post("Signal 1: %f", x-\>storedSignalOne[i]);
-
-post("Signal 2: %f", x-\>storedSignalTwo[i]);
+    post("Signal 2: %f", x -\> storedSignalTwo[i]);
+  }
 
 }
 
-}
 
- 
 
-void signalMatch(t\_dynamicTW \*x){
+void signalMatch(t_dynamicTW \*x){
+  float tenup = saveValue + (.05\* saveValue);
 
-float tenup = saveValue + (.05\*saveValue);
+  float zeroValue = 0.00;
 
-float zeroValue = 0.00;
+  FILE \*fp1;
 
-FILE \*fp1;
+  FILE \*fp2;
 
-FILE \*fp2;
+  FILE \*fp3;
 
-FILE \*fp3;
+  int j;
 
-int j;
+  if (x -\> compareValue \<= tenup && x -\> compareValue \>= zeroValue) {
 
-if(x-\>compareValue \<= tenup && x-\>compareValue \>= zeroValue){
+    Sleep(delayTime \* 1000); // how long to delay bang in seconds;
 
-Sleep(delayTime \* 1000); //how long to delay bang in seconds;
+    outlet_bang(x -\> out_A);
 
-outlet\_bang(x-\>out\_A);
+    x -\> match = 1;
 
-x-\>match = 1;
+    /\*add code to trigger effect \* /
 
-/\* add code to trigger effect \*/
+        post("Incoming Signal Matches Stored Signal. compareValue is %f and "
+             "lcpValue is %f",
+             x -\> compareValue, saveValue);
 
-post("Incoming Signal Matches Stored Signal. compareValue is %f and lcpValue is %f", x-\>compareValue, saveValue);
+    post("delay time: %f", delayTime);
 
-post("delay time: %f", delayTime);
+    fp1 = fopen("C:"
+                "\\\\Users\\\\Raki\\\\Documents\\\\GitHub\\\\dynamicTW\\\\TB\\"
+                "\\save1.txt",
+                "w");
 
-fp1 = fopen("C:\\\\Users\\\\Raki\\\\Documents\\\\GitHub\\\\dynamicTW\\\\TB\\\\save1.txt", "w");
+    fp2 = fopen("C:"
+                "\\\\Users\\\\Raki\\\\Documents\\\\GitHub\\\\dynamicTW\\\\TB\\"
+                "\\save2.txt",
+                "w");
 
-fp2 = fopen("C:\\\\Users\\\\Raki\\\\Documents\\\\GitHub\\\\dynamicTW\\\\TB\\\\save2.txt", "w");
+    fp3 = fopen("C:"
+                "\\\\Users\\\\Raki\\\\Documents\\\\GitHub\\\\dynamicTW\\\\TB\\"
+                "\\save3.txt",
+                "w");
 
-fp3 = fopen("C:\\\\Users\\\\Raki\\\\Documents\\\\GitHub\\\\dynamicTW\\\\TB\\\\save3.txt", "w");
+    post("saving");
 
-post("saving");
+    for (j = 0; j\< SIZE_ARRAY; j++) {
 
-for(j = 0; j\<SIZE\_ARRAY; j++){
+      fprintf(fp1, "%f\\n", x -\> storedSignalOne[j]);
 
-fprintf(fp1, "%f\\n", x-\>storedSignalOne[j]);
+      fprintf(fp2, "%f\\n", x -\> storedSignalTwo[j]);
 
-fprintf(fp2, "%f\\n", x-\>storedSignalTwo[j]);
+      fprintf(fp3, "%f\\n", x -\> initMatrix[0][j]);
+    }
 
-fprintf(fp3, "%f\\n", x-\>initMatrix[0][j]);
+    post("finish saving");
 
-}
+    fclose(fp1);
 
-post("finish saving");
+    fclose(fp2);
 
-fclose(fp1);
+    fclose(fp3);
 
-fclose(fp2);
+  }
 
-fclose(fp3);
+  else {
 
-}
+    x -\> match = 0;
 
-else{
-
-x-\>match = 0;
-
-post("Signal NO Match. compareVal is %f while lcpVal is %f\\n", x-\>compareValue, saveValue);
-
-}
-
-}
-
-float findMin(t\_dynamicTW \*x, int row, int column){
-
-float temp, min;
-
-float checkLeft = x-\>costValues[row][column].left;
-
-float checkBottom = x-\>costValues[row][column].bottom;
-
-float checkDiagonal = x-\>costValues[row][column].diag;
-
- 
-
-temp = (checkLeft \< checkBottom) ? checkLeft : checkBottom;
-
-min = (checkDiagonal \< temp) ? checkDiagonal : temp;
-
-return min;
+    post("Signal NO Match. compareVal is %f while lcpVal is %f\\n",
+         x -\> compareValue, saveValue);
+  }
 
 }
 
-void reverseArray(t\_dynamicTW \*x){
+float findMin(t_dynamicTW \*x, int row, int column){
+  float temp, min;
 
-int i, j;
+  float checkLeft = x -\> costValues[row][column].left;
 
-i = SIZE\_ARRAY - 1;
+  float checkBottom = x -\> costValues[row][column].bottom;
 
-j = 0;
+  float checkDiagonal = x -\> costValues[row][column].diag;
 
-while(i \> j){
+  temp = (checkLeft \< checkBottom) ? checkLeft : checkBottom;
 
-float temp = x-\>storedSignalTwo[i];
+  min = (checkDiagonal \< temp) ? checkDiagonal : temp;
 
-x-\>storedSignalTwo[i] = x-\>storedSignalTwo[j];
-
-x-\>storedSignalTwo[j] = temp;
-
-i--;
-
-j++;
+  return min;
 
 }
 
-}
+void reverseArray(t_dynamicTW \*x){
+  int i, j;
 
- 
+  i = SIZE_ARRAY - 1;
 
-void fileReader1(t\_dynamicTW \*x, char \*path){
+  j = 0;
 
-//char const\* const fileName = "C:\\\\Users\\\\Raki\\\\Documents\\\\GitHub\\\\dynamicTW\\\\TB\\\\input.txt" ;/\* should check that argc \> 1 \*/
+  while (i \> j) {
 
-FILE\* file = fopen(path, "r"); /\* should check the result \*/
+    float temp = x -\> storedSignalTwo[i];
 
-char line[256];
+    x -\> storedSignalTwo[i] = x -\> storedSignalTwo[j];
 
-int i = 0;
+    x -\> storedSignalTwo[j] = temp;
 
-while (fgets(line, sizeof(line), file)) {
+    i--;
 
-//post("file1: value at line %d is %s", i, line);
-
-x-\>storedSignalOne[i] = atof(line); // !!!!!!!!!!!!!!!!!!!!! REMOVE 1000
-
-i++;
+    j++;
+  }
 
 }
 
-fclose(file);
+
+
+void fileReader1(t_dynamicTW \*x, char \*path){
+  // char const\* const fileName =
+  // "C:\\\\Users\\\\Raki\\\\Documents\\\\GitHub\\\\dynamicTW\\\\TB\\\\input.txt"
+  // ;/\* should check that argc \> 1 \*/
+
+  FILE\*file = fopen(path, "r");
+  /\*should check the result \* /
+
+      char line[256];
+
+  int i = 0;
+
+  while (fgets(line, sizeof(line), file)) {
+
+    // post("file1: value at line %d is %s", i, line);
+
+    x -\> storedSignalOne[i] = atof(line); // !!!!!!!!!!!!!!!!!!!!! REMOVE 1000
+
+    i++;
+  }
+
+  fclose(file);
 
 }
 
-void fileReader2(t\_dynamicTW \*x, char \*path){
+void fileReader2(t_dynamicTW \*x, char \*path){
+  // char const\* const fileName =
+  // "C:\\\\Users\\\\Raki\\\\Documents\\\\GitHub\\\\dynamicTW\\\\TB\\\\input.txt"
+  // ;/\* should check that argc \> 1 \*/
 
-//char const\* const fileName = "C:\\\\Users\\\\Raki\\\\Documents\\\\GitHub\\\\dynamicTW\\\\TB\\\\input.txt" ;/\* should check that argc \> 1 \*/
+  FILE\*file = fopen(path, "r");
+  /\*should check the result \* /
 
-FILE\* file = fopen(path, "r"); /\* should check the result \*/
+      char line[256];
 
-char line[256];
+  int i = 0;
 
-int i = 0;
+  while (fgets(line, sizeof(line), file)) {
 
-while (fgets(line, sizeof(line), file)) {
+    // post("file2: value at line %d is %s", i, line);
 
-//post("file2: value at line %d is %s", i, line);
+    x -\> storedSignalTwo[i] =
+        atof(line); // !!!!!!!!!!!!!!!!!!!!!!!!!!! REMOVE 1000
 
-x-\>storedSignalTwo[i] = atof(line); // !!!!!!!!!!!!!!!!!!!!!!!!!!! REMOVE 1000
+    i++;
+  }
 
-i++;
-
-}
-
-fclose(file);
-
-}
-
- 
-
-void replaceSignal2(t\_dynamicTW \*x){
-
-int i;
-
-for(i = 0; i \< SIZE\_ARRAY; i++){
-
-x-\>storedSignalTwo[i] = x-\>signal[i];
+  fclose(file);
 
 }
 
+
+
+void replaceSignal2(t_dynamicTW \*x){
+  int i;
+
+  for (i = 0; i \< SIZE_ARRAY; i++) {
+
+    x -\> storedSignalTwo[i] = x -\> signal[i];
+  }
+
 }
 
- 
+
 
 /\*
 
@@ -1734,281 +1722,263 @@ x-\>storedSignalTwo[i] = x-\>signal[i];
 
 \*/
 
- 
 
-void leastCostPath(t\_dynamicTW \*x){
 
-float temp, min;
+void leastCostPath(t_dynamicTW \*x){
+  float temp, min;
 
-float result = 0;
+  float result = 0;
 
-int i = SIZE\_ARRAY - 2;
+  int i = SIZE_ARRAY - 2;
 
-int j = SIZE\_ARRAY - 2;
+  int j = SIZE_ARRAY - 2;
 
- 
+  // post("starting point value left is %f", x-\>costValues[i][j].left);
 
-// post("starting point value left is %f", x-\>costValues[i][j].left);
+  // post("starting point value bottom is %f", x-\>costValues[i][j].bottom);
 
-// post("starting point value bottom is %f", x-\>costValues[i][j].bottom);
+  // post("starting point value diag is %f", x-\>costValues[i][j].diag);
 
-// post("starting point value diag is %f", x-\>costValues[i][j].diag);
+  while (i \>= 0 && j \>= 0) {
 
- 
+    float checkLeft = x -\> costValues[i][j].left;
 
-while(i \>= 0 && j \>= 0){
+    float checkBottom = x -\> costValues[i][j].bottom;
 
-float checkLeft = x-\>costValues[i][j].left;
+    float checkDiagonal = x -\> costValues[i][j].diag;
 
-float checkBottom = x-\>costValues[i][j].bottom;
+    temp = (checkLeft \< checkBottom) ? checkLeft : checkBottom;
 
-float checkDiagonal = x-\>costValues[i][j].diag;
+    min = (checkDiagonal \< temp) ? checkDiagonal : temp;
 
- 
+    result += min;
 
-temp = (checkLeft \< checkBottom) ? checkLeft : checkBottom;
+    /\*Changes cell location after finding min \* /
 
-min = (checkDiagonal \< temp) ? checkDiagonal : temp;
+        if (min == checkDiagonal) {
 
- 
+      if (i - 1 \< 0 && j - 1 \< 0) {
 
-result += min;
+        break;
 
- 
+      }
 
-/\* Changes cell location after finding min \*/
+      else if (i - 1 \< 0) {
 
-if(min == checkDiagonal){
+        j--;
 
-if (i-1 \< 0 && j-1 \< 0){
+      }
 
-break;
+      else if (j - 1 \< 0) {
 
-}
+        i--;
 
-else if (i-1 \< 0){
+      }
 
-j--;
+      else {
 
-}
+        i--;
 
-else if (j-1 \< 0){
+        j--;
+      }
+    }
 
-i--;
+    else if (min == checkLeft) {
 
-}
+      if (j - 1 \< 0) {
 
-else{
+        break;
 
-i--;
+      }
 
-j--;
+      else {
 
-}
+        j--;
+      }
+    }
 
-}
+    else {
 
-else if (min == checkLeft){
+      if (i - 1 \< 0) {
 
-if(j-1 \< 0){
+        break;
 
-break;
+      }
 
-}
+      else {
 
-else{
+        i--;
+      }
+    }
+  }
 
-j--;
+  if (x -\> flag == 0) {
 
-}
+    saveValue += result;
 
-}
+    post("storing to saveValue: current saveValue is %f", saveValue);
 
-else{
+  }
 
-if(i-1 \< 0){
+  else if (x -\> flag == 1) {
 
-break;
+    x -\> compareValue = result;
 
-}
-
-else{
-
-i--;
-
-}
-
-}
-
- 
+    post("compareValue: least cost path is %f", x -\> compareValue);
+  }
 
 }
 
-if(x-\>flag == 0){
 
-saveValue += result;
 
-post("storing to saveValue: current saveValue is %f", saveValue);
+void dtw_genMatrix(t_dynamicTW \*x){
+  int i;
 
-}
+  for (i = 0; i\< SIZE_ARRAY; i++) {
 
-else if (x-\>flag == 1){
+    x -\> initMatrix[i][0] =
+        x -\> storedSignalOne[i]; // populate the first column with signal 1
+                                  // data points
 
-x-\>compareValue = result;
-
-post("compareValue: least cost path is %f", x-\>compareValue);
-
-}
-
-}
-
- 
-
-void dtw\_genMatrix(t\_dynamicTW \*x){
-
-int i;
-
-for(i = 0; i\<SIZE\_ARRAY; i++){
-
-x-\>initMatrix[i][0] = x-\>storedSignalOne[i]; //populate the first column with signal 1 data points
-
-x-\>initMatrix[0][i] = x-\>storedSignalTwo[i]; //populate the last row with signal 2 data points
-
-}
-
- 
+    x -\> initMatrix[0][i] =
+        x -\>
+        storedSignalTwo[i]; // populate the last row with signal 2 data points
+  }
 
 /\* Calculates the Symmetrical distance for each matrix cell \*/
 
 int z, y;
 
-for(z = 1; z\< SIZE\_ARRAY; z++){
+for (z = 1; z\< SIZE_ARRAY; z++) {
 
-for(y = 1; y\<SIZE\_ARRAY; y++){
+  for (y = 1; y\< SIZE_ARRAY; y++) {
 
-float difference = x-\>storedSignalOne[z] - x-\>storedSignalTwo[y];
+    float difference = x -\> storedSignalOne[z] - x -\> storedSignalTwo[y];
 
-x-\>initMatrix[z][y] = (float)pow(difference, 2); //finding the symmetrical distance
-
+    x -\> initMatrix[z][y] =
+        (float)pow(difference, 2); // finding the symmetrical distance
+  }
 }
 
-}
-
- 
-
-//initializing the costValues matrix
+// initializing the costValues matrix
 
 int ci, cj;
 
-for(ci = 0; ci\<SIZE\_ARRAY-1; ci++){
+for (ci = 0; ci\< SIZE_ARRAY - 1; ci++) {
 
-for(cj = 0; cj\<SIZE\_ARRAY-1; cj++){
+  for (cj = 0; cj\< SIZE_ARRAY - 1; cj++) {
 
-x-\>costValues[ci][cj].left = 0;
+    x -\> costValues[ci][cj].left = 0;
 
-x-\>costValues[ci][cj].bottom = 0;
+    x -\> costValues[ci][cj].bottom = 0;
 
-x-\>costValues[ci][cj].diag = 0;
-
+    x -\> costValues[ci][cj].diag = 0;
+  }
 }
 
+/\*Calculates the cost of arrival from left, bottom,
+    and diagonal \* /
+
+        int q,
+    r;
+
+for (q = 0; q\< SIZE_ARRAY - 1; q++) {
+
+  for (r = 0; r\< SIZE_ARRAY - 1; r++) {
+
+    // no left, bottom, or diagonal values //========READ
+    // ME!!!!!==============change to init matrix + 1?
+
+    if (q == 0 && r == 0) {
+
+      x -\> costValues[q][r].left = x -\> initMatrix[q + 1][r + 1];
+
+      x -\> costValues[q][r].bottom = x -\> initMatrix[q + 1][r + 1];
+
+      x -\> costValues[q][r].diag = x -\> initMatrix[q + 1][r + 1];
+
+    }
+
+    // if row is bottom there cant be any bottom values or diagonal so set left
+    // values only
+
+    else if (q == 0) {
+
+      if (r == 0) { //======READ | change to init matrix + 1 again
+
+        x -\> costValues[q][r].left =
+            x -\> initMatrix[q + 1][r + 1]; // no possible left values
+
+      }
+
+      else {
+
+        x -\> costValues[q][r].left =
+            x -\>
+            initMatrix[q + 1][r + 1] +
+                findMin(x, q,
+                        (r - 1)); //=========change to cost of current cell init
+                                  //matrix + min of cost values of left cell
+      }
+
+      x -\> costValues[q][r].bottom = 1000 \* 1000;
+
+      x -\> costValues[q][r].diag = 1000 \* 1000;
+
+    }
+
+    // if column is left there cant be any left values or diagonal so set bottom
+    // values only
+
+    else if (r == 0) {
+
+      if (q == 0) {
+
+        x -\> costValues[q][r].bottom =
+            x -\>
+            initMatrix[q + 1]
+                      [r + 1]; //======READ | change to init matrix + 1 again
+
+      }
+
+      else {
+
+        x -\> costValues[q][r].bottom =
+            x -\> initMatrix[q + 1][r + 1] +
+                      findMin(x, (q - 1),
+                              r); //=========change to cost of current cell init
+                                  //matrix + min of cost values of left cell
+      }
+
+      x -\> costValues[q][r].left = 1000 \* 1000;
+
+      x -\> costValues[q][r].diag = 1000 \* 1000;
+
+    }
+
+    // must have left, bottom, and diagonal values
+
+    else {
+
+      x -\> costValues[q][r].left =
+          x -\> initMatrix[q + 1][r + 1] +
+                    findMin(x, q, (r - 1)); // do current initMatrix value + min
+
+      x -\> costValues[q][r].bottom =
+          x -\> initMatrix[q + 1][r + 1] + findMin(x, (q - 1), r);
+
+      x -\> costValues[q][r].diag =
+          (.5\* x -\> initMatrix[q + 1][r + 1]) +
+          findMin(x, (q - 1), (r - 1)); // diagonal movement needs to be favored
+    }
+  }
 }
-
-/\* Calculates the cost of arrival from left, bottom, and diagonal \*/
-
-int q, r;
-
-for(q = 0; q\< SIZE\_ARRAY-1; q++){
-
-for(r = 0; r\<SIZE\_ARRAY-1; r++){
-
-//no left, bottom, or diagonal values //========READ ME!!!!!==============change to init matrix + 1?
-
-if (q == 0 && r ==0){
-
-x-\>costValues[q][r].left = x-\>initMatrix[q+1][r+1];
-
-x-\>costValues[q][r].bottom = x-\>initMatrix[q+1][r+1];
-
-x-\>costValues[q][r].diag = x-\>initMatrix[q+1][r+1];
-
-}
-
-//if row is bottom there cant be any bottom values or diagonal so set left values only
-
-else if (q == 0){
-
-if (r == 0){ //======READ | change to init matrix + 1 again
-
-x-\>costValues[q][r].left = x-\>initMatrix[q+1][r+1]; //no possible left values
-
-}
-
-else{
-
-x-\>costValues[q][r].left = x-\>initMatrix[q+1][r+1] + findMin(x,q,(r-1)); //=========change to cost of current cell init matrix + min of cost values of left cell
-
-}
-
-x-\>costValues[q][r].bottom = 1000 \* 1000;
-
-x-\>costValues[q][r].diag = 1000 \* 1000;
-
-}
-
- 
-
-//if column is left there cant be any left values or diagonal so set bottom values only
-
-else if (r == 0){
-
-if (q == 0){
-
-x-\>costValues[q][r].bottom = x-\>initMatrix[q+1][r+1]; //======READ | change to init matrix + 1 again
-
-}
-
-else{
-
-x-\>costValues[q][r].bottom = x-\>initMatrix[q+1][r+1] + findMin(x,(q-1),r);//=========change to cost of current cell init matrix + min of cost values of left cell
-
-}
-
-x-\>costValues[q][r].left = 1000 \* 1000;
-
-x-\>costValues[q][r].diag = 1000 \* 1000;
-
-}
-
- 
-
-//must have left, bottom, and diagonal values
-
-else{
-
-x-\>costValues[q][r].left = x-\>initMatrix[q+1][r+1] + findMin(x,q,(r-1)); //do current initMatrix value + min
-
-x-\>costValues[q][r].bottom = x-\>initMatrix[q+1][r+1] + findMin(x,(q-1),r);
-
-x-\>costValues[q][r].diag = (.5\*x-\>initMatrix[q+1][r+1]) + findMin(x,(q-1),(r-1));//diagonal movement needs to be favored
-
- 
-
-}
-
- 
-
-}
-
-}
-
- 
 
 // int qq, rr;
 
-// for(qq = 0; qq\<SIZE\_ARRAY-1; qq++){
+// for(qq = 0; qq\<SIZE_ARRAY-1; qq++){
 
-// for(rr= 0; rr\<SIZE\_ARRAY-1; rr++){
+// for(rr= 0; rr\<SIZE_ARRAY-1; rr++){
 
 // post("index q:%d and r:%d", qq, rr);
 
@@ -2022,13 +1992,11 @@ x-\>costValues[q][r].diag = (.5\*x-\>initMatrix[q+1][r+1]) + findMin(x,(q-1),(r-
 
 // }
 
- 
-
-leastCostPath(x); //finds least cost path
+leastCostPath(x); // finds least cost path
 
 }
 
- 
+
 
 /\* Function for when a bang is received
 
@@ -2036,968 +2004,958 @@ leastCostPath(x); //finds least cost path
 
 \* - It is then averaged together and changes the flag value \*/
 
-void dtw\_onBangMsg(t\_dynamicTW \*x){
+void dtw_onBangMsg(t_dynamicTW \*x){
+  x -\> match = 0;
 
-x-\>match = 0;
+  x -\> flag = 0; // makes so that lcp value gets stored in lcpValue
 
-x-\>flag = 0; //makes so that lcp value gets stored in lcpValue
+  saveValue = 0.0;
 
-saveValue = 0.0;
+  arr_position = SIZE_ARRAY - 1;
 
-arr\_position = SIZE\_ARRAY - 1;
+  fileReader1(
+      x,
+      "C:\\\\Users\\\\Raki\\\\Documents\\\\GitHub\\\\dynamicTW\\\\TB\\\\input1."
+      "txt"); // read signal 1
 
-fileReader1(x, "C:\\\\Users\\\\Raki\\\\Documents\\\\GitHub\\\\dynamicTW\\\\TB\\\\input1.txt"); // read signal 1
+  fileReader2(
+      x,
+      "C:\\\\Users\\\\Raki\\\\Documents\\\\GitHub\\\\dynamicTW\\\\TB\\\\input2."
+      "txt"); // read signal 2
 
-fileReader2(x, "C:\\\\Users\\\\Raki\\\\Documents\\\\GitHub\\\\dynamicTW\\\\TB\\\\input2.txt"); // read signal 2
+  dtw_genMatrix(x); // perform DTW
 
-dtw\_genMatrix(x); //perform DTW
+  fileReader2(
+      x,
+      "C:\\\\Users\\\\Raki\\\\Documents\\\\GitHub\\\\dynamicTW\\\\TB\\\\input3."
+      "txt");
 
-fileReader2(x, "C:\\\\Users\\\\Raki\\\\Documents\\\\GitHub\\\\dynamicTW\\\\TB\\\\input3.txt");
+  dtw_genMatrix(x);
 
-dtw\_genMatrix(x);
+  fileReader2(
+      x,
+      "C:\\\\Users\\\\Raki\\\\Documents\\\\GitHub\\\\dynamicTW\\\\TB\\\\input4."
+      "txt");
 
-fileReader2(x, "C:\\\\Users\\\\Raki\\\\Documents\\\\GitHub\\\\dynamicTW\\\\TB\\\\input4.txt");
+  dtw_genMatrix(x);
 
-dtw\_genMatrix(x);
+  saveValue = saveValue / 3;
 
-saveValue = saveValue / 3;
+  post("saveValue: Least Cost Path is %f", saveValue);
 
-post("saveValue: Least Cost Path is %f", saveValue);
+  triggerGlobal = 1;
 
-triggerGlobal = 1;
 
- 
-
-}
-
- 
-
-void dtw\_free(t\_dynamicTW \*x){
-
-inlet\_free(x-\>in\_mod\_A);
-
-inlet\_free(x-\>in\_mod\_B);
-
-outlet\_free(x-\>out\_A);
-
-}
-
- 
-
-void dtw\_onSet\_A(t\_dynamicTW \*x, t\_floatarg f){ /\*function that gets called when an input is received \*/
-
-clock\_t t;
-
-if(triggerGlobal == 0){
-
-/\*do nothing\*/
 
 }
 
-//Sleep(2);
 
-post("Number A: %f sending to array. Arr\_position is %d",f, arr\_position);
 
-post("Delay Time: %f", delayTime);
+void dtw_free(t_dynamicTW \*x){
+  inlet_free(x -\> in_mod_A);
 
- 
+  inlet_free(x -\> in_mod_B);
 
-if(x-\>match == 1){
-
-post("Match has been detected. Freezing Program!");
+  outlet_free(x -\> out_A);
 
 }
 
-else if(x-\>match == 0){
 
-if (arr\_position \>= 0){ //checks if array is filled. If not then store incoming value to next index
 
-x-\>signal[arr\_position] = f;
+void dtw_onSet_A(t_dynamicTW \*x, t_floatarg f){
+  /\*function that gets called when an input is received \* /
 
-arr\_position--;
+      clock_t t;
+
+  if (triggerGlobal == 0) {
+
+    /\*do nothing\* /
+  }
+
+  // Sleep(2);
+
+  post("Number A: %f sending to array. Arr_position is %d", f, arr_position);
+
+  post("Delay Time: %f", delayTime);
+
+  if (x -\> match == 1) {
+
+    post("Match has been detected. Freezing Program!");
+
+  }
+
+  else if (x -\> match == 0) {
+
+    if (arr_position \>= 0) { // checks if array is filled. If not then store
+                              // incoming value to next index
+
+      x -\> signal[arr\_position] = f;
+
+      arr_position--;
+
+    }
+
+    else { // If array is filled shift all values by 1 index and store at
+           // beginning of array
+
+      t = clock();
+
+      int i;
+
+      x -\> flag =
+          1; // makes it so that LCP result is stored in compared Value;
+
+      for (i = SIZE_ARRAY - 1; i \> 0; i--) {
+
+        x -\> signal[i] = x -\> signal[i - 1];
+      }
+
+      x -\> signal[0] = f;
+
+      replaceSignal2(x); // replaces the value in signal 2
+
+      reverseArray(x);
+
+      dtw_genMatrix(x); // performs dtw
+
+      t = clock() - t;
+
+      double time_taken = ((double)t) / CLOCKS_PER_SEC; // in seconds
+
+      post("DTW took %f seconds to execute", time_taken);
+
+      signalMatch(x); // checks is the signal is correct if it is trigger effect
+
+      // if(time_taken == .002){
+
+      // Sleep(8);
+
+      // }
+
+      // else if (time_taken == .001){
+
+      // Sleep(9);
+
+      // }
+    }
+  }
 
 }
 
- 
 
-else{ //If array is filled shift all values by 1 index and store at beginning of array
 
-t = clock();
-
- 
-
-int i;
-
-x-\>flag = 1; //makes it so that LCP result is stored in compared Value;
-
-for (i = SIZE\_ARRAY - 1; i \> 0; i--){
-
-x-\>signal[i]=x-\>signal[i-1];
-
-}
-
-x-\>signal[0] = f;
-
-replaceSignal2(x); //replaces the value in signal 2
-
-reverseArray(x);
-
-dtw\_genMatrix(x); //performs dtw
-
- 
-
-t = clock() - t;
-
-double time\_taken = ((double)t)/CLOCKS\_PER\_SEC; // in seconds
-
-post("DTW took %f seconds to execute", time\_taken);
-
-signalMatch(x); //checks is the signal is correct if it is trigger effect
-
- 
-
-// if(time\_taken == .002){
-
-// Sleep(8);
-
-// }
-
-// else if (time\_taken == .001){
-
-// Sleep(9);
-
-// }
-
-}
-
-}
-
-}
-
- 
-
-void dtw\_onSet\_B(t\_dynamicTW \*x, t\_floatarg f){
-
-delayTime = f;
+void dtw_onSet_B(t_dynamicTW \*x, t_floatarg f){
+  delayTime = f;
 
 }
 
 //initializer for the class
 
-void \*dynamicTW\_new(t\_floatarg f1, t\_floatarg f2){ //parenth contains creation arg. temp stuff will replaced with arrays
+void \*dynamicTW_new(t_floatarg f1, t_floatarg f2){ //parenth contains creation arg. temp stuff will replaced with arrays
+  t_dynamicTW \*x =
+      (t_dynamicTW \*)pd_new(dynamicTW_class); // initialize struct of type dtw
 
-t\_dynamicTW \*x = (t\_dynamicTW \*)pd\_new(dynamicTW\_class); //initialize struct of type dtw
+  x -\> in_mod_A =
+      inlet_new(&x -\> x_obj, &x -\> x_obj.ob_pd, &s_float, gensym("ratio_A"));
 
-x-\>in\_mod\_A = inlet\_new(&x-\>x\_obj, &x-\>x\_obj.ob\_pd, &s\_float, gensym("ratio\_A"));
+  x -\> in_mod_B =
+      inlet_new(&x -\> x_obj, &x -\> x_obj.ob_pd, &s_float, gensym("ratio_B"));
 
-x-\>in\_mod\_B = inlet\_new(&x-\>x\_obj, &x-\>x\_obj.ob\_pd, &s\_float, gensym("ratio\_B"));
+  x -\> out_A = outlet_new(&x -\> x_obj, &s_bang);
 
-x-\>out\_A = outlet\_new(&x-\>x\_obj, &s\_bang);
-
-return (void \*)x;
+  return (void \*)x;
 
 }
 
- 
 
- 
+
+
 
 //function to set up the class and call initializer
 
-void dynamicTW\_setup(void){
+void dynamicTW_setup(void){
+  /\*class_new(t_symbol \* name, t_newmethod newmethod,
 
-/\*class\_new(t\_symbol \*name, t\_newmethod newmethod,
+               t_method freemethod, size_t size, int flags, t_atomtype arg1,
+               ...);
+  \* /
 
-t\_method freemethod, size\_t size, int flags, t\_atomtype arg1, ...); \*/
+      dynamicTW_class =
+      class_new(gensym("dynamicTW"), // defines the symbol in puredata
 
-dynamicTW\_class = class\_new(gensym("dynamicTW"), //defines the symbol in puredata
+                (t_newmethod)dynamicTW_new, // inializing method
 
-(t\_newmethod)dynamicTW\_new, //inializing method
+                (t_method)dtw_free,
 
-(t\_method)dtw\_free,
+                sizeof(t_dynamicTW),
 
-sizeof(t\_dynamicTW),
+                CLASS_DEFAULT, // makes the box
 
-CLASS\_DEFAULT,//makes the box
+                A_DEFFLOAT,
 
-A\_DEFFLOAT,
+                A_DEFFLOAT,
 
-A\_DEFFLOAT,
+                0);
 
-0);
+  class_addbang(dynamicTW_class, (t_method)dtw_onBangMsg);
 
-class\_addbang(dynamicTW\_class, (t\_method)dtw\_onBangMsg);
+  class_addmethod(dynamicTW_class,
 
-class\_addmethod(dynamicTW\_class,
+                  (t_method)dtw_onSet_A,
 
-(t\_method)dtw\_onSet\_A,
+                  gensym("ratio_A"),
 
-gensym("ratio\_A"),
+                  A_DEFFLOAT,
 
-A\_DEFFLOAT,
+                  0);
 
-0);
+  class_addmethod(dynamicTW_class,
 
-class\_addmethod(dynamicTW\_class,
+                  (t_method)dtw_onSet_B,
 
-(t\_method)dtw\_onSet\_B,
+                  gensym("ratio_B"),
 
-gensym("ratio\_B"),
+                  A_DEFFLOAT,
 
-A\_DEFFLOAT,
-
-0);
+                  0);
 
 }
 
 **Pure Data Header File:**
 
- 
 
-/\* Copyright (c) 1997-1999 Miller Puckette.
- \* For information on usage and redistribution, and for a DISCLAIMER OF ALL
- \* WARRANTIES, see the file, "LICENSE.txt," in this distribution. \*/
- \#ifndef \_\_m\_pd\_h\_
- \#if defined(\_LANGUAGE\_C\_PLUS\_PLUS) || defined(\_\_cplusplus)
- extern "C" {
- \#endif
- \#define PD\_MAJOR\_VERSION 0
- \#define PD\_MINOR\_VERSION 48
- \#define PD\_BUGFIX\_VERSION 1
- \#define PD\_TEST\_VERSION ""
- extern int pd\_compatibilitylevel; /\* e.g., 43 for pd 0.43 compatibility \*/
- /\* old name for "MSW" flag -- we have to take it for the sake of many old
- "nmakefiles" for externs, which will define NT and not MSW \*/
- \#if defined(NT) && !defined(MSW)
- \#define MSW
- \#endif
- /\* These pragmas are only used for MSVC, not MinGW or Cygwin \<hans@at.or.at\> \*/
- \#ifdef \_MSC\_VER
- /\* \#pragma warning( disable : 4091 ) \*/
- \#pragma warning( disable : 4305 ) /\* uncast const double to float \*/
- \#pragma warning( disable : 4244 ) /\* uncast float/int conversion etc. \*/
- \#pragma warning( disable : 4101 ) /\* unused automatic variables \*/
- \#endif /\* \_MSC\_VER \*/
- /\* the external storage class is "extern" in UNIX; in MSW it's ugly. \*/
- \#ifdef \_WIN32
- \#ifdef PD\_INTERNAL
- \#define EXTERN \_\_declspec(dllexport) extern
- \#else
- \#define EXTERN \_\_declspec(dllimport) extern
- \#endif /\* PD\_INTERNAL \*/
- \#else
- \#define EXTERN extern
- \#endif /\* \_WIN32 \*/
- /\* On most c compilers, you can just say "struct foo;" to declare a
- structure whose elements are defined elsewhere. On MSVC, when compiling
- C (but not C++) code, you have to say "extern struct foo;". So we make
- a stupid macro: \*/
- \#if defined(\_MSC\_VER) && !defined(\_LANGUAGE\_C\_PLUS\_PLUS) \\
- && !defined(\_\_cplusplus)
- \#define EXTERN\_STRUCT extern struct
- \#else
- \#define EXTERN\_STRUCT struct
- \#endif
- /\* Define some attributes, specific to the compiler \*/
- \#if defined(\_\_GNUC\_\_)
- \#define ATTRIBUTE\_FORMAT\_PRINTF(a, b) \_\_attribute\_\_ ((format (printf, a, b)))
- \#else
- \#define ATTRIBUTE\_FORMAT\_PRINTF(a, b)
- \#endif
- \#if !defined(\_SIZE\_T) && !defined(\_SIZE\_T\_)
- \#include \<stddef.h\> /\* just for size\_t -- how lame! \*/
- \#endif
- /\* Microsoft Visual Studio is not C99, it does not provide stdint.h \*/
- \#ifdef \_MSC\_VER
- typedef signed \_\_int8 int8\_t;
- typedef signed \_\_int16 int16\_t;
- typedef signed \_\_int32 int32\_t;
- typedef signed \_\_int64 int64\_t;
- typedef unsigned \_\_int8 uint8\_t;
- typedef unsigned \_\_int16 uint16\_t;
- typedef unsigned \_\_int32 uint32\_t;
- typedef unsigned \_\_int64 uint64\_t;
- \#else
- \# include \<stdint.h\>
- \#endif
- /\* for FILE, needed by sys\_fopen() and sys\_fclose() only \*/
- \#include \<stdio.h\>
- \#define MAXPDSTRING 1000 /\* use this for anything you want \*/
- \#define MAXPDARG 5 /\* max number of args we can typecheck today \*/
- /\* signed and unsigned integer types the size of a pointer: \*/
- \#if !defined(PD\_LONGINTTYPE)
- \#define PD\_LONGINTTYPE long
- \#endif
- \#if !defined(PD\_FLOATSIZE)
- /\* normally, our floats (t\_float, t\_sample,...) are 32bit \*/
- \# define PD\_FLOATSIZE 32
- \#endif
- \#if PD\_FLOATSIZE == 32
- \# define PD\_FLOATTYPE float
- /\* an unsigned int of the same size as FLOATTYPE: \*/
- \# define PD\_FLOATUINTTYPE unsigned int
- \#elif PD\_FLOATSIZE == 64
- \# define PD\_FLOATTYPE double
- \# define PD\_FLOATUINTTYPE unsigned long
- \#else
- \# error invalid FLOATSIZE: must be 32 or 64
- \#endif
- typedef PD\_LONGINTTYPE t\_int; /\* pointer-size integer \*/
- typedef PD\_FLOATTYPE t\_float; /\* a float type at most the same size \*/
- typedef PD\_FLOATTYPE t\_floatarg; /\* float type for function calls \*/
- typedef struct \_symbol
- {
- char \*s\_name;
- struct \_class \*\*s\_thing;
- struct \_symbol \*s\_next;
- } t\_symbol;
- EXTERN\_STRUCT \_array;
- \#define t\_array struct \_array /\* g\_canvas.h \*/
- /\* pointers to glist and array elements go through a "stub" which sticks
- around after the glist or array is freed. The stub itself is deleted when
- both the glist/array is gone and the refcount is zero, ensuring that no
- gpointers are pointing here. \*/
- \#define GP\_NONE 0 /\* the stub points nowhere (has been cut off) \*/
- \#define GP\_GLIST 1 /\* the stub points to a glist element \*/
- \#define GP\_ARRAY 2 /\* ... or array \*/
- typedef struct \_gstub
- {
- union
- {
- struct \_glist \*gs\_glist; /\* glist we're in \*/
- struct \_array \*gs\_array; /\* array we're in \*/
- } gs\_un;
- int gs\_which; /\* GP\_GLIST/GP\_ARRAY \*/
- int gs\_refcount; /\* number of gpointers pointing here \*/
- } t\_gstub;
- typedef struct \_gpointer /\* pointer to a gobj in a glist \*/
- {
- union
- {
- struct \_scalar \*gp\_scalar; /\* scalar we're in (if glist) \*/
- union word \*gp\_w; /\* raw data (if array) \*/
- } gp\_un;
- int gp\_valid; /\* number which must match gpointee \*/
- t\_gstub \*gp\_stub; /\* stub which points to glist/array \*/
- } t\_gpointer;
- typedef union word
- {
- t\_float w\_float;
- t\_symbol \*w\_symbol;
- t\_gpointer \*w\_gpointer;
- t\_array \*w\_array;
- struct \_binbuf \*w\_binbuf;
- int w\_index;
- } t\_word;
- typedef enum
- {
- A\_NULL,
- A\_FLOAT,
- A\_SYMBOL,
- A\_POINTER,
- A\_SEMI,
- A\_COMMA,
- A\_DEFFLOAT,
- A\_DEFSYM,
- A\_DOLLAR,
- A\_DOLLSYM,
- A\_GIMME,
- A\_CANT
- } t\_atomtype;
- \#define A\_DEFSYMBOL A\_DEFSYM /\* better name for this \*/
- typedef struct \_atom
- {
- t\_atomtype a\_type;
- union word a\_w;
- } t\_atom;
- EXTERN\_STRUCT \_class;
- \#define t\_class struct \_class
- EXTERN\_STRUCT \_outlet;
- \#define t\_outlet struct \_outlet
- EXTERN\_STRUCT \_inlet;
- \#define t\_inlet struct \_inlet
- EXTERN\_STRUCT \_binbuf;
- \#define t\_binbuf struct \_binbuf
- EXTERN\_STRUCT \_clock;
- \#define t\_clock struct \_clock
- EXTERN\_STRUCT \_outconnect;
- \#define t\_outconnect struct \_outconnect
- EXTERN\_STRUCT \_glist;
- \#define t\_glist struct \_glist
- \#define t\_canvas struct \_glist /\* LATER lose this \*/
- typedef t\_class \*t\_pd; /\* pure datum: nothing but a class pointer \*/
- typedef struct \_gobj /\* a graphical object \*/
- {
- t\_pd g\_pd; /\* pure datum header (class) \*/
- struct \_gobj \*g\_next; /\* next in list \*/
- } t\_gobj;
- typedef struct \_scalar /\* a graphical object holding data \*/
- {
- t\_gobj sc\_gobj; /\* header for graphical object \*/
- t\_symbol \*sc\_template; /\* template name (LATER replace with pointer) \*/
- t\_word sc\_vec[1]; /\* indeterminate-length array of words \*/
- } t\_scalar;
- typedef struct \_text /\* patchable object - graphical, with text \*/
- {
- t\_gobj te\_g; /\* header for graphical object \*/
- t\_binbuf \*te\_binbuf; /\* holder for the text \*/
- t\_outlet \*te\_outlet; /\* linked list of outlets \*/
- t\_inlet \*te\_inlet; /\* linked list of inlets \*/
- short te\_xpix; /\* x&y location (within the toplevel) \*/
- short te\_ypix;
- short te\_width; /\* requested width in chars, 0 if auto \*/
- unsigned int te\_type:2; /\* from defs below \*/
- } t\_text;
- \#define T\_TEXT 0 /\* just a textual comment \*/
- \#define T\_OBJECT 1 /\* a MAX style patchable object \*/
- \#define T\_MESSAGE 2 /\* a MAX type message \*/
- \#define T\_ATOM 3 /\* a cell to display a number or symbol \*/
- \#define te\_pd te\_g.g\_pd
- /\* t\_object is synonym for t\_text (LATER unify them) \*/
- typedef struct \_text t\_object;
- \#define ob\_outlet te\_outlet
- \#define ob\_inlet te\_inlet
- \#define ob\_binbuf te\_binbuf
- \#define ob\_pd te\_g.g\_pd
- \#define ob\_g te\_g
- typedef void (\*t\_method)(void);
- typedef void \*(\*t\_newmethod)( void);
- /\* in ARM 64 a varargs prototype generates a different function call sequence
- from a fixed one, so in that special case we make a more restrictive
- definition for t\_gotfn. This will break some code in the "chaos" package
- in Pd extended. (that code will run incorrectly anyhow so why not catch it
- at compile time anyhow.) \*/
- \#if defined(\_\_APPLE\_\_) && defined(\_\_aarch64\_\_)
- typedef void (\*t\_gotfn)(void \*x);
- \#else
- typedef void (\*t\_gotfn)(void \*x, ...);
- \#endif
- /\* ---------------- pre-defined objects and symbols --------------\*/
- EXTERN t\_pd pd\_objectmaker; /\* factory for creating "object" boxes \*/
- EXTERN t\_pd pd\_canvasmaker; /\* factory for creating canvases \*/
- /\* --------- prototypes from the central message system ----------- \*/
- EXTERN void pd\_typedmess(t\_pd \*x, t\_symbol \*s, int argc, t\_atom \*argv);
- EXTERN void pd\_forwardmess(t\_pd \*x, int argc, t\_atom \*argv);
- EXTERN t\_symbol \*gensym(const char \*s);
- EXTERN t\_gotfn getfn(t\_pd \*x, t\_symbol \*s);
- EXTERN t\_gotfn zgetfn(t\_pd \*x, t\_symbol \*s);
- EXTERN void nullfn(void);
- EXTERN void pd\_vmess(t\_pd \*x, t\_symbol \*s, char \*fmt, ...);
- /\* the following macros are for sending non-type-checkable messages, i.e.,
- using function lookup but circumventing type checking on arguments. Only
- use for internal messaging protected by A\_CANT so that the message can't
- be generated at patch level. \*/
- \#define mess0(x, s) ((\*getfn((x), (s)))((x)))
- typedef void (\*t\_gotfn1)(void \*x, void \*arg1);
- \#define mess1(x, s, a) ((\*(t\_gotfn1)getfn((x), (s)))((x), (a)))
- typedef void (\*t\_gotfn2)(void \*x, void \*arg1, void \*arg2);
- \#define mess2(x, s, a,b) ((\*(t\_gotfn2)getfn((x), (s)))((x), (a),(b)))
- typedef void (\*t\_gotfn3)(void \*x, void \*arg1, void \*arg2, void \*arg3);
- \#define mess3(x, s, a,b,c) ((\*(t\_gotfn3)getfn((x), (s)))((x), (a),(b),(c)))
- typedef void (\*t\_gotfn4)(void \*x,
- void \*arg1, void \*arg2, void \*arg3, void \*arg4);
- \#define mess4(x, s, a,b,c,d) \\
- ((\*(t\_gotfn4)getfn((x), (s)))((x), (a),(b),(c),(d)))
- typedef void (\*t\_gotfn5)(void \*x,
- void \*arg1, void \*arg2, void \*arg3, void \*arg4, void \*arg5);
- \#define mess5(x, s, a,b,c,d,e) \\
- ((\*(t\_gotfn5)getfn((x), (s)))((x), (a),(b),(c),(d),(e)))
- EXTERN void obj\_list(t\_object \*x, t\_symbol \*s, int argc, t\_atom \*argv);
- EXTERN t\_pd \*pd\_newest(void);
- /\* --------------- memory management -------------------- \*/
- EXTERN void \*getbytes(size\_t nbytes);
- EXTERN void \*getzbytes(size\_t nbytes);
- EXTERN void \*copybytes(void \*src, size\_t nbytes);
- EXTERN void freebytes(void \*x, size\_t nbytes);
- EXTERN void \*resizebytes(void \*x, size\_t oldsize, size\_t newsize);
- /\* -------------------- atoms ----------------------------- \*/
- \#define SETSEMI(atom) ((atom)-\>a\_type = A\_SEMI, (atom)-\>a\_w.w\_index = 0)
- \#define SETCOMMA(atom) ((atom)-\>a\_type = A\_COMMA, (atom)-\>a\_w.w\_index = 0)
- \#define SETPOINTER(atom, gp) ((atom)-\>a\_type = A\_POINTER, \\
- (atom)-\>a\_w.w\_gpointer = (gp))
- \#define SETFLOAT(atom, f) ((atom)-\>a\_type = A\_FLOAT, (atom)-\>a\_w.w\_float = (f))
- \#define SETSYMBOL(atom, s) ((atom)-\>a\_type = A\_SYMBOL, \\
- (atom)-\>a\_w.w\_symbol = (s))
- \#define SETDOLLAR(atom, n) ((atom)-\>a\_type = A\_DOLLAR, \\
- (atom)-\>a\_w.w\_index = (n))
- \#define SETDOLLSYM(atom, s) ((atom)-\>a\_type = A\_DOLLSYM, \\
- (atom)-\>a\_w.w\_symbol= (s))
- EXTERN t\_float atom\_getfloat(t\_atom \*a);
- EXTERN t\_int atom\_getint(t\_atom \*a);
- EXTERN t\_symbol \*atom\_getsymbol(t\_atom \*a);
- EXTERN t\_symbol \*atom\_gensym(t\_atom \*a);
- EXTERN t\_float atom\_getfloatarg(int which, int argc, t\_atom \*argv);
- EXTERN t\_int atom\_getintarg(int which, int argc, t\_atom \*argv);
- EXTERN t\_symbol \*atom\_getsymbolarg(int which, int argc, t\_atom \*argv);
- EXTERN void atom\_string(t\_atom \*a, char \*buf, unsigned int bufsize);
- /\* ------------------ binbufs --------------- \*/
- EXTERN t\_binbuf \*binbuf\_new(void);
- EXTERN void binbuf\_free(t\_binbuf \*x);
- EXTERN t\_binbuf \*binbuf\_duplicate(t\_binbuf \*y);
- EXTERN void binbuf\_text(t\_binbuf \*x, const char \*text, size\_t size);
- EXTERN void binbuf\_gettext(t\_binbuf \*x, char \*\*bufp, int \*lengthp);
- EXTERN void binbuf\_clear(t\_binbuf \*x);
- EXTERN void binbuf\_add(t\_binbuf \*x, int argc, t\_atom \*argv);
- EXTERN void binbuf\_addv(t\_binbuf \*x, char \*fmt, ...);
- EXTERN void binbuf\_addbinbuf(t\_binbuf \*x, t\_binbuf \*y);
- EXTERN void binbuf\_addsemi(t\_binbuf \*x);
- EXTERN void binbuf\_restore(t\_binbuf \*x, int argc, t\_atom \*argv);
- EXTERN void binbuf\_print(t\_binbuf \*x);
- EXTERN int binbuf\_getnatom(t\_binbuf \*x);
- EXTERN t\_atom \*binbuf\_getvec(t\_binbuf \*x);
- EXTERN int binbuf\_resize(t\_binbuf \*x, int newsize);
- EXTERN void binbuf\_eval(t\_binbuf \*x, t\_pd \*target, int argc, t\_atom \*argv);
- EXTERN int binbuf\_read(t\_binbuf \*b, char \*filename, char \*dirname,
- int crflag);
- EXTERN int binbuf\_read\_via\_canvas(t\_binbuf \*b, char \*filename, t\_canvas \*canvas,
- int crflag);
- EXTERN int binbuf\_read\_via\_path(t\_binbuf \*b, char \*filename, char \*dirname,
- int crflag);
- EXTERN int binbuf\_write(t\_binbuf \*x, char \*filename, char \*dir,
- int crflag);
- EXTERN void binbuf\_evalfile(t\_symbol \*name, t\_symbol \*dir);
- EXTERN t\_symbol \*binbuf\_realizedollsym(t\_symbol \*s, int ac, t\_atom \*av,
- int tonew);
- /\* ------------------ clocks --------------- \*/
- EXTERN t\_clock \*clock\_new(void \*owner, t\_method fn);
- EXTERN void clock\_set(t\_clock \*x, double systime);
- EXTERN void clock\_delay(t\_clock \*x, double delaytime);
- EXTERN void clock\_unset(t\_clock \*x);
- EXTERN void clock\_setunit(t\_clock \*x, double timeunit, int sampflag);
- EXTERN double clock\_getlogicaltime(void);
- EXTERN double clock\_getsystime(void); /\* OBSOLETE; use clock\_getlogicaltime() \*/
- EXTERN double clock\_gettimesince(double prevsystime);
- EXTERN double clock\_gettimesincewithunits(double prevsystime,
- double units, int sampflag);
- EXTERN double clock\_getsystimeafter(double delaytime);
- EXTERN void clock\_free(t\_clock \*x);
- /\* ----------------- pure data ---------------- \*/
- EXTERN t\_pd \*pd\_new(t\_class \*cls);
- EXTERN void pd\_free(t\_pd \*x);
- EXTERN void pd\_bind(t\_pd \*x, t\_symbol \*s);
- EXTERN void pd\_unbind(t\_pd \*x, t\_symbol \*s);
- EXTERN t\_pd \*pd\_findbyclass(t\_symbol \*s, t\_class \*c);
- EXTERN void pd\_pushsym(t\_pd \*x);
- EXTERN void pd\_popsym(t\_pd \*x);
- EXTERN t\_symbol \*pd\_getfilename(void);
- EXTERN t\_symbol \*pd\_getdirname(void);
- EXTERN void pd\_bang(t\_pd \*x);
- EXTERN void pd\_pointer(t\_pd \*x, t\_gpointer \*gp);
- EXTERN void pd\_float(t\_pd \*x, t\_float f);
- EXTERN void pd\_symbol(t\_pd \*x, t\_symbol \*s);
- EXTERN void pd\_list(t\_pd \*x, t\_symbol \*s, int argc, t\_atom \*argv);
- EXTERN void pd\_anything(t\_pd \*x, t\_symbol \*s, int argc, t\_atom \*argv);
- \#define pd\_class(x) (\*(x))
- /\* ----------------- pointers ---------------- \*/
- EXTERN void gpointer\_init(t\_gpointer \*gp);
- EXTERN void gpointer\_copy(const t\_gpointer \*gpfrom, t\_gpointer \*gpto);
- EXTERN void gpointer\_unset(t\_gpointer \*gp);
- EXTERN int gpointer\_check(const t\_gpointer \*gp, int headok);
- /\* ----------------- patchable "objects" -------------- \*/
- EXTERN t\_inlet \*inlet\_new(t\_object \*owner, t\_pd \*dest, t\_symbol \*s1,
- t\_symbol \*s2);
- EXTERN t\_inlet \*pointerinlet\_new(t\_object \*owner, t\_gpointer \*gp);
- EXTERN t\_inlet \*floatinlet\_new(t\_object \*owner, t\_float \*fp);
- EXTERN t\_inlet \*symbolinlet\_new(t\_object \*owner, t\_symbol \*\*sp);
- EXTERN t\_inlet \*signalinlet\_new(t\_object \*owner, t\_float f);
- EXTERN void inlet\_free(t\_inlet \*x);
- EXTERN t\_outlet \*outlet\_new(t\_object \*owner, t\_symbol \*s);
- EXTERN void outlet\_bang(t\_outlet \*x);
- EXTERN void outlet\_pointer(t\_outlet \*x, t\_gpointer \*gp);
- EXTERN void outlet\_float(t\_outlet \*x, t\_float f);
- EXTERN void outlet\_symbol(t\_outlet \*x, t\_symbol \*s);
- EXTERN void outlet\_list(t\_outlet \*x, t\_symbol \*s, int argc, t\_atom \*argv);
- EXTERN void outlet\_anything(t\_outlet \*x, t\_symbol \*s, int argc, t\_atom \*argv);
- EXTERN t\_symbol \*outlet\_getsymbol(t\_outlet \*x);
- EXTERN void outlet\_free(t\_outlet \*x);
- EXTERN t\_object \*pd\_checkobject(t\_pd \*x);
- /\* -------------------- canvases -------------- \*/
- EXTERN void glob\_setfilename(void \*dummy, t\_symbol \*name, t\_symbol \*dir);
- EXTERN void canvas\_setargs(int argc, t\_atom \*argv);
- EXTERN void canvas\_getargs(int \*argcp, t\_atom \*\*argvp);
- EXTERN t\_symbol \*canvas\_getcurrentdir(void);
- EXTERN t\_glist \*canvas\_getcurrent(void);
- EXTERN void canvas\_makefilename(t\_glist \*c, char \*file,
- char \*result,int resultsize);
- EXTERN t\_symbol \*canvas\_getdir(t\_glist \*x);
- EXTERN char sys\_font[]; /\* default typeface set in s\_main.c \*/
- EXTERN char sys\_fontweight[]; /\* default font weight set in s\_main.c \*/
- EXTERN int sys\_hostfontsize(int fontsize, int zoom);
- EXTERN int sys\_zoomfontwidth(int fontsize, int zoom, int worstcase);
- EXTERN int sys\_zoomfontheight(int fontsize, int zoom, int worstcase);
- EXTERN int sys\_fontwidth(int fontsize);
- EXTERN int sys\_fontheight(int fontsize);
- EXTERN void canvas\_dataproperties(t\_glist \*x, t\_scalar \*sc, t\_binbuf \*b);
- EXTERN int canvas\_open(t\_canvas \*x, const char \*name, const char \*ext,
- char \*dirresult, char \*\*nameresult, unsigned int size, int bin);
- /\* ---------------- widget behaviors ---------------------- \*/
- EXTERN\_STRUCT \_widgetbehavior;
- \#define t\_widgetbehavior struct \_widgetbehavior
- EXTERN\_STRUCT \_parentwidgetbehavior;
- \#define t\_parentwidgetbehavior struct \_parentwidgetbehavior
- EXTERN const t\_parentwidgetbehavior \*pd\_getparentwidget(t\_pd \*x);
- /\* -------------------- classes -------------- \*/
- \#define CLASS\_DEFAULT 0 /\* flags for new classes below \*/
- \#define CLASS\_PD 1
- \#define CLASS\_GOBJ 2
- \#define CLASS\_PATCHABLE 3
- \#define CLASS\_NOINLET 8
- \#define CLASS\_TYPEMASK 3
- EXTERN t\_class \*class\_new(t\_symbol \*name, t\_newmethod newmethod,
- t\_method freemethod, size\_t size, int flags, t\_atomtype arg1, ...);
- EXTERN void class\_addcreator(t\_newmethod newmethod, t\_symbol \*s,
- t\_atomtype type1, ...);
- EXTERN void class\_addmethod(t\_class \*c, t\_method fn, t\_symbol \*sel,
- t\_atomtype arg1, ...);
- EXTERN void class\_addbang(t\_class \*c, t\_method fn);
- EXTERN void class\_addpointer(t\_class \*c, t\_method fn);
- EXTERN void class\_doaddfloat(t\_class \*c, t\_method fn);
- EXTERN void class\_addsymbol(t\_class \*c, t\_method fn);
- EXTERN void class\_addlist(t\_class \*c, t\_method fn);
- EXTERN void class\_addanything(t\_class \*c, t\_method fn);
- EXTERN void class\_sethelpsymbol(t\_class \*c, t\_symbol \*s);
- EXTERN void class\_setwidget(t\_class \*c, const t\_widgetbehavior \*w);
- EXTERN void class\_setparentwidget(t\_class \*c, const t\_parentwidgetbehavior \*w);
- EXTERN const t\_parentwidgetbehavior \*class\_parentwidget(t\_class \*c);
- EXTERN char \*class\_getname(t\_class \*c);
- EXTERN char \*class\_gethelpname(t\_class \*c);
- EXTERN char \*class\_gethelpdir(t\_class \*c);
- EXTERN void class\_setdrawcommand(t\_class \*c);
- EXTERN int class\_isdrawcommand(t\_class \*c);
- EXTERN void class\_domainsignalin(t\_class \*c, int onset);
- EXTERN void class\_set\_extern\_dir(t\_symbol \*s);
- \#define CLASS\_MAINSIGNALIN(c, type, field) \\
- class\_domainsignalin(c, (char \*)(&((type \*)0)-\>field) - (char \*)0)
- /\* prototype for functions to save Pd's to a binbuf \*/
- typedef void (\*t\_savefn)(t\_gobj \*x, t\_binbuf \*b);
- EXTERN void class\_setsavefn(t\_class \*c, t\_savefn f);
- EXTERN t\_savefn class\_getsavefn(t\_class \*c);
- EXTERN void obj\_saveformat(t\_object \*x, t\_binbuf \*bb); /\* add format to bb \*/
- /\* prototype for functions to open properties dialogs \*/
- typedef void (\*t\_propertiesfn)(t\_gobj \*x, struct \_glist \*glist);
- EXTERN void class\_setpropertiesfn(t\_class \*c, t\_propertiesfn f);
- EXTERN t\_propertiesfn class\_getpropertiesfn(t\_class \*c);
- \#ifndef PD\_CLASS\_DEF
- \#define class\_addbang(x, y) class\_addbang((x), (t\_method)(y))
- \#define class\_addpointer(x, y) class\_addpointer((x), (t\_method)(y))
- \#define class\_addfloat(x, y) class\_doaddfloat((x), (t\_method)(y))
- \#define class\_addsymbol(x, y) class\_addsymbol((x), (t\_method)(y))
- \#define class\_addlist(x, y) class\_addlist((x), (t\_method)(y))
- \#define class\_addanything(x, y) class\_addanything((x), (t\_method)(y))
- \#endif
- /\* ------------ printing --------------------------------- \*/
- EXTERN void post(const char \*fmt, ...);
- EXTERN void startpost(const char \*fmt, ...);
- EXTERN void poststring(const char \*s);
- EXTERN void postfloat(t\_floatarg f);
- EXTERN void postatom(int argc, t\_atom \*argv);
- EXTERN void endpost(void);
- EXTERN void error(const char \*fmt, ...) ATTRIBUTE\_FORMAT\_PRINTF(1, 2);
- EXTERN void verbose(int level, const char \*fmt, ...) ATTRIBUTE\_FORMAT\_PRINTF(2, 3);
- EXTERN void bug(const char \*fmt, ...) ATTRIBUTE\_FORMAT\_PRINTF(1, 2);
- EXTERN void pd\_error(void \*object, const char \*fmt, ...) ATTRIBUTE\_FORMAT\_PRINTF(2, 3);
- EXTERN void logpost(const void \*object, const int level, const char \*fmt, ...)
- ATTRIBUTE\_FORMAT\_PRINTF(3, 4);
- EXTERN void sys\_logerror(const char \*object, const char \*s);
- EXTERN void sys\_unixerror(const char \*object);
- EXTERN void sys\_ouch(void);
- /\* ------------ system interface routines ------------------- \*/
- EXTERN int sys\_isreadablefile(const char \*name);
- EXTERN int sys\_isabsolutepath(const char \*dir);
- EXTERN void sys\_bashfilename(const char \*from, char \*to);
- EXTERN void sys\_unbashfilename(const char \*from, char \*to);
- EXTERN int open\_via\_path(const char \*dir, const char \*name, const char \*ext,
- char \*dirresult, char \*\*nameresult, unsigned int size, int bin);
- EXTERN int sched\_geteventno(void);
- EXTERN double sys\_getrealtime(void);
- EXTERN int (\*sys\_idlehook)(void); /\* hook to add idle time computation \*/
- /\* Win32's open()/fopen() do not handle UTF-8 filenames so we need
- \* these internal versions that handle UTF-8 filenames the same across
- \* all platforms. They are recommended for use in external
- \* objectclasses as well so they work with Unicode filenames on Windows \*/
- EXTERN int sys\_open(const char \*path, int oflag, ...);
- EXTERN int sys\_close(int fd);
- EXTERN FILE \*sys\_fopen(const char \*filename, const char \*mode);
- EXTERN int sys\_fclose(FILE \*stream);
- /\* ------------ threading ------------------- \*/
- EXTERN void sys\_lock(void);
- EXTERN void sys\_unlock(void);
- EXTERN int sys\_trylock(void);
- /\* --------------- signals ----------------------------------- \*/
- typedef PD\_FLOATTYPE t\_sample;
- typedef union \_sampleint\_union {
- t\_sample f;
- PD\_FLOATUINTTYPE i;
- } t\_sampleint\_union;
- \#define MAXLOGSIG 32
- \#define MAXSIGSIZE (1 \<\< MAXLOGSIG)
- typedef struct \_signal
- {
- int s\_n; /\* number of points in the array \*/
- t\_sample \*s\_vec; /\* the array \*/
- t\_float s\_sr; /\* sample rate \*/
- int s\_refcount; /\* number of times used \*/
- int s\_isborrowed; /\* whether we're going to borrow our array \*/
- struct \_signal \*s\_borrowedfrom; /\* signal to borrow it from \*/
- struct \_signal \*s\_nextfree; /\* next in freelist \*/
- struct \_signal \*s\_nextused; /\* next in used list \*/
- int s\_vecsize; /\* allocated size of array in points \*/
- } t\_signal;
- typedef t\_int \*(\*t\_perfroutine)(t\_int \*args);
- EXTERN t\_int \*plus\_perform(t\_int \*args);
- EXTERN t\_int \*zero\_perform(t\_int \*args);
- EXTERN t\_int \*copy\_perform(t\_int \*args);
- EXTERN void dsp\_add\_plus(t\_sample \*in1, t\_sample \*in2, t\_sample \*out, int n);
- EXTERN void dsp\_add\_copy(t\_sample \*in, t\_sample \*out, int n);
- EXTERN void dsp\_add\_scalarcopy(t\_float \*in, t\_sample \*out, int n);
- EXTERN void dsp\_add\_zero(t\_sample \*out, int n);
- EXTERN int sys\_getblksize(void);
- EXTERN t\_float sys\_getsr(void);
- EXTERN int sys\_get\_inchannels(void);
- EXTERN int sys\_get\_outchannels(void);
- EXTERN void dsp\_add(t\_perfroutine f, int n, ...);
- EXTERN void dsp\_addv(t\_perfroutine f, int n, t\_int \*vec);
- EXTERN void pd\_fft(t\_float \*buf, int npoints, int inverse);
- EXTERN int ilog2(int n);
- EXTERN void mayer\_fht(t\_sample \*fz, int n);
- EXTERN void mayer\_fft(int n, t\_sample \*real, t\_sample \*imag);
- EXTERN void mayer\_ifft(int n, t\_sample \*real, t\_sample \*imag);
- EXTERN void mayer\_realfft(int n, t\_sample \*real);
- EXTERN void mayer\_realifft(int n, t\_sample \*real);
- EXTERN float \*cos\_table;
- \#define LOGCOSTABSIZE 9
- \#define COSTABSIZE (1\<\<LOGCOSTABSIZE)
- EXTERN int canvas\_suspend\_dsp(void);
- EXTERN void canvas\_resume\_dsp(int oldstate);
- EXTERN void canvas\_update\_dsp(void);
- EXTERN int canvas\_dspstate;
- /\* up/downsampling \*/
- typedef struct \_resample
- {
- int method; /\* up/downsampling method ID \*/
- int downsample; /\* downsampling factor \*/
- int upsample; /\* upsampling factor \*/
- t\_sample \*s\_vec; /\* here we hold the resampled data \*/
- int s\_n;
- t\_sample \*coeffs; /\* coefficients for filtering... \*/
- int coefsize;
- t\_sample \*buffer; /\* buffer for filtering \*/
- int bufsize;
- } t\_resample;
- EXTERN void resample\_init(t\_resample \*x);
- EXTERN void resample\_free(t\_resample \*x);
- EXTERN void resample\_dsp(t\_resample \*x, t\_sample \*in, int insize, t\_sample \*out, int outsize, int method);
- EXTERN void resamplefrom\_dsp(t\_resample \*x, t\_sample \*in, int insize, int outsize, int method);
- EXTERN void resampleto\_dsp(t\_resample \*x, t\_sample \*out, int insize, int outsize, int method);
- /\* ----------------------- utility functions for signals -------------- \*/
- EXTERN t\_float mtof(t\_float);
- EXTERN t\_float ftom(t\_float);
- EXTERN t\_float rmstodb(t\_float);
- EXTERN t\_float powtodb(t\_float);
- EXTERN t\_float dbtorms(t\_float);
- EXTERN t\_float dbtopow(t\_float);
- EXTERN t\_float q8\_sqrt(t\_float);
- EXTERN t\_float q8\_rsqrt(t\_float);
- \#ifndef N32
- EXTERN t\_float qsqrt(t\_float); /\* old names kept for extern compatibility \*/
- EXTERN t\_float qrsqrt(t\_float);
- \#endif
- /\* --------------------- data --------------------------------- \*/
- /\* graphical arrays \*/
- EXTERN\_STRUCT \_garray;
- \#define t\_garray struct \_garray
- EXTERN t\_class \*garray\_class;
- EXTERN int garray\_getfloatarray(t\_garray \*x, int \*size, t\_float \*\*vec);
- EXTERN int garray\_getfloatwords(t\_garray \*x, int \*size, t\_word \*\*vec);
- EXTERN void garray\_redraw(t\_garray \*x);
- EXTERN int garray\_npoints(t\_garray \*x);
- EXTERN char \*garray\_vec(t\_garray \*x);
- EXTERN void garray\_resize(t\_garray \*x, t\_floatarg f); /\* avoid; use this: \*/
- EXTERN void garray\_resize\_long(t\_garray \*x, long n); /\* better version \*/
- EXTERN void garray\_usedindsp(t\_garray \*x);
- EXTERN void garray\_setsaveit(t\_garray \*x, int saveit);
- EXTERN t\_glist \*garray\_getglist(t\_garray \*x);
- EXTERN t\_array \*garray\_getarray(t\_garray \*x);
- EXTERN t\_class \*scalar\_class;
- EXTERN t\_float \*value\_get(t\_symbol \*s);
- EXTERN void value\_release(t\_symbol \*s);
- EXTERN int value\_getfloat(t\_symbol \*s, t\_float \*f);
- EXTERN int value\_setfloat(t\_symbol \*s, t\_float f);
- /\* ------- GUI interface - functions to send strings to TK --------- \*/
- typedef void (\*t\_guicallbackfn)(t\_gobj \*client, t\_glist \*glist);
- EXTERN void sys\_vgui(char \*fmt, ...);
- EXTERN void sys\_gui(char \*s);
- EXTERN void sys\_pretendguibytes(int n);
- EXTERN void sys\_queuegui(void \*client, t\_glist \*glist, t\_guicallbackfn f);
- EXTERN void sys\_unqueuegui(void \*client);
- /\* dialog window creation and destruction \*/
- EXTERN void gfxstub\_new(t\_pd \*owner, void \*key, const char \*cmd);
- EXTERN void gfxstub\_deleteforkey(void \*key);
- extern t\_class \*glob\_pdobject; /\* object to send "pd" messages \*/
- /\*------------- Max 0.26 compatibility --------------------\*/
- /\* the following reflects the new way classes are laid out, with the class
- pointing to the messlist and not vice versa. Externs shouldn't feel it. \*/
- typedef t\_class \*t\_externclass;
- EXTERN void c\_extern(t\_externclass \*cls, t\_newmethod newroutine,
- t\_method freeroutine, t\_symbol \*name, size\_t size, int tiny, \\
- t\_atomtype arg1, ...);
- EXTERN void c\_addmess(t\_method fn, t\_symbol \*sel, t\_atomtype arg1, ...);
- \#define t\_getbytes getbytes
- \#define t\_freebytes freebytes
- \#define t\_resizebytes resizebytes
- \#define typedmess pd\_typedmess
- \#define vmess pd\_vmess
- /\* A definition to help gui objects straddle 0.34-0.35 changes. If this is
- defined, there is a "te\_xpix" field in objects, not a "te\_xpos" as before: \*/
- \#define PD\_USE\_TE\_XPIX
- \#ifndef \_MSC\_VER /\* Microoft compiler can't handle "inline" function/macros \*/
- \#if defined(\_\_i386\_\_) || defined(\_\_x86\_64\_\_) || defined(\_\_arm\_\_)
- /\* a test for NANs and denormals. Should only be necessary on i386. \*/
- \#if PD\_FLOATSIZE == 32
- typedef union
- {
- t\_float f;
- unsigned int ui;
- }t\_bigorsmall32;
- static inline int PD\_BADFLOAT(t\_float f) /\* malformed float \*/
- {
- t\_bigorsmall32 pun;
- pun.f = f;
- pun.ui &= 0x7f800000;
- return((pun.ui == 0) | (pun.ui == 0x7f800000));
- }
- static inline int PD\_BIGORSMALL(t\_float f) /\* exponent outside (-64,64) \*/
- {
- t\_bigorsmall32 pun;
- pun.f = f;
- return((pun.ui & 0x20000000) == ((pun.ui \>\> 1) & 0x20000000));
- }
- \#elif PD\_FLOATSIZE == 64
- typedef union
- {
- t\_float f;
- unsigned int ui[2];
- }t\_bigorsmall64;
- static inline int PD\_BADFLOAT(t\_float f) /\* malformed double \*/
- {
- t\_bigorsmall64 pun;
- pun.f = f;
- pun.ui[1] &= 0x7ff00000;
- return((pun.ui[1] == 0) | (pun.ui[1] == 0x7ff00000));
- }
- static inline int PD\_BIGORSMALL(t\_float f) /\* exponent outside (-512,512) \*/
- {
- t\_bigorsmall64 pun;
- pun.f = f;
- return((pun.ui[1] & 0x20000000) == ((pun.ui[1] \>\> 1) & 0x20000000));
- }
- \#endif /\* PD\_FLOATSIZE \*/
- \#else /\* not INTEL or ARM \*/
- \#define PD\_BADFLOAT(f) 0
- \#define PD\_BIGORSMALL(f) 0
- \#endif
- \#else /\* \_MSC\_VER \*/
- \#if PD\_FLOATSIZE == 32
- \#define PD\_BADFLOAT(f) ((((\*(unsigned int\*)&(f))&0x7f800000)==0) || \\
- (((\*(unsigned int\*)&(f))&0x7f800000)==0x7f800000))
- /\* more stringent test: anything not between 1e-19 and 1e19 in absolute val \*/
- \#define PD\_BIGORSMALL(f) ((((\*(unsigned int\*)&(f))&0x60000000)==0) || \\
- (((\*(unsigned int\*)&(f))&0x60000000)==0x60000000))
- \#else /\* 64 bits... don't know what to do here \*/
- \#define PD\_BADFLOAT(f) (!(((f) \>= 0) || ((f) \<= 0)))
- \#define PD\_BIGORSMALL(f) ((f) \> 1e150 || (f) \< -1e150 \\
- || (f) \> -1e-150 && (f) \< 1e-150 )
- \#endif
- \#endif /\* \_MSC\_VER \*/
- /\* get version number at run time \*/
- EXTERN void sys\_getversion(int \*major, int \*minor, int \*bugfix);
- EXTERN\_STRUCT \_instancemidi;
- \#define t\_instancemidi struct \_instancemidi
- EXTERN\_STRUCT \_instanceinter;
- \#define t\_instanceinter struct \_instanceinter
- EXTERN\_STRUCT \_instancecanvas;
- \#define t\_instancecanvas struct \_instancecanvas
- EXTERN\_STRUCT \_instanceugen;
- \#define t\_instanceugen struct \_instanceugen
- EXTERN\_STRUCT \_instancestuff;
- \#define t\_instancestuff struct \_instancestuff
- \#ifndef PDTHREADS
- \#define PDTHREADS 1
- \#endif
- struct \_pdinstance
- {
- double pd\_systime; /\* global time in Pd ticks \*/
- t\_clock \*pd\_clock\_setlist; /\* list of set clocks \*/
- t\_canvas \*pd\_canvaslist; /\* list of all root canvases \*/
- int pd\_instanceno; /\* ordinal number of this instance \*/
- t\_symbol \*\*pd\_symhash; /\* symbol table hash table \*/
- t\_instancemidi \*pd\_midi; /\* private stuff for x\_midi.c \*/
- t\_instanceinter \*pd\_inter; /\* private stuff for s\_inter.c \*/
- t\_instanceugen \*pd\_ugen; /\* private stuff for d\_ugen.c \*/
- t\_instancecanvas \*pd\_gui; /\* semi-private stuff in g\_canvas.h \*/
- t\_instancestuff \*pd\_stuff; /\* semi-private stuff in s\_stuff.h \*/
- t\_pd \*pd\_newest; /\* most recently created object \*/
- \#ifdef PDINSTANCE
- t\_symbol pd\_s\_pointer;
- t\_symbol pd\_s\_float;
- t\_symbol pd\_s\_symbol;
- t\_symbol pd\_s\_bang;
- t\_symbol pd\_s\_list;
- t\_symbol pd\_s\_anything;
- t\_symbol pd\_s\_signal;
- t\_symbol pd\_s\_\_N;
- t\_symbol pd\_s\_\_X;
- t\_symbol pd\_s\_x;
- t\_symbol pd\_s\_y;
- t\_symbol pd\_s\_;
- \#endif
- \#if PDTHREADS
- int pd\_islocked;
- \#endif
- };
- \#define t\_pdinstance struct \_pdinstance
- EXTERN t\_pdinstance pd\_maininstance;
- /\* m\_pd.c \*/
- \#ifdef PDINSTANCE
- EXTERN t\_pdinstance \*pdinstance\_new( void);
- EXTERN void pd\_setinstance(t\_pdinstance \*x);
- EXTERN void pdinstance\_free(t\_pdinstance \*x);
- \#endif /\* PDINSTANCE \*/
- \#if defined(PDTHREADS) && defined(PDINSTANCE)
- \#define PERTHREAD \_\_thread
- \#else
- \#define PERTHREAD
- \#endif
- \#ifdef PDINSTANCE
- EXTERN PERTHREAD t\_pdinstance \*pd\_this;
- EXTERN t\_pdinstance \*\*pd\_instances;
- EXTERN int pd\_ninstances;
- \#else
- \#define pd\_this (&pd\_maininstance)
- \#endif /\* PDINSTANCE \*/
- \#ifdef PDINSTANCE
- \#define s\_pointer (pd\_this-\>pd\_s\_pointer)
- \#define s\_float (pd\_this-\>pd\_s\_float)
- \#define s\_symbol (pd\_this-\>pd\_s\_symbol)
- \#define s\_bang (pd\_this-\>pd\_s\_bang)
- \#define s\_list (pd\_this-\>pd\_s\_list)
- \#define s\_anything (pd\_this-\>pd\_s\_anything)
- \#define s\_signal (pd\_this-\>pd\_s\_signal)
- \#define s\_\_N (pd\_this-\>pd\_s\_\_N)
- \#define s\_\_X (pd\_this-\>pd\_s\_\_X)
- \#define s\_x (pd\_this-\>pd\_s\_x)
- \#define s\_y (pd\_this-\>pd\_s\_y)
- \#define s\_ (pd\_this-\>pd\_s\_)
- \#else
- EXTERN t\_symbol s\_pointer, s\_float, s\_symbol, s\_bang, s\_list, s\_anything,
- s\_signal, s\_\_N, s\_\_X, s\_x, s\_y, s\_;
- \#endif
- EXTERN t\_canvas \*pd\_getcanvaslist(void);
- EXTERN int pd\_getdspstate(void);
- \#if defined(\_LANGUAGE\_C\_PLUS\_PLUS) || defined(\_\_cplusplus)
- }
- \#endif
- \#define \_\_m\_pd\_h\_
- \#endif /\* \_\_m\_pd\_h\_ \*/
 
- 
+/\* Copyright (c) 1997-1999 Miller Puckette. \* For information on usage and redistribution, and for a DISCLAIMER OF ALL \* WARRANTIES, see the file, "LICENSE.txt," in this distribution. \*/
+\#ifndef \_\_m_pd_h\_
+\#if defined(\_LANGUAGE_C_PLUS_PLUS) || defined(\_\_cplusplus)
+extern "C" {
+  \#endif \#define PD_MAJOR_VERSION 0
+\#define PD_MINOR_VERSION 48
+\#define PD_BUGFIX_VERSION 1
+\#define PD_TEST_VERSION "" extern int pd_compatibilitylevel; /\* e.g., 43 for pd 0.43 compatibility \*/
+/\* old name for "MSW" flag -- we have to take it for the sake of many old
+"nmakefiles" for externs, which will define NT and not MSW \*/
+\#if defined(NT) && !defined(MSW)
+\#define MSW
+\#endif
+/\* These pragmas are only used for MSVC, not MinGW or Cygwin \<hans@at.or.at\> \*/
+\#ifdef \_MSC_VER
+/\* \#pragma warning( disable : 4091 ) \*/
+\#pragma warning( disable : 4305 ) /\* uncast const double to float \*/
+\#pragma warning( disable : 4244 ) /\* uncast float/int conversion etc. \*/
+\#pragma warning( disable : 4101 ) /\* unused automatic variables \*/
+\#endif /\* \_MSC_VER \*/
+/\* the external storage class is "extern" in UNIX; in MSW it's ugly. \*/
+\#ifdef \_WIN32
+\#ifdef PD_INTERNAL
+\#define EXTERN \_\_declspec(dllexport) extern
+\#else
+\#define EXTERN \_\_declspec(dllimport) extern
+\#endif /\* PD_INTERNAL \*/
+\#else
+\#define EXTERN extern
+\#endif /\* \_WIN32 \*/
+/\* On most c compilers, you can just say "struct foo;" to declare a
+structure whose elements are defined elsewhere. On MSVC, when compiling
+C (but not C++) code, you have to say "extern struct foo;". So we make
+a stupid macro: \*/
+\#if defined(\_MSC_VER) && !defined(\_LANGUAGE_C_PLUS_PLUS) \\
+&& !defined(\_\_cplusplus)
+\#define EXTERN_STRUCT extern struct
+\#else
+\#define EXTERN_STRUCT struct
+\#endif
+/\* Define some attributes, specific to the compiler \*/
+\#if defined(\_\_GNUC\_\_)
+\#define ATTRIBUTE_FORMAT_PRINTF(a, b) \_\_attribute\_\_ ((format (printf, a, b)))
+\#else
+\#define ATTRIBUTE_FORMAT_PRINTF(a, b)
+\#endif
+\#if !defined(\_SIZE_T) && !defined(\_SIZE_T\_)
+\#include \<stddef.h\> /\* just for size_t -- how lame! \*/
+\#endif
+/\* Microsoft Visual Studio is not C99, it does not provide stdint.h \*/
+\#ifdef \_MSC_VER
+typedef signed \_\_int8 int8_t;
+  typedef signed \_\_int16 int16_t;
+  typedef signed \_\_int32 int32_t;
+  typedef signed \_\_int64 int64_t;
+  typedef unsigned \_\_int8 uint8_t;
+  typedef unsigned \_\_int16 uint16_t;
+  typedef unsigned \_\_int32 uint32_t;
+  typedef unsigned \_\_int64 uint64_t;
+\#else
+\# include \<stdint.h\>
+\#endif
+/\* for FILE, needed by sys_fopen() and sys_fclose() only \*/
+\#include \<stdio.h\>
+\#define MAXPDSTRING 1000 /\* use this for anything you want \*/
+\#define MAXPDARG 5 /\* max number of args we can typecheck today \*/
+/\* signed and unsigned integer types the size of a pointer: \*/
+\#if !defined(PD_LONGINTTYPE)
+\#define PD_LONGINTTYPE long
+\#endif
+\#if !defined(PD_FLOATSIZE)
+/\* normally, our floats (t_float, t_sample,...) are 32bit \*/
+\# define PD_FLOATSIZE 32
+\#endif
+\#if PD_FLOATSIZE == 32
+\# define PD_FLOATTYPE float
+/\* an unsigned int of the same size as FLOATTYPE: \*/
+\# define PD_FLOATUINTTYPE unsigned int
+\#elif PD_FLOATSIZE == 64
+\# define PD_FLOATTYPE double
+\# define PD_FLOATUINTTYPE unsigned long
+\#else
+\# error invalid FLOATSIZE: must be 32 or 64
+\#endif
+typedef PD_LONGINTTYPE t_int;
+/\*pointer - size integer \* / typedef PD_FLOATTYPE t_float;
+/\*a float type at most the same size \* / typedef PD_FLOATTYPE t_floatarg; /\* float type for function calls \*/
+typedef struct \_symbol
+{
+  char \*s_name;
+  struct \_class \*\*s_thing;
+  struct \_symbol \*s_next;
+}
+t_symbol;
+EXTERN_STRUCT \_array;
+\#define t_array struct \_array /\*g_canvas.h \* /
+        /\*pointers to glist and array elements go through a
+        "stub" which sticks around after the glist or
+    array is freed.The stub itself is deleted when both the glist /
+        array is gone and the refcount is zero,
+    ensuring that no gpointers are pointing here. \* /
+\#define GP_NONE 0 /\*the stub points nowhere(has been cut off) \* /
+\#define GP_GLIST 1 /\*the stub points to a glist element \* /
+\#define GP_ARRAY 2 /\*... or array \* / typedef struct \_gstub {
+  union {
+    struct \_glist \*gs_glist;
+    /\*glist we're in \*/ struct \_array \*gs_array;
+    /\*array we're in \*/
+  } gs_un;
+  int gs_which;
+  /\*GP_GLIST / GP_ARRAY \* / int gs_refcount;
+  /\*number of gpointers pointing here \* /
+}
+t_gstub;
+typedef struct \_gpointer /\*pointer to a gobj in a glist \* / {
+  union {
+    struct \_scalar \*gp_scalar;
+    /\*scalar we're in (if glist) \*/ union word \*gp_w;
+    /\*raw data(if array) \* /
+  } gp_un;
+  int gp_valid;
+  /\*number which must match gpointee \* / t_gstub \*gp_stub;
+  /\*stub which points to glist / array \* /
+}
+t_gpointer;
+typedef union word {
+  t_float w_float;
+  t_symbol \*w_symbol;
+  t_gpointer \*w_gpointer;
+  t_array \*w_array;
+  struct \_binbuf \*w_binbuf;
+  int w_index;
+} t_word;
+typedef enum {
+  A_NULL,
+  A_FLOAT,
+  A_SYMBOL,
+  A_POINTER,
+  A_SEMI,
+  A_COMMA,
+  A_DEFFLOAT,
+  A_DEFSYM,
+  A_DOLLAR,
+  A_DOLLSYM,
+  A_GIMME,
+  A_CANT
+} t_atomtype;
+\#define A_DEFSYMBOL A_DEFSYM /\* better name for this \*/
+typedef struct \_atom
+{
+  t_atomtype a_type;
+  union word a_w;
+}
+t_atom;
+EXTERN_STRUCT \_class;
+\#define t_class struct \_class EXTERN_STRUCT \_outlet;
+\#define t_outlet struct \_outlet EXTERN_STRUCT \_inlet;
+\#define t_inlet struct \_inlet EXTERN_STRUCT \_binbuf;
+\#define t_binbuf struct \_binbuf EXTERN_STRUCT \_clock;
+\#define t_clock struct \_clock EXTERN_STRUCT \_outconnect;
+\#define t_outconnect struct \_outconnect EXTERN_STRUCT \_glist;
+\#define t_glist struct \_glist
+\#define t_canvas struct \_glist /\*LATER lose this \* /
+    typedef t_class \*t_pd;
+/\*pure datum : nothing but a class pointer \* /
+                typedef struct \_gobj /\*a graphical object \* / {
+  t_pd g_pd;
+  /\*pure datum header(class) \* / struct \_gobj \*g_next;
+  /\*next in list \* /
+}
+t_gobj;
+typedef struct \_scalar /\*a graphical object holding data \* / {
+  t_gobj sc_gobj; /\* header for graphical object \*/
+t_symbol \*sc_template;
+  /\*template name(LATER replace with pointer) \* / t_word sc_vec[1];
+  /\*indeterminate - length array of words \* /
+}
+t_scalar;
+typedef struct \_text /\*patchable object - graphical, with text \* / {
+  t_gobj te_g; /\* header for graphical object \*/
+t_binbuf \*te_binbuf; /\* holder for the text \*/
+t_outlet \*te_outlet;
+  /\*linked list of outlets \* / t_inlet \*te_inlet;
+  /\*linked list of inlets \* / short te_xpix;
+  /\*x &y location(within the toplevel) \* / short te_ypix;
+  short te_width;
+  /\*requested width in chars, 0 if auto \* / unsigned int te_type : 2;
+  /\*from defs below \* /
+}
+t_text;
+\#define T_TEXT 0 /\* just a textual comment \*/
+\#define T_OBJECT 1 /\* a MAX style patchable object \*/
+\#define T_MESSAGE 2 /\* a MAX type message \*/
+\#define T_ATOM 3 /\* a cell to display a number or symbol \*/
+\#define te_pd te_g.g_pd
+/\* t_object is synonym for t_text (LATER unify them) \*/
+typedef struct \_text t_object;
+\#define ob_outlet te_outlet
+\#define ob_inlet te_inlet
+\#define ob_binbuf te_binbuf
+\#define ob_pd te_g.g_pd
+\#define ob_g te_g typedef void(\* t_method)(void);
+typedef void \*(\* t_newmethod)(void);
+/\* in ARM 64 a varargs prototype generates a different function call sequence
+from a fixed one, so in that special case we make a more restrictive
+definition for t_gotfn. This will break some code in the "chaos" package
+in Pd extended. (that code will run incorrectly anyhow so why not catch it
+at compile time anyhow.) \*/
+\#if defined(\_\_APPLE\_\_) && defined(\_\_aarch64\_\_)
+typedef void (\*t_gotfn)(void \*x);
+\#else typedef void(\* t_gotfn)(void \*x, ...);
+\#endif /\* ----------------pre -
+    defined objects and symbols-- ------------\* / EXTERN t_pd pd_objectmaker; /\* factory for creating "object" boxes \*/
+EXTERN t_pd pd_canvasmaker; /\* factory for creating canvases \*/
+/\* --------- prototypes from the central message system ----------- \*/
+EXTERN void pd_typedmess(t_pd \*x, t_symbol \*s, int argc, t_atom \*argv);
+EXTERN void pd_forwardmess(t_pd \* x, int argc, t_atom \*argv);
+EXTERN t_symbol \*gensym(const char \*s);
+EXTERN t_gotfn getfn(t_pd \* x, t_symbol \* s);
+EXTERN t_gotfn zgetfn(t_pd \* x, t_symbol \* s);
+EXTERN void nullfn(void);
+EXTERN void pd_vmess(t_pd \* x, t_symbol \* s, char \*fmt, ...);
+/\* the following macros are for sending non-type-checkable messages, i.e.,
+using function lookup but circumventing type checking on arguments. Only
+use for internal messaging protected by A_CANT so that the message can't
+be generated at patch level. \*/
+\#define mess0(x, s) ((\*getfn((x), (s)))((x)))
+typedef void (\*t_gotfn1)(void \*x, void \*arg1);
+\#define mess1(x, s, a)((\* (t_gotfn1)getfn((x), (s)))(
+    (x), (a))) typedef void(\* t_gotfn2)(void \*x, void \*arg1, void \*arg2);
+\#define mess2(x, s, a, b)((\* (t_gotfn2)getfn((x), (s)))(
+    (x), (a), (b))) typedef void(\* t_gotfn3)(void \*x, void \*arg1,
+                                              void \*arg2, void \*arg3);
+\#define mess3(x, s, a, b, c)((\* (t_gotfn3)getfn((x), (s)))(
+    (x), (a), (b), (c))) typedef void(\* t_gotfn4)(void \*x, void \*arg1,
+                                                   void \*arg2, void \*arg3,
+                                                   void \*arg4);
+\#define mess4(x, s, a, b, c, d) \ ((\* (t_gotfn4)getfn((x), (s)))(
+    (x), (a), (b), (c),
+    (d))) typedef void(\* t_gotfn5)(void \*x, void \*arg1, void \*arg2,
+                                    void \*arg3, void \*arg4, void \*arg5);
+\#define mess5(x, s, a, b, c, d, e) \ (
+    (\* (t_gotfn5)getfn((x), (s)))((x), (a), (b), (c), (d), (e))) EXTERN void
+obj_list(t_object \* x, t_symbol \* s, int argc, t_atom \*argv);
+EXTERN t_pd \*pd_newest(void);
+/\* ---------------memory management-- ------------------ \* /
+    EXTERN void \*getbytes(size_t nbytes);
+EXTERN void \*getzbytes(size_t nbytes);
+EXTERN void \*copybytes(void \*src, size_t nbytes);
+EXTERN void freebytes(void \*x, size_t nbytes);
+EXTERN void \*resizebytes(void \*x, size_t oldsize, size_t newsize);
+/\* --------------------atoms-- --------------------------- \* /
+\#define SETSEMI(atom)((atom) -\> a_type = A_SEMI, (atom) -\> a_w.w_index = 0)
+\#define SETCOMMA(atom)((atom) -\> a_type = A_COMMA,
+                         (atom) -\> a_w.w_index = 0)
+\#define SETPOINTER(atom,
+                     gp)(
+        (atom) -\> a_type = A_POINTER, \ (atom) -\> a_w.w_gpointer = (gp))
+\#define SETFLOAT(atom, f)((atom) -\> a_type = A_FLOAT,
+                            (atom) -\> a_w.w_float = (f))
+\#define SETSYMBOL(atom,
+                    s)((atom) -\> a_type = A_SYMBOL, \ (atom) -\> a_w.w_symbol =
+                                                         (s))
+\#define SETDOLLAR(atom,
+                    n)((atom) -\> a_type = A_DOLLAR, \ (atom) -\> a_w.w_index =
+                                                         (n))
+\#define SETDOLLSYM(atom,
+                     s)((atom) -\> a_type = A_DOLLSYM, \ (atom) -\>
+                                                           a_w.w_symbol = (s))
+        EXTERN t_float atom_getfloat(t_atom \* a);
+EXTERN t_int atom_getint(t_atom \* a);
+EXTERN t_symbol \*atom_getsymbol(t_atom \* a);
+EXTERN t_symbol \*atom_gensym(t_atom \* a);
+EXTERN t_float atom_getfloatarg(int which, int argc, t_atom \*argv);
+EXTERN t_int atom_getintarg(int which, int argc, t_atom \*argv);
+EXTERN t_symbol \*atom_getsymbolarg(int which, int argc, t_atom \*argv);
+EXTERN void atom_string(t_atom \* a, char \*buf, unsigned int bufsize);
+/\* ------------------binbufs-- ------------- \* /
+    EXTERN t_binbuf \*binbuf_new(void);
+EXTERN void binbuf_free(t_binbuf \* x);
+EXTERN t_binbuf \*binbuf_duplicate(t_binbuf \* y);
+EXTERN void binbuf_text(t_binbuf \* x, const char \*text, size_t size);
+EXTERN void binbuf_gettext(t_binbuf \* x, char \*\*bufp, int \*lengthp);
+EXTERN void binbuf_clear(t_binbuf \* x);
+EXTERN void binbuf_add(t_binbuf \* x, int argc, t_atom \*argv);
+EXTERN void binbuf_addv(t_binbuf \* x, char \*fmt, ...);
+EXTERN void binbuf_addbinbuf(t_binbuf \* x, t_binbuf \* y);
+EXTERN void binbuf_addsemi(t_binbuf \* x);
+EXTERN void binbuf_restore(t_binbuf \* x, int argc, t_atom \*argv);
+EXTERN void binbuf_print(t_binbuf \* x);
+EXTERN int binbuf_getnatom(t_binbuf \* x);
+EXTERN t_atom \*binbuf_getvec(t_binbuf \* x);
+EXTERN int binbuf_resize(t_binbuf \* x, int newsize);
+EXTERN void binbuf_eval(t_binbuf \* x, t_pd \* target, int argc, t_atom \*argv);
+EXTERN int binbuf_read(t_binbuf \* b, char \*filename, char \*dirname,
+                       int crflag);
+EXTERN int binbuf_read_via_canvas(t_binbuf \* b, char \*filename,
+                                  t_canvas \*canvas, int crflag);
+EXTERN int binbuf_read_via_path(t_binbuf \* b, char \*filename, char \*dirname,
+                                int crflag);
+EXTERN int binbuf_write(t_binbuf \* x, char \*filename, char \*dir, int crflag);
+EXTERN void binbuf_evalfile(t_symbol \* name, t_symbol \* dir);
+EXTERN t_symbol \*binbuf_realizedollsym(t_symbol \* s, int ac, t_atom \*av,
+                                        int tonew);
+/\* ------------------clocks-- ------------- \* /
+    EXTERN t_clock \*clock_new(void \*owner, t_method fn);
+EXTERN void clock_set(t_clock \* x, double systime);
+EXTERN void clock_delay(t_clock \* x, double delaytime);
+EXTERN void clock_unset(t_clock \* x);
+EXTERN void clock_setunit(t_clock \* x, double timeunit, int sampflag);
+EXTERN double clock_getlogicaltime(void);
+EXTERN double clock_getsystime(void);
+/\*OBSOLETE;
+use clock_getlogicaltime() \* /
+    EXTERN double clock_gettimesince(double prevsystime);
+EXTERN double clock_gettimesincewithunits(double prevsystime, double units,
+                                          int sampflag);
+EXTERN double clock_getsystimeafter(double delaytime);
+EXTERN void clock_free(t_clock \* x);
+/\* -----------------pure data-- -------------- \* /
+    EXTERN t_pd \*pd_new(t_class \* cls);
+EXTERN void pd_free(t_pd \* x);
+EXTERN void pd_bind(t_pd \* x, t_symbol \* s);
+EXTERN void pd_unbind(t_pd \* x, t_symbol \* s);
+EXTERN t_pd \*pd_findbyclass(t_symbol \* s, t_class \* c);
+EXTERN void pd_pushsym(t_pd \* x);
+EXTERN void pd_popsym(t_pd \* x);
+EXTERN t_symbol \*pd_getfilename(void);
+EXTERN t_symbol \*pd_getdirname(void);
+EXTERN void pd_bang(t_pd \* x);
+EXTERN void pd_pointer(t_pd \* x, t_gpointer \* gp);
+EXTERN void pd_float(t_pd \* x, t_float f);
+EXTERN void pd_symbol(t_pd \* x, t_symbol \* s);
+EXTERN void pd_list(t_pd \* x, t_symbol \* s, int argc, t_atom \*argv);
+EXTERN void pd_anything(t_pd \* x, t_symbol \* s, int argc, t_atom \*argv);
+\#define pd_class(x)(\* (x)) /\* -----------------pointers-- -------------- \* /
+    EXTERN void gpointer_init(t_gpointer \* gp);
+EXTERN void gpointer_copy(const t_gpointer \*gpfrom, t_gpointer \*gpto);
+EXTERN void gpointer_unset(t_gpointer \* gp);
+EXTERN int gpointer_check(const t_gpointer \*gp, int headok);
+/\* -----------------patchable "objects" -------------- \* /
+    EXTERN t_inlet \*inlet_new(t_object \* owner, t_pd \* dest, t_symbol \* s1,
+                               t_symbol \* s2);
+EXTERN t_inlet \*pointerinlet_new(t_object \* owner, t_gpointer \* gp);
+EXTERN t_inlet \*floatinlet_new(t_object \* owner, t_float \* fp);
+EXTERN t_inlet \*symbolinlet_new(t_object \* owner, t_symbol \*\* sp);
+EXTERN t_inlet \*signalinlet_new(t_object \* owner, t_float f);
+EXTERN void inlet_free(t_inlet \* x);
+EXTERN t_outlet \*outlet_new(t_object \* owner, t_symbol \* s);
+EXTERN void outlet_bang(t_outlet \* x);
+EXTERN void outlet_pointer(t_outlet \* x, t_gpointer \* gp);
+EXTERN void outlet_float(t_outlet \* x, t_float f);
+EXTERN void outlet_symbol(t_outlet \* x, t_symbol \* s);
+EXTERN void outlet_list(t_outlet \* x, t_symbol \* s, int argc, t_atom \*argv);
+EXTERN void outlet_anything(t_outlet \* x, t_symbol \* s, int argc,
+                            t_atom \*argv);
+EXTERN t_symbol \*outlet_getsymbol(t_outlet \* x);
+EXTERN void outlet_free(t_outlet \* x);
+EXTERN t_object \*pd_checkobject(t_pd \* x);
+/\* --------------------canvases-- ------------ \* /
+    EXTERN void glob_setfilename(void \*dummy, t_symbol \*name, t_symbol \*dir);
+EXTERN void canvas_setargs(int argc, t_atom \*argv);
+EXTERN void canvas_getargs(int \*argcp, t_atom \*\*argvp);
+EXTERN t_symbol \*canvas_getcurrentdir(void);
+EXTERN t_glist \*canvas_getcurrent(void);
+EXTERN void canvas_makefilename(t_glist \* c, char \*file, char \*result,
+                                int resultsize);
+EXTERN t_symbol \*canvas_getdir(t_glist \* x);
+EXTERN char sys_font[];
+/\*default typeface set in s_main.c \* / EXTERN char sys_fontweight[];
+/\*default font weight set in s_main.c \* /
+    EXTERN int sys_hostfontsize(int fontsize, int zoom);
+EXTERN int sys_zoomfontwidth(int fontsize, int zoom, int worstcase);
+EXTERN int sys_zoomfontheight(int fontsize, int zoom, int worstcase);
+EXTERN int sys_fontwidth(int fontsize);
+EXTERN int sys_fontheight(int fontsize);
+EXTERN void canvas_dataproperties(t_glist \* x, t_scalar \* sc, t_binbuf \* b);
+EXTERN int canvas_open(t_canvas \* x, const char \*name, const char \*ext,
+                       char \*dirresult, char \*\*nameresult, unsigned int size,
+                       int bin);
+/\* ----------------widget behaviors-- -------------------- \* /
+    EXTERN_STRUCT \_widgetbehavior;
+\#define t_widgetbehavior struct \_widgetbehavior
+    EXTERN_STRUCT \_parentwidgetbehavior;
+\#define t_parentwidgetbehavior struct \_parentwidgetbehavior EXTERN const
+    t_parentwidgetbehavior \*pd_getparentwidget(t_pd \* x);
+/\* -------------------- classes -------------- \*/
+\#define CLASS_DEFAULT 0 /\* flags for new classes below \*/
+\#define CLASS_PD 1
+\#define CLASS_GOBJ 2
+\#define CLASS_PATCHABLE 3
+\#define CLASS_NOINLET 8
+\#define CLASS_TYPEMASK 3
+EXTERN t_class \*class_new(t_symbol \*name, t_newmethod newmethod,
+t_method freemethod, size_t size, int flags, t_atomtype arg1, ...);
+EXTERN void class_addcreator(t_newmethod newmethod, t_symbol \* s,
+                             t_atomtype type1, ...);
+EXTERN void class_addmethod(t_class \* c, t_method fn, t_symbol \* sel,
+                            t_atomtype arg1, ...);
+EXTERN void class_addbang(t_class \* c, t_method fn);
+EXTERN void class_addpointer(t_class \* c, t_method fn);
+EXTERN void class_doaddfloat(t_class \* c, t_method fn);
+EXTERN void class_addsymbol(t_class \* c, t_method fn);
+EXTERN void class_addlist(t_class \* c, t_method fn);
+EXTERN void class_addanything(t_class \* c, t_method fn);
+EXTERN void class_sethelpsymbol(t_class \* c, t_symbol \* s);
+EXTERN void class_setwidget(t_class \* c, const t_widgetbehavior \*w);
+EXTERN void class_setparentwidget(t_class \* c,
+                                  const t_parentwidgetbehavior \*w);
+EXTERN const t_parentwidgetbehavior \*class_parentwidget(t_class \* c);
+EXTERN char \*class_getname(t_class \* c);
+EXTERN char \*class_gethelpname(t_class \* c);
+EXTERN char \*class_gethelpdir(t_class \* c);
+EXTERN void class_setdrawcommand(t_class \* c);
+EXTERN int class_isdrawcommand(t_class \* c);
+EXTERN void class_domainsignalin(t_class \* c, int onset);
+EXTERN void class_set_extern_dir(t_symbol \* s);
+\#define CLASS_MAINSIGNALIN(c, type, field) \\
+class_domainsignalin(c, (char \*)(&((type \*)0)-\>field) - (char \*)0)
+/\* prototype for functions to save Pd's to a binbuf \*/
+typedef void (\*t_savefn)(t_gobj \*x, t_binbuf \*b);
+EXTERN void class_setsavefn(t_class \* c, t_savefn f);
+EXTERN t_savefn class_getsavefn(t_class \* c);
+EXTERN void obj_saveformat(t_object \* x, t_binbuf \* bb); /\* add format to bb \*/
+/\* prototype for functions to open properties dialogs \*/
+typedef void (\*t_propertiesfn)(t_gobj \*x, struct \_glist \*glist);
+EXTERN void class_setpropertiesfn(t_class \* c, t_propertiesfn f);
+EXTERN t_propertiesfn class_getpropertiesfn(t_class \* c);
+\#ifndef PD_CLASS_DEF
+\#define class_addbang(x, y) class_addbang((x), (t_method)(y))
+\#define class_addpointer(x, y) class_addpointer((x), (t_method)(y))
+\#define class_addfloat(x, y) class_doaddfloat((x), (t_method)(y))
+\#define class_addsymbol(x, y) class_addsymbol((x), (t_method)(y))
+\#define class_addlist(x, y) class_addlist((x), (t_method)(y))
+\#define class_addanything(x, y) class_addanything((x), (t_method)(y))
+\#endif /\* ------------printing-- ------------------------------- \* /
+    EXTERN void post(const char \*fmt, ...);
+EXTERN void startpost(const char \*fmt, ...);
+EXTERN void poststring(const char \*s);
+EXTERN void postfloat(t_floatarg f);
+EXTERN void postatom(int argc, t_atom \*argv);
+EXTERN void endpost(void);
+EXTERN void error(const char \*fmt, ...) ATTRIBUTE_FORMAT_PRINTF(1, 2);
+EXTERN void verbose(int level, const char \*fmt, ...)
+    ATTRIBUTE_FORMAT_PRINTF(2, 3);
+EXTERN void bug(const char \*fmt, ...) ATTRIBUTE_FORMAT_PRINTF(1, 2);
+EXTERN void pd_error(void \*object, const char \*fmt, ...)
+    ATTRIBUTE_FORMAT_PRINTF(2, 3);
+EXTERN void logpost(const void \*object, const int level, const char \*fmt, ...)
+    ATTRIBUTE_FORMAT_PRINTF(3, 4);
+EXTERN void sys_logerror(const char \*object, const char \*s);
+EXTERN void sys_unixerror(const char \*object);
+EXTERN void sys_ouch(void);
+/\* ------------system interface routines-- ----------------- \* /
+    EXTERN int sys_isreadablefile(const char \*name);
+EXTERN int sys_isabsolutepath(const char \*dir);
+EXTERN void sys_bashfilename(const char \*from, char \*to);
+EXTERN void sys_unbashfilename(const char \*from, char \*to);
+EXTERN int open_via_path(const char \*dir, const char \*name, const char \*ext,
+                         char \*dirresult, char \*\*nameresult,
+                         unsigned int size, int bin);
+EXTERN int sched_geteventno(void);
+EXTERN double sys_getrealtime(void);
+EXTERN int(\* sys_idlehook)(void);
+/\*hook to add idle time computation \* /
+    /\*Win32's open()/fopen() do not handle UTF-8 filenames so we need \* these internal versions that handle UTF-8 filenames the same across \* all platforms. They are recommended for use in external \* objectclasses as well so they work with Unicode filenames on Windows \*/ EXTERN int
+    sys_open(const char \*path, int oflag, ...);
+EXTERN int sys_close(int fd);
+EXTERN FILE \*sys_fopen(const char \*filename, const char \*mode);
+EXTERN int sys_fclose(FILE \* stream);
+/\* ------------threading-- ----------------- \* / EXTERN void sys_lock(void);
+EXTERN void sys_unlock(void);
+EXTERN int sys_trylock(void);
+/\* ---------------signals-- --------------------------------- \* /
+    typedef PD_FLOATTYPE t_sample;
+typedef union \_sampleint_union {
+  t_sample f;
+  PD_FLOATUINTTYPE i;
+}
+t_sampleint_union;
+\#define MAXLOGSIG 32
+\#define MAXSIGSIZE(1 \<\< MAXLOGSIG) typedef struct \_signal {
+  int s_n;
+  /\*number of points in the array \* / t_sample \*s_vec;
+  /\*the array \* / t_float s_sr;
+  /\*sample rate \* / int s_refcount;
+  /\*number of times used \* / int s_isborrowed;
+  /\*whether
+          we're going to borrow our array \*/ struct \_signal \*s_borrowedfrom;
+  /\*signal to borrow it from \* / struct \_signal \*s_nextfree;
+  /\*next in freelist \* / struct \_signal \*s_nextused;
+  /\*next in used list \* / int s_vecsize;
+  /\*allocated size of array in points \* /
+}
+t_signal;
+typedef t_int \*(\* t_perfroutine)(t_int \* args);
+EXTERN t_int \*plus_perform(t_int \* args);
+EXTERN t_int \*zero_perform(t_int \* args);
+EXTERN t_int \*copy_perform(t_int \* args);
+EXTERN void dsp_add_plus(t_sample \* in1, t_sample \* in2, t_sample \* out,
+                         int n);
+EXTERN void dsp_add_copy(t_sample \* in, t_sample \* out, int n);
+EXTERN void dsp_add_scalarcopy(t_float \* in, t_sample \* out, int n);
+EXTERN void dsp_add_zero(t_sample \* out, int n);
+EXTERN int sys_getblksize(void);
+EXTERN t_float sys_getsr(void);
+EXTERN int sys_get_inchannels(void);
+EXTERN int sys_get_outchannels(void);
+EXTERN void dsp_add(t_perfroutine f, int n, ...);
+EXTERN void dsp_addv(t_perfroutine f, int n, t_int \*vec);
+EXTERN void pd_fft(t_float \* buf, int npoints, int inverse);
+EXTERN int ilog2(int n);
+EXTERN void mayer_fht(t_sample \* fz, int n);
+EXTERN void mayer_fft(int n, t_sample \*real, t_sample \*imag);
+EXTERN void mayer_ifft(int n, t_sample \*real, t_sample \*imag);
+EXTERN void mayer_realfft(int n, t_sample \*real);
+EXTERN void mayer_realifft(int n, t_sample \*real);
+EXTERN float \*cos_table;
+\#define LOGCOSTABSIZE 9
+\#define COSTABSIZE(1\<\< LOGCOSTABSIZE) EXTERN int canvas_suspend_dsp(void);
+EXTERN void canvas_resume_dsp(int oldstate);
+EXTERN void canvas_update_dsp(void);
+EXTERN int canvas_dspstate;
+/\*up / downsampling \* / typedef struct \_resample {
+  int method;
+  /\*up / downsampling method ID \* / int downsample;
+  /\*downsampling factor \* / int upsample;
+  /\*upsampling factor \* / t_sample \*s_vec;
+  /\*here we hold the resampled data \* / int s_n;
+  t_sample \*coeffs; /\* coefficients for filtering... \*/
+int coefsize;
+  t_sample \*buffer; /\* buffer for filtering \*/
+int bufsize;
+}
+t_resample;
+EXTERN void resample_init(t_resample \* x);
+EXTERN void resample_free(t_resample \* x);
+EXTERN void resample_dsp(t_resample \* x, t_sample \* in, int insize,
+                         t_sample \*out, int outsize, int method);
+EXTERN void resamplefrom_dsp(t_resample \* x, t_sample \* in, int insize,
+                             int outsize, int method);
+EXTERN void resampleto_dsp(t_resample \* x, t_sample \* out, int insize,
+                           int outsize, int method);
+/\* ----------------------- utility functions for signals -------------- \*/
+EXTERN t_float mtof(t_float);
+EXTERN t_float ftom(t_float);
+EXTERN t_float rmstodb(t_float);
+EXTERN t_float powtodb(t_float);
+EXTERN t_float dbtorms(t_float);
+EXTERN t_float dbtopow(t_float);
+EXTERN t_float q8_sqrt(t_float);
+EXTERN t_float q8_rsqrt(t_float);
+\#ifndef N32 EXTERN t_float qsqrt(t_float); /\* old names kept for extern compatibility \*/
+EXTERN t_float qrsqrt(t_float);
+\#endif /\* ---------------------data-- ------------------------------- \* /
+    /\*graphical arrays \* / EXTERN_STRUCT \_garray;
+\#define t_garray struct \_garray EXTERN t_class \*garray_class;
+EXTERN int garray_getfloatarray(t_garray \* x, int \*size, t_float \*\*vec);
+EXTERN int garray_getfloatwords(t_garray \* x, int \*size, t_word \*\*vec);
+EXTERN void garray_redraw(t_garray \* x);
+EXTERN int garray_npoints(t_garray \* x);
+EXTERN char \*garray_vec(t_garray \* x);
+EXTERN void garray_resize(t_garray \* x, t_floatarg f);
+/\*avoid;
+use this : \* / EXTERN void garray_resize_long(t_garray \* x, long n);
+/\*better version \* / EXTERN void garray_usedindsp(t_garray \* x);
+EXTERN void garray_setsaveit(t_garray \* x, int saveit);
+EXTERN t_glist \*garray_getglist(t_garray \* x);
+EXTERN t_array \*garray_getarray(t_garray \* x);
+EXTERN t_class \*scalar_class;
+EXTERN t_float \*value_get(t_symbol \* s);
+EXTERN void value_release(t_symbol \* s);
+EXTERN int value_getfloat(t_symbol \* s, t_float \* f);
+EXTERN int value_setfloat(t_symbol \* s, t_float f);
+/\* -------GUI interface -
+    functions to send strings to TK-- ------- \* /
+        typedef void(\* t_guicallbackfn)(t_gobj \* client, t_glist \* glist);
+EXTERN void sys_vgui(char \*fmt, ...);
+EXTERN void sys_gui(char \*s);
+EXTERN void sys_pretendguibytes(int n);
+EXTERN void sys_queuegui(void \*client, t_glist \*glist, t_guicallbackfn f);
+EXTERN void sys_unqueuegui(void \*client);
+/\*dialog window creation and destruction \* /
+    EXTERN void gfxstub_new(t_pd \* owner, void \*key, const char \*cmd);
+EXTERN void gfxstub_deleteforkey(void \*key);
+extern t_class \*glob_pdobject;
+/\*object to send "pd" messages \* / /\*
+    -------------Max 0.26 compatibility-- ------------------\* /
+    /\*the following reflects the new way classes are laid out,
+    with the class pointing to the messlist and
+        not vice versa
+                .Externs shouldn't feel it. \*/ typedef t_class \*t_externclass;
+EXTERN void c_extern(t_externclass \* cls, t_newmethod newroutine,
+                     t_method freeroutine, t_symbol \* name, size_t size,
+                     int tiny, \ t_atomtype arg1, ...);
+EXTERN void c_addmess(t_method fn, t_symbol \* sel, t_atomtype arg1, ...);
+\#define t_getbytes getbytes
+\#define t_freebytes freebytes
+\#define t_resizebytes resizebytes
+\#define typedmess pd_typedmess
+\#define vmess pd_vmess
+/\* A definition to help gui objects straddle 0.34-0.35 changes. If this is
+defined, there is a "te_xpix" field in objects, not a "te_xpos" as before: \*/
+\#define PD_USE_TE_XPIX
+\#ifndef \_MSC_VER /\* Microoft compiler can't handle "inline" function/macros \*/
+\#if defined(\_\_i386\_\_) || defined(\_\_x86_64\_\_) || defined(\_\_arm\_\_)
+/\* a test for NANs and denormals. Should only be necessary on i386. \*/
+\#if PD_FLOATSIZE == 32
+typedef union
+{
+  t_float f;
+  unsigned int ui;
+} t_bigorsmall32;
+static inline int PD_BADFLOAT(t_float f) /\*malformed float \* / {
+  t_bigorsmall32 pun;
+  pun.f = f;
+  pun.ui &= 0x7f800000;
+  return ((pun.ui == 0) | (pun.ui == 0x7f800000));
+}
+static inline int PD_BIGORSMALL(t_float f) /\*exponent outside(-64, 64) \* / {
+  t_bigorsmall32 pun;
+  pun.f = f;
+  return ((pun.ui & 0x20000000) == ((pun.ui \>\> 1) & 0x20000000));
+}
+\#elif PD_FLOATSIZE == 64 typedef union {
+  t_float f;
+  unsigned int ui[2];
+} t_bigorsmall64;
+static inline int PD_BADFLOAT(t_float f) /\*malformed double \* / {
+  t_bigorsmall64 pun;
+  pun.f = f;
+  pun.ui[1] &= 0x7ff00000;
+  return ((pun.ui[1] == 0) | (pun.ui[1] == 0x7ff00000));
+}
+static inline int PD_BIGORSMALL(t_float f) /\*exponent outside(-512, 512) \* / {
+  t_bigorsmall64 pun;
+  pun.f = f;
+  return ((pun.ui[1] & 0x20000000) == ((pun.ui[1] \>\> 1) & 0x20000000));
+}
+\#endif /\*PD_FLOATSIZE \* /
+\#else /\* not INTEL or
+    ARM \* /
+\#define PD_BADFLOAT(f) 0
+\#define PD_BIGORSMALL(f) 0
+\#endif \#else /\* \_MSC_VER \* /
+\#if PD_FLOATSIZE == 32
+\#define PD_BADFLOAT(f)((((\* (unsigned int\*)&(f)) & 0x7f800000) ==
+                          0) || \ (((\* (unsigned int\*)&(f)) & 0x7f800000) ==
+                                   0x7f800000)) /\*
+                          more stringent test : anything not between 1e-19 and
+        1e19 in absolute val \* /
+\#define PD_BIGORSMALL(f)((((\* (unsigned int\*)&(f)) & 0x60000000) ==
+                                0) || \ (((\* (unsigned int\*)&(f)) &
+                                          0x60000000) == 0x60000000))
+\#else /\*
+            64 bits... don't know what to do here \*/
+\#define PD_BADFLOAT(f)(!(((f) \>= 0) || ((f) \<= 0)))
+\#define PD_BIGORSMALL(f)((f) \> 1e150 || (f) \< -1e150 \ ||
+                           (f) \> -1e-150 && (f) \< 1e-150)
+\#endif \#endif /\* \_MSC_VER \*
+            / /\* get version number at run time \* /
+            EXTERN void sys_getversion(int \*major, int \*minor, int \*bugfix);
+EXTERN_STRUCT \_instancemidi;
+\#define t_instancemidi struct \_instancemidi EXTERN_STRUCT \_instanceinter;
+\#define t_instanceinter struct \_instanceinter EXTERN_STRUCT \_instancecanvas;
+\#define t_instancecanvas struct \_instancecanvas EXTERN_STRUCT \_instanceugen;
+\#define t_instanceugen struct \_instanceugen EXTERN_STRUCT \_instancestuff;
+\#define t_instancestuff struct \_instancestuff
+\#ifndef PDTHREADS
+\#define PDTHREADS 1
+\#endif struct \_pdinstance {
+  double pd_systime;
+  /\*global time in Pd ticks \* / t_clock \*pd_clock_setlist;
+  /\*list of set clocks \* / t_canvas \*pd_canvaslist;
+  /\*list of all root canvases \* / int pd_instanceno;
+  /\*ordinal number of this instance \* / t_symbol \*\*pd_symhash;
+  /\*symbol table hash table \* / t_instancemidi \*pd_midi; /\* private stuff for x_midi.c \*/
+t_instanceinter \*pd_inter; /\* private stuff for s_inter.c \*/
+t_instanceugen \*pd_ugen; /\* private stuff for d_ugen.c \*/
+t_instancecanvas \*pd_gui;
+  /\*semi - private stuff in g_canvas.h \* / t_instancestuff \*pd_stuff;
+  /\*semi - private stuff in s_stuff.h \* / t_pd \*pd_newest;
+  /\*most recently created object \* /
+\#ifdef PDINSTANCE t_symbol pd_s_pointer;
+  t_symbol pd_s_float;
+  t_symbol pd_s_symbol;
+  t_symbol pd_s_bang;
+  t_symbol pd_s_list;
+  t_symbol pd_s_anything;
+  t_symbol pd_s_signal;
+  t_symbol pd_s\_\_N;
+  t_symbol pd_s\_\_X;
+  t_symbol pd_s_x;
+  t_symbol pd_s_y;
+  t_symbol pd_s\_;
+  \#endif \#if PDTHREADS int pd_islocked;
+  \#endif
+};
+\#define t_pdinstance struct \_pdinstance EXTERN t_pdinstance pd_maininstance;
+/\*m_pd.c \* /
+\#ifdef PDINSTANCE EXTERN t_pdinstance \*pdinstance_new(void);
+EXTERN void pd_setinstance(t_pdinstance \* x);
+EXTERN void pdinstance_free(t_pdinstance \* x);
+\#endif /\*PDINSTANCE \* /
+\#if defined (PDTHREADS) && defined(PDINSTANCE)
+\#define PERTHREAD \_\_thread
+\#else \#define PERTHREAD
+\#endif \#ifdef PDINSTANCE EXTERN PERTHREAD t_pdinstance \*pd_this;
+EXTERN t_pdinstance \*\*pd_instances;
+EXTERN int pd_ninstances;
+\#else \#define pd_this(&pd_maininstance)
+\#endif /\*PDINSTANCE \* /
+\#ifdef PDINSTANCE
+\#define s_pointer(pd_this -\> pd_s_pointer)
+\#define s_float(pd_this -\> pd_s_float)
+\#define s_symbol(pd_this -\> pd_s_symbol)
+\#define s_bang(pd_this -\> pd_s_bang)
+\#define s_list(pd_this -\> pd_s_list)
+\#define s_anything(pd_this -\> pd_s_anything)
+\#define s_signal(pd_this -\> pd_s_signal)
+\#define s\_\_N(pd_this -\> pd_s\_\_N)
+\#define s\_\_X(pd_this -\> pd_s\_\_X)
+\#define s_x(pd_this -\> pd_s_x)
+\#define s_y(pd_this -\> pd_s_y)
+\#define s\_(pd_this -\> pd_s\_)
+\#else EXTERN t_symbol s_pointer, s_float, s_symbol, s_bang, s_list,
+    s_anything, s_signal, s\_\_N, s\_\_X, s_x, s_y, s\_;
+\#endif EXTERN t_canvas \*pd_getcanvaslist(void);
+EXTERN int pd_getdspstate(void);
+\#if defined (\_LANGUAGE_C_PLUS_PLUS) || defined(\_\_cplusplus)
+}
+\#endif
+\#define \_\_m_pd_h\_
+\#endif /\* \_\_m_pd_h\_ \*/

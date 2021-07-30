@@ -46,8 +46,6 @@ Design:
 
 To demonstrate the functionality of my program, I  created a timing diagram. The diagram shows the timing relationships between the clock, the ADC, the "end of convert", the foreground program, and the VDAC. At the positive edge of the clock, the analog to digital conversion begins, and triggers my program to "begin". my guitar delay program will run, and finish with the conversion from digital to analog. The system will continue to run, always starting on the next positive edge of the clock. This diagram is shown below, in Figure 3.
 
-
-
 ![](images/image4.png)
 
 > **Figure 3: Timing Diagram**
@@ -116,10 +114,7 @@ windex = (windex + l) % (maxs);
 
 ---
 
-
 ## Matlab Code:
-
-
 
 #### Delay_model.m :
 
@@ -145,7 +140,6 @@ plot(y);
 
 ```
 
-
 ---
 
 #### Echo.m:
@@ -166,7 +160,6 @@ end
 
 
 ```
-
 
 ---
 

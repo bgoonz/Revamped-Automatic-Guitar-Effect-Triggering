@@ -84,8 +84,5 @@ This readme provides basic information on the usage of the dynamic time warping 
 
 There are a couple of known issues currently:
 
-* The repository only includes MEX binaries for Mac. The MEX files have not yet been tested on other platforms.
-* The audio warping is purely cosmetic (it will sound distorted if played). It would be interesting to improve the quality of the warped audio.
-
-
-
+- The repository only includes MEX binaries for Mac. The MEX files have not yet been tested on other platforms.
+- The audio warping is purely cosmetic (it will sound distorted if played). It would be interesting to improve the quality of the warped audio.

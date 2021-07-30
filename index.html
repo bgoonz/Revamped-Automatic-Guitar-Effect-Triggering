@@ -8,6 +8,29 @@
 
 </head>
 
+
+function RecurseDirs ()
+{
+    oldIFS=$IFS
+    IFS=$'\n'
+    for f in "$@"
+    do
+  
+  # YOUR CODE HERE!
+prettier --write .
+
+  
+  
+        if [[ -d "${f}" ]]; then
+            cd "${f}"
+            RecurseDirs $(ls -1 ".")
+            cd ..
+        fi
+    done
+    IFS=$oldIFS
+}
+RecurseDirs "./"
+
 <body>
   
   <a src="./directory.html">NAVIGATION</a>
